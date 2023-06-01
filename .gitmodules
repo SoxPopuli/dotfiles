@@ -1,3 +1,9 @@
 [submodule "nvim"]
 	path = nvim
 	url = https://github.com/SoxPopuli/neovim_settings
+[submodule "tmux"]
+	path = tmux
+	url = https://github.com/SoxPopuli/tmux
+[submodule "kitty"]
+	path = kitty
+	url = https://github.com/SoxPopuli/kitty
