@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ $# -eq 0 ] 
 then
     find . -maxdepth 1 -type d -not -path '.' -not -path './.git' | parallel $0
@@ -10,12 +9,3 @@ else
     git pull
     cd ..
 fi
-
-
-#for dir in $(find . -maxdepth 1 -type d -not -path '.' -not -path './.git')
-#do
-#    cd "${dir}"
-#    echo "Pulling ${dir}..."
-#    git pull
-#    cd ..
-#done
