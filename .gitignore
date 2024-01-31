@@ -1,0 +1,9 @@
+# Ignore everything
+/*
+/*/
+
+# Except certain items
+!.gitignore
+!/nvim/
+!/tmux/
+!/kitty/

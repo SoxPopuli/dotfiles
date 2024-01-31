@@ -1,0 +1,1 @@
+# Kitty term conf
