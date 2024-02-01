@@ -11,15 +11,21 @@ end
 
 ---@class WeztermConfig
 local config = {
-  font = wezterm.font_with_fallback({ 'JetBrains Mono', 'Symbols Nerd Font' }),
+  font = wezterm.font_with_fallback({
+    { family = 'JetBrains Mono', weight = 'Bold' },
+    'Symbols Nerd Font',
+  }),
   font_size = 13.0,
   harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' },
   color_scheme = 'catppuccin-mocha',
   enable_tab_bar = false,
 
+  audible_bell = 'Disabled',
+
   foreground_text_hsb = {
     hue = 1.0,
-    saturation = 1.2,
+    saturation = 1.0,
+    --saturation = 1.2,
     brightness = 1.2,
   },
 
