@@ -11,10 +11,21 @@ end
 
 ---@class WeztermConfig
 local config = {
-  font = wezterm.font('JetBrains Mono'),
+  font = wezterm.font_with_fallback({ 'JetBrains Mono', 'Symbols Nerd Font' }),
   font_size = 13.0,
+  harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' },
   color_scheme = 'catppuccin-mocha',
   enable_tab_bar = false,
+
+  foreground_text_hsb = {
+    hue = 1.0,
+    saturation = 1.2,
+    brightness = 1.2,
+  },
+
+  --colors = {
+  --  foreground = '#ffffff',
+  --},
 }
 
 if wezterm.config_builder then

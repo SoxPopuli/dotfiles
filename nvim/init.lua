@@ -18,6 +18,7 @@ end
 
 vim.o.path = vim.o.path .. '**'
 vim.o.listchars = vim.o.listchars .. ',space:·'
+vim.o.fillchars = 'vert:┃'
 
 vim.o.tabstop = 4
 vim.o.softtabstop = 4
