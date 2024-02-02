@@ -29,9 +29,12 @@ local config = {
     brightness = 1.2,
   },
 
-  --colors = {
-  --  foreground = '#ffffff',
-  --},
+  force_reverse_video_cursor = true,
+  colors = {
+    --foreground = '#ffffff',
+    cursor_fg = 'black',
+    cursor_bg = 'white',
+  },
 }
 
 if wezterm.config_builder then
