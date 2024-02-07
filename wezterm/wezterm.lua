@@ -1,13 +1,6 @@
 local wezterm = require('wezterm')
-
----Merges elements from second into first
----@param first table
----@param second table
-local function merge(first, second)
-  for key, value in pairs(second) do
-    first[key] = value
-  end
-end
+local keys = require('keys')
+local utils = require('utils')
 
 ---@class WeztermConfig
 local config = {
@@ -35,10 +28,12 @@ local config = {
     cursor_fg = 'black',
     cursor_bg = 'white',
   },
+
+  keys = keys.maps()
 }
 
 if wezterm.config_builder then
-  merge(config, wezterm.config_builder())
+  utils.merge(config, wezterm.config_builder())
 end
 
 return config
