@@ -164,10 +164,17 @@ local function js()
   ls.filetype_extend('javascript', { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' })
 end
 
+local function lua()
+  ls.add_snippets('lua', {
+    s('doc', { t('---@') }),
+  })
+end
+
 function M.add_snippets()
   ocaml()
   fsharp()
   js()
+  lua()
 end
 
 return M
