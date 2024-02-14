@@ -31,7 +31,7 @@ local function setup_keys()
     require('telescope.builtin').diagnostics()
   end, { desc = 'Show diagnostics' })
 
-  vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Show diagnostics' })
+  --vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Show diagnostics' })
 end
 
 ---@param _ number
@@ -184,6 +184,8 @@ function M.setup()
       'clangd',
       'kotlin_language_server',
       'taplo',
+
+      'bashls',
     },
   })
 
@@ -197,6 +199,7 @@ function M.setup()
     'stylua',
     'eslint_d',
     'luacheck',
+    'shellcheck',
   })
 
   ---@param lsp { setup: fun(config: table) }
@@ -231,6 +234,7 @@ function M.setup()
   setup_with_defaults(lspconfig.clangd)
   setup_with_defaults(lspconfig.kotlin_language_server)
   setup_with_defaults(lspconfig.taplo)
+  setup_with_defaults(lspconfig.bashls)
 
   local function get_ocaml_root()
     local options = vim.fn.systemlist("find . -maxdepth 2 -name 'dune-project'")
@@ -256,7 +260,6 @@ function M.setup()
       codelens = { enable = true },
     },
   })
-
 
   setup_with_defaults(lspconfig.fsautocomplete, {
     on_attach = function(client, bufnr)
@@ -306,6 +309,9 @@ function M.setup()
         diagnostics = { globals = { 'vim' } },
         semantic = { enable = false }, -- Disable semantic highlighting, treesitter is better imo
         capabilities = capabilities,
+        workspace = {
+          library = {},
+        },
       },
     },
   })
