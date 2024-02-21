@@ -91,6 +91,8 @@ local function fsharp()
         { i(1, 'fn'), i(2, '()'), i(3, 'failwith "todo"') }
       )
     ),
+
+    s('attr', { t('[<'), i(1, ''), t('>]') }),
   })
 end
 

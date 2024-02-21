@@ -65,7 +65,9 @@ set({ 'i', 'c' }, '<C-BS>', '<C-w>', { remap = true })
 set({ 'i', 'c' }, '<C-h>', '<C-w>', { remap = true })
 
 -- Escape terminal input with esc
-set('t', '<space><Esc>', '<C-\\><C-n>')
+set('t', '<Esc><Esc>', '<C-\\><C-n>')
+set('t', '<C-p', '<Cmd>:tabprev<CR>')
+set('t', '<C-n', '<Cmd>:tabnext<CR>')
 
 -- Ctrl-Z undo
 set('i', '<C-z>', '<cmd>:undo<cr>')
