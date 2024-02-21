@@ -3,6 +3,8 @@ fish_vi_key_bindings
 set -gx EDITOR nvim
 set -gx fish_prompt_pwd_dir_length 0
 
+set -gx __fish_git_prompt_showupstream informative
+
 set -l fish_config_dir "$HOME/.config/fish"
 
 if test -f "$fish_config_dir/private.fish"
