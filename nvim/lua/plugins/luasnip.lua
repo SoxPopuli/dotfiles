@@ -41,17 +41,17 @@ local function config()
     end
   end)
 
-  vim.keymap.set({ 'i', 's' }, '<Tab>', function()
-    if not jump_next() then
-      return '<Tab>'
-    end
-  end, { expr = true })
+  --vim.keymap.set({ 'i', 's' }, '<Tab>', function()
+  --  if not jump_next() then
+  --    return '<Tab>'
+  --  end
+  --end, { expr = true })
 
-  vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
-    if not jump_prev() then
-      return '<C-d>'
-    end
-  end, { expr = true })
+  --vim.keymap.set({ 'i', 's' }, '<S-Tab>', function()
+  --  if not jump_prev() then
+  --    return '<C-d>'
+  --  end
+  --end, { expr = true })
 end
 
 return {
@@ -63,6 +63,8 @@ return {
     'L3MON4D3/LuaSnip',
     'hrsh7th/cmp-nvim-lsp',
   },
+
+  lazy = false,
 
   config = function()
     require('lsp.snippets').add_snippets()

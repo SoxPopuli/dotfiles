@@ -116,6 +116,7 @@ local function ocaml()
           t({ '', 'end' }),
         }),
       }),
+      i(0),
     }),
 
     s({ trig = 'let', desc = 'Choose from variable, function or module' }, {
@@ -143,6 +144,7 @@ local function ocaml()
           t(' in'),
         }),
       }),
+      i(0),
     }),
   })
 end

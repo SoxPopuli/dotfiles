@@ -31,7 +31,7 @@ alias la "ls -a"
 alias sl ls
 alias suod sudo
 
-alias esy-shell 'VIRTUAL_ENV="esy[$(basename $(pwd))]" esy shell'
+alias esy-shell 'VIRTUAL_ENV="esy($(basename $(pwd)))" esy shell'
 alias esh esy-shell
 
 # ▼ Git Aliases
