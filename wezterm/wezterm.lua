@@ -8,7 +8,7 @@ local config = {
     { family = 'JetBrains Mono', weight = 'Bold' },
     'Symbols Nerd Font',
   }),
-  font_size = 13.0,
+  font_size = 12.0,
   harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' },
   color_scheme = 'catppuccin-mocha',
   enable_tab_bar = false,
