@@ -96,6 +96,11 @@ set({ 'n', 'v' }, '<Space>y', '"+y', { desc = 'Yank to clipboard' })
 set({ 'n', 'v' }, '<Space>p', '"+p', { desc = 'Paste from clipboard' })
 set({ 'n', 'v' }, '<Space><S-p>', '"+P', { desc = 'Paste (before) from clipboard' })
 
+set({ 'n', 'v' }, '<Space>d', '"_d', { desc = 'Black hole delete' })
+set({ 'n', 'v' }, '<Space>D', '"_D', { desc = 'Black hole delete' })
+set({ 'n', 'v' }, '<Space>c', '"_c', { desc = 'Black hole change' })
+set({ 'n', 'v' }, '<Space>C', '"_C', { desc = 'Black hole change' })
+
 -- Maximize window
 set('n', '<C-w>m', function()
   vim.api.nvim_win_set_height(0, 9999)
@@ -109,7 +114,7 @@ set('n', '<space><space>', 'a<space><Esc>h', { desc = 'Add space after cursor' }
 set('n', '<space>i', 'i<space><Esc>i', { desc = 'Insert before space', remap = false })
 set('n', '<space>I', 'I<space><Esc>i', { desc = 'Insert before space', remap = false })
 
-set('n', '<space>a', 'a<space><Esc>i', { desc = 'Append before space', remap = false })
+--set('n', '<space>a', 'a<space><Esc>i', { desc = 'Append before space', remap = false })
 
 -- Move binds
 set('i', '<A-k>', '<cmd>:m .-2<cr><C-o>==', { silent = true })

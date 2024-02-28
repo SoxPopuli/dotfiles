@@ -58,7 +58,7 @@ function M.lsp_on_attach(_, bufnr)
   if not misc.contains(keymaps, function(item)
     return item.lhs == ' ca'
   end) then
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'Code action' })
+    vim.keymap.set({ 'n', 'v' }, '<space>ac', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'Code action' })
   end
 
   local functions = {}
