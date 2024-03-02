@@ -17,6 +17,6 @@ fish_add_path -P "$HOME/.dotnet"
 
 alias ls exa
 alias lsg "exa --group-directories-first"
-alias aws awsv2
+#alias aws awsv2
 alias copy "xclip -in -sel c"
 alias paste "xclip -out -sel c"

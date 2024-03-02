@@ -67,7 +67,7 @@ return {
   lazy = false,
 
   config = function()
-    require('lsp.snippets').add_snippets()
+    require('lsp.snippets').add_all_snippets()
     config()
   end,
 }

@@ -262,18 +262,6 @@ function M.setup()
   setup_with_defaults(lspconfig.taplo)
   setup_with_defaults(lspconfig.bashls)
 
-  local function get_ocaml_root()
-    local options = vim.fn.systemlist("find . -maxdepth 2 -name 'dune-project'")
-    if #options == 0 then
-      return nil
-    end
-
-    local root = misc.path_root(options[1])
-    local absolute = vim.fn.system('readlink -f ' .. root)
-
-    return absolute:sub(1, #absolute - 1)
-  end
-
   setup_with_defaults(lspconfig.ocamllsp, {
     on_attach = function(client, bufnr)
       M.lsp_on_attach(client, bufnr)
@@ -290,8 +278,8 @@ function M.setup()
   setup_with_defaults(lspconfig.fsautocomplete, {
     on_attach = function(client, bufnr)
       M.lsp_on_attach(client, bufnr)
+      require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
       codelens.setup_codelens_refresh(bufnr)
-      -- hints.on_attach(client, bufnr)
     end,
     settings = {
       FSharp = {
@@ -326,7 +314,9 @@ function M.setup()
   })
 
   lspconfig.lua_ls.setup({
-    on_attach = M.lsp_on_attach,
+    on_attach = function(client, bufnr)
+      M.lsp_on_attach(client, bufnr)
+    end,
     settings = {
       filetypes = { 'lua' },
       Lua = {
@@ -344,7 +334,5 @@ function M.setup()
 
   vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 end
-
-require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
 
 return M

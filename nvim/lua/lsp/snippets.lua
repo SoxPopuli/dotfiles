@@ -30,7 +30,7 @@ local ms = ls.multi_snippet
 local k = require('luasnip.nodes.key_indexer').new_key
 --
 
-local function fsharp()
+function M.fsharp()
   ls.add_snippets('fsharp', {
     s('todo', t('failwith "todo"')),
     s('arm', { t('| '), i(1, 'case'), t(' -> '), i(2, '()') }),
@@ -96,8 +96,14 @@ local function fsharp()
   })
 end
 
-local function ocaml()
+function M.ocaml()
   ls.add_snippets('ocaml', {
+    s('doc', {
+      t('(*'),
+      i(1, ''),
+      t('*)'),
+    }),
+
     s('module', {
       t('module '),
       c(1, {
@@ -149,7 +155,7 @@ local function ocaml()
   })
 end
 
-local function js()
+function M.js()
   ls.add_snippets('javascript', {
     s('doc', { t('/** '), i(1, ' '), t(' */') }),
     s(
@@ -168,17 +174,31 @@ local function js()
   ls.filetype_extend('javascript', { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' })
 end
 
-local function lua()
+function M.lua()
   ls.add_snippets('lua', {
     s('doc', { t('---@') }),
   })
 end
 
-function M.add_snippets()
-  ocaml()
-  fsharp()
-  js()
-  lua()
+local function setup_snippets(fnames, fn)
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = fnames,
+    callback = fn,
+    once = true,
+  })
+end
+
+---Add all language snippets
+function M.add_all_snippets()
+  --M.ocaml()
+  --M.fsharp()
+  --M.js()
+  --M.lua()
+
+  setup_snippets({ 'ocaml' }, M.ocaml)
+  setup_snippets({ 'fsharp' }, M.fsharp)
+  setup_snippets({ 'lua' }, M.lua)
+  setup_snippets({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, M.js)
 end
 
 return M
