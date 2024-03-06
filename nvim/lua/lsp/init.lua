@@ -248,7 +248,18 @@ function M.setup()
     lsp.setup(config)
   end
 
-  setup_with_defaults(lspconfig.jsonls)
+  setup_with_defaults(lspconfig.jsonls, {
+    settings = {
+      json = {
+        schemas = {
+          {
+            fileMatch = { 'package.json' },
+            url = 'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json',
+          },
+        },
+      },
+    },
+  })
   setup_with_defaults(lspconfig.elmls)
   setup_with_defaults(lspconfig.html)
   setup_with_defaults(lspconfig.cssls)
