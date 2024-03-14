@@ -35,6 +35,7 @@ alias esy-shell 'VIRTUAL_ENV="esy($(basename $(pwd)))" esy shell'
 abbr esh esy-shell
 
 # ▼ Git Aliases
+abbr g  'git'
 abbr ga 'git add'
 abbr gl 'git log'
 abbr gt 'git status'
