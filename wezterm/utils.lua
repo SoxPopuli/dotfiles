@@ -9,6 +9,10 @@ function M.merge(first, second)
   end
 end
 
+---Run cmd, capturing stdout
+---@param cmd string
+---@param raw boolean
+---@return string
 function M.capture(cmd, raw)
   local io = require('io')
 
