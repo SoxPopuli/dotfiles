@@ -4,8 +4,9 @@ local M = {}
 ---@param first table
 ---@param second table
 function M.merge(first, second)
-  for key, value in pairs(second) do
-    first[key] = value
+  local offset = #first
+  for idx, value in ipairs(second) do
+    first[idx + offset] = value
   end
 end
 
