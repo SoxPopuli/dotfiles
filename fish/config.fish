@@ -28,24 +28,24 @@ if type -q uname
 end
 
 alias la "ls -a"
-alias sl ls
-alias suod sudo
+abbr sl ls
+abbr suod sudo
 
 alias esy-shell 'VIRTUAL_ENV="esy($(basename $(pwd)))" esy shell'
-alias esh esy-shell
+abbr esh esy-shell
 
 # ▼ Git Aliases
-alias ga  'git add'
-alias gl  'git log'
-alias gs  'git status'
-alias gd  'git diff'
-alias gb  'git branch'
-alias gbs 'git switch' # Git Branch Switch
-alias gc  'git commit'
-alias gp  'git push'
+abbr ga 'git add'
+abbr gl 'git log'
+abbr gt 'git status'
+abbr gd 'git diff'
+abbr gb 'git branch'
+abbr gs 'git switch'
+abbr gc 'git commit'
+abbr gp 'git push'
 # ▲ Git Aliases
 
-alias tms 'tmux-sessionizer'
+abbr tms 'tmux-sessionizer'
 bind '\cf' 'tmux-sessionizer'
 
 # opam configuration
