@@ -16,6 +16,11 @@ else
     echo "# Private variables not to be commited to source control" > "$fish_config_dir/private.fish"
 end
 
+#start ssh-agent
+eval (ssh-agent -c) > /dev/null
+ssh-add ~/.ssh/id_personal > /dev/null 2> /dev/null
+ssh-add ~/.ssh/id_work > /dev/null 2> /dev/null
+
 # System specific configs
 if type -q uname 
     set -l system_name (uname -s)
