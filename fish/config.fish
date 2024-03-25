@@ -54,6 +54,10 @@ abbr gp 'git push'
 abbr tms 'tmux-sessionizer'
 bind '\cf' 'tmux-sessionizer'
 
+abbr nv 'nvim'
+abbr vi 'nvim'
+alias vim 'nvim'
+
 # opam configuration
 source $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
