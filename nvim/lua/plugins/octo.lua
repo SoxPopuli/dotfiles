@@ -9,7 +9,7 @@ return {
     use_local_fs = true,
 
     ssh_aliases = {
-      ['github.com-TM'] = 'github.com',
+      ['github.com-work'] = 'github.com',
     },
 
     mappings = {},

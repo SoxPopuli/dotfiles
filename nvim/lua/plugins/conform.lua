@@ -6,7 +6,7 @@ local function apply_formatting(bufnr)
   ---@type string
   local mode = vim.fn.mode():lower():sub(1, 1)
 
---[[
+  --[[
    [  local range = (function ()
    [      local function tuple(pos)
    [          return { pos[2], pos[3] }
@@ -60,10 +60,10 @@ return {
   lazy = true,
   opts = {
     formatters = {
-      fantomas = {
-        command = path('fantomas'),
-        args = { '$FILENAME' },
-      },
+    --  fantomas = {
+    --    command = path('fantomas'),
+    --    args = { '$FILENAME' },
+    --  },
     },
 
     formatters_by_ft = {
@@ -72,7 +72,7 @@ return {
       typescript = { { 'prettierd', 'prettier' } },
       javascriptreact = { { 'prettierd', 'prettier' } },
       typescriptreact = { { 'prettierd', 'prettier' } },
-      --fsharp = { "fantomas" },
+      fsharp = { 'fantomas' },
     },
   },
 

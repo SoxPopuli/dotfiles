@@ -210,6 +210,7 @@ function M.setup()
       'clangd',
       'kotlin_language_server',
       'taplo',
+      'texlab',
 
       'bashls',
     },
@@ -272,6 +273,7 @@ function M.setup()
   setup_with_defaults(lspconfig.kotlin_language_server)
   setup_with_defaults(lspconfig.taplo)
   setup_with_defaults(lspconfig.bashls)
+  setup_with_defaults(lspconfig.texlab)
 
   setup_with_defaults(lspconfig.ocamllsp, {
     on_attach = function(client, bufnr)
