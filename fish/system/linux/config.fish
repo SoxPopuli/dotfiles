@@ -14,6 +14,7 @@ fish_add_path -P $HOME/.dotnet/tools
 fish_add_path -P $HOME/Utilities
 fish_add_path -P "$HOME/Tools"
 fish_add_path -P "$HOME/.dotnet"
+fish_add_path -P "$HOME/.dotnet/tools"
 
 alias ls exa
 alias lsg "exa --group-directories-first"

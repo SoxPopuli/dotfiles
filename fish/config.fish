@@ -40,15 +40,16 @@ alias esy-shell 'VIRTUAL_ENV="esy($(basename $(pwd)))" esy shell'
 abbr esh esy-shell
 
 # ▼ Git Aliases
-abbr g  'git'
-abbr ga 'git add'
-abbr gl 'git log'
-abbr gt 'git status'
-abbr gd 'git diff'
-abbr gb 'git branch'
-abbr gs 'git switch'
-abbr gc 'git commit'
-abbr gp 'git push'
+abbr g   'git'
+abbr ga  'git add'
+abbr gl  'git log'
+abbr gt  'git status'
+abbr gd  'git diff'
+abbr gb  'git branch'
+abbr gs  'git switch'
+abbr gc  'git commit'
+abbr gp  'git push'
+abbr gfo 'git fetch origin'
 # ▲ Git Aliases
 
 abbr tms 'tmux-sessionizer'
