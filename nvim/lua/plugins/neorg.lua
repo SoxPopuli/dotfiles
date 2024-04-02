@@ -9,7 +9,7 @@ return {
     'nvim-neorg/neorg-telescope',
   },
 
-  build = ':Neorg sync-parsers',
+  --build = ':Neorg sync-parsers',
   opts = {
     load = {
       ['core.defaults'] = {},
