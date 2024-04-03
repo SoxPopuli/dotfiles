@@ -6,4 +6,7 @@ fish_add_path "$HOME/.cargo/bin"
 fish_add_path "$HOME/.local/bin"
 fish_add_path "$HOME/Tools"
 
+fish_add_path /usr/local/opt/node@20/bin
+
 set -gx GPG_TTY (tty)
+
