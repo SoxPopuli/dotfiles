@@ -10,3 +10,8 @@ fish_add_path /usr/local/opt/node@20/bin
 
 set -gx GPG_TTY (tty)
 
+# load fenv
+set fish_function_path $fish_function_path $HOME/Documents/plugin-foreign-env/functions
+
+# load nix-darwin
+fenv source /etc/static/bashrc 
