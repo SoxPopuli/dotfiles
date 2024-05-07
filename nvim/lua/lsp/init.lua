@@ -216,6 +216,12 @@ function M.setup()
   ---@field others string[]
   ---@param lst MasonConfig
   local function mason_install(lst)
+    if vim.loop.fs_stat('/etc/NIXOS') then
+      -- Mason installed binaries don't work on nixos
+      -- TODO: add nix file with lsps?
+      return
+    end
+
     local lsp_names = fn.map_pairs(lst.lsps, function(name, _)
       return name
     end)
