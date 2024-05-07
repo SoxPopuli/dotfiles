@@ -1,5 +1,6 @@
 local M = {}
 local misc = require('misc')
+local fn = require('functional')
 local codelens = require('lsp.codelens')
 
 local lspconfig = require('lspconfig')
@@ -190,45 +191,6 @@ function M.setup()
   -- Set up lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-  -- Setup Installer
-  require('mason').setup()
-  require('mason-lspconfig').setup({
-    ensure_installed = {
-      'lua_ls',
-      'rust_analyzer',
-      'elmls',
-      'jsonls',
-      'html',
-      'cssls',
-      'lemminx',
-      'fsautocomplete',
-      'yamlls',
-      'marksman',
-      'tsserver',
-      'csharp_ls',
-      'rescriptls',
-      'clangd',
-      'kotlin_language_server',
-      'taplo',
-      'texlab',
-
-      'bashls',
-    },
-  })
-
-  mason_install_list({
-    -- DAP Providers
-    'netcoredbg',
-
-    -- Linters
-    'fantomas',
-    'prettier',
-    'stylua',
-    'eslint_d',
-    'luacheck',
-    'shellcheck',
-  })
-
   ---@param lsp { setup: fun(config: table) }
   ---@param config table | nil
   local function setup_with_defaults(lsp, config)
@@ -249,31 +211,123 @@ function M.setup()
     lsp.setup(config)
   end
 
-  setup_with_defaults(lspconfig.jsonls, {
-    settings = {
-      json = {
-        schemas = {
-          {
-            fileMatch = { 'package.json' },
-            url = 'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json',
+  ---@class MasonConfig
+  ---@field lsps { [string]: table }
+  ---@field others string[]
+  ---@param lst MasonConfig
+  local function mason_install(lst)
+    local lsp_names = fn.map_pairs(lst.lsps, function(name, _)
+      return name
+    end)
+
+    require('mason').setup()
+    require('mason-lspconfig').setup({
+      ensure_installed = lsp_names,
+    })
+
+    mason_install_list(lst.others)
+
+    fn.iter_pairs(lst.lsps, function(name, config)
+      setup_with_defaults(lspconfig[name], config)
+    end)
+  end
+
+  mason_install({
+    lsps = {
+      bashls = {},
+      clangd = {},
+      csharp_ls = {},
+      cssls = {},
+      elmls = {},
+      html = {},
+      kotlin_language_server = {},
+      marksman = {},
+      rescriptls = {},
+      rust_analyzer = {},
+      taplo = {},
+      texlab = {},
+      tsserver = {},
+      yamlls = {},
+      lua_ls = {
+        on_attach = function(client, bufnr)
+          M.lsp_on_attach(client, bufnr)
+        end,
+        settings = {
+          filetypes = { 'lua' },
+          Lua = {
+            hint = { enable = true },
+            runtime = { version = 'LuaJIT' },
+            diagnostics = { globals = { 'vim' } },
+            semantic = { enable = false }, -- Disable semantic highlighting, treesitter is better imo
+            capabilities = capabilities,
+            workspace = {
+              library = {},
+            },
+          },
+        },
+      },
+      lemminx = {
+        settings = {
+          xml = {
+            completion = { autoCloseTags = true },
+            validation = { noGrammar = 'ignore' },
+          },
+        },
+      },
+      fsautocomplete = {
+        on_attach = function(client, bufnr)
+          M.lsp_on_attach(client, bufnr)
+          require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
+          codelens.setup_codelens_refresh(bufnr)
+        end,
+        settings = {
+          FSharp = {
+            keywordsAutocomplete = false,
+            ExternalAutocomplete = false,
+            Linter = true,
+            UnionCaseStubGeneration = true,
+            UnionCaseStubGenerationBody = 'failwith "todo"',
+            RecordStubGeneration = true,
+            RecordStubGenerationBody = 'failwith "todo"',
+            InterfaceStubGeneration = true,
+            InterfaceStubGenerationBody = 'failwith "todo"',
+            InterfaceStubGenerationObjectIdentifier = 'this',
+            ResolveNamespaces = true,
+            SimplifyNameAnalyzer = true,
+            UnusedOpensAnalyzer = true,
+            UnusedDeclarationsAnalyzer = true,
+            CodeLenses = { Signature = { Enabled = true }, References = { Enabled = true } },
+            LineLens = { Enabled = 'always', Prefix = '' },
+            PipelineHints = { Enabled = true, Prefix = '' },
+          },
+        },
+      },
+      jsonls = {
+        settings = {
+          json = {
+            schemas = {
+              {
+                fileMatch = { 'package.json' },
+                url = 'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json',
+              },
+            },
           },
         },
       },
     },
+    others = {
+      -- DAP Providers
+      'netcoredbg',
+
+      -- Linters
+      'fantomas',
+      'prettier',
+      'stylua',
+      'eslint_d',
+      'luacheck',
+      'shellcheck',
+    },
   })
-  setup_with_defaults(lspconfig.elmls)
-  setup_with_defaults(lspconfig.html)
-  setup_with_defaults(lspconfig.cssls)
-  setup_with_defaults(lspconfig.yamlls)
-  setup_with_defaults(lspconfig.marksman)
-  setup_with_defaults(lspconfig.tsserver)
-  setup_with_defaults(lspconfig.csharp_ls)
-  setup_with_defaults(lspconfig.rescriptls)
-  setup_with_defaults(lspconfig.clangd)
-  setup_with_defaults(lspconfig.kotlin_language_server)
-  setup_with_defaults(lspconfig.taplo)
-  setup_with_defaults(lspconfig.bashls)
-  setup_with_defaults(lspconfig.texlab)
 
   setup_with_defaults(lspconfig.ocamllsp, {
     on_attach = function(client, bufnr)
@@ -285,63 +339,6 @@ function M.setup()
     settings = {
       extendedHover = { enable = true },
       codelens = { enable = true },
-    },
-  })
-
-  setup_with_defaults(lspconfig.fsautocomplete, {
-    on_attach = function(client, bufnr)
-      M.lsp_on_attach(client, bufnr)
-      require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
-      codelens.setup_codelens_refresh(bufnr)
-    end,
-    settings = {
-      FSharp = {
-        keywordsAutocomplete = false,
-        ExternalAutocomplete = false,
-        Linter = true,
-        UnionCaseStubGeneration = true,
-        UnionCaseStubGenerationBody = 'failwith "todo"',
-        RecordStubGeneration = true,
-        RecordStubGenerationBody = 'failwith "todo"',
-        InterfaceStubGeneration = true,
-        InterfaceStubGenerationBody = 'failwith "todo"',
-        InterfaceStubGenerationObjectIdentifier = 'this',
-        ResolveNamespaces = true,
-        SimplifyNameAnalyzer = true,
-        UnusedOpensAnalyzer = true,
-        UnusedDeclarationsAnalyzer = true,
-        CodeLenses = { Signature = { Enabled = true }, References = { Enabled = true } },
-        LineLens = { Enabled = 'always', Prefix = '' },
-        PipelineHints = { Enabled = true, Prefix = '' },
-      },
-    },
-  })
-
-  setup_with_defaults(lspconfig.lemminx, {
-    settings = {
-      xml = {
-        completion = { autoCloseTags = true },
-        validation = { noGrammar = 'ignore' },
-      },
-    },
-  })
-
-  lspconfig.lua_ls.setup({
-    on_attach = function(client, bufnr)
-      M.lsp_on_attach(client, bufnr)
-    end,
-    settings = {
-      filetypes = { 'lua' },
-      Lua = {
-        hint = { enable = true },
-        runtime = { version = 'LuaJIT' },
-        diagnostics = { globals = { 'vim' } },
-        semantic = { enable = false }, -- Disable semantic highlighting, treesitter is better imo
-        capabilities = capabilities,
-        workspace = {
-          library = {},
-        },
-      },
     },
   })
 
