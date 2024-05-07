@@ -1,4 +1,4 @@
-vim.cmd([[let mapleader = ","]])
+vim.g.mapleader = ','
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.o.termguicolors = 1 -- Enable full color support
 
@@ -30,6 +30,8 @@ vim.o.autowriteall = false
 vim.o.linebreak = true
 vim.o.breakindent = true
 vim.o.smartindent = true
+
+vim.g.filetype_fs = 'fsharp'
 
 vim.cmd('filetype plugin indent on')
 vim.cmd('filetype indent on')
@@ -179,7 +181,6 @@ if vim.fn.has('mac') then
   -- Fix gx not working properly on Mac
   set('n', 'gx', '<cmd>:silent exec "!open <cWORD>"<cr>', { silent = true })
 end
-
 
 -- abbreviations
 vim.cmd.iabbrev('stirng string')

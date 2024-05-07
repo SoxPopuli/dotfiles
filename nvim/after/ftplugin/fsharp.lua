@@ -18,3 +18,5 @@ end, { buffer = bufnr, desc = 'Format workspace with fantomas' })
 
 --vim.bo.shiftwidth = 4
 vim.cmd.compiler('dotnet')
+
+vim.cmd('filetype indent off')
