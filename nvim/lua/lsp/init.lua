@@ -191,28 +191,9 @@ function M.setup()
   -- Set up lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-  ---@param lsp { setup: fun(config: table) }
-  ---@param config table | nil
-  local function setup_with_defaults(lsp, config)
-    local defaults = {
-      on_attach = M.lsp_on_attach,
-      flags = {
-        debounce_text_changes = 300,
-      },
-      capabilities = capabilities,
-    }
-
-    if config ~= nil then
-      config = vim.tbl_deep_extend('force', defaults, config)
-    else
-      config = defaults
-    end
-
-    lsp.setup(config)
-  end
-
   ---@class MasonConfig
   ---@field lsps { [string]: table }
+  ---@field lsp_config_only { [string]: table }
   ---@field others string[]
   ---@param lst MasonConfig
   local function mason_install(lst)
@@ -220,6 +201,26 @@ function M.setup()
       -- Mason installed binaries don't work on nixos
       -- TODO: add nix file with lsps?
       return
+    end
+
+    ---@param lsp { setup: fun(config: table) }
+    ---@param config table | nil
+    local function setup_with_defaults(lsp, config)
+      local defaults = {
+        on_attach = M.lsp_on_attach,
+        flags = {
+          debounce_text_changes = 300,
+        },
+        capabilities = capabilities,
+      }
+
+      if config ~= nil then
+        config = vim.tbl_deep_extend('force', defaults, config)
+      else
+        config = defaults
+      end
+
+      lsp.setup(config)
     end
 
     local lsp_names = fn.map_pairs(lst.lsps, function(name, _)
@@ -233,8 +234,10 @@ function M.setup()
 
     mason_install_list(lst.others)
 
-    fn.iter_pairs(lst.lsps, function(name, config)
-      setup_with_defaults(lspconfig[name], config)
+    fn.iteri({ lst.lsps, lst.lsp_config_only }, function(x)
+      fn.iter_pairs(x, function(name, config)
+        setup_with_defaults(lspconfig[name], config)
+      end)
     end)
   end
 
@@ -248,6 +251,7 @@ function M.setup()
       html = {},
       kotlin_language_server = {},
       marksman = {},
+      nil_ls = {},
       rescriptls = {},
       rust_analyzer = {},
       taplo = {},
@@ -321,6 +325,20 @@ function M.setup()
         },
       },
     },
+    lsp_config_only = {
+      ocamllsp = {
+        on_attach = function(client, bufnr)
+          M.lsp_on_attach(client, bufnr)
+          codelens.setup_codelens_refresh(bufnr)
+        end,
+        --root_dir = get_ocaml_root,
+        --cmd = { misc.build_path({ get_ocaml_root(), "_opam", "bin", "ocamllsp" }) },
+        settings = {
+          extendedHover = { enable = true },
+          codelens = { enable = true },
+        },
+      },
+    },
     others = {
       -- DAP Providers
       'netcoredbg',
@@ -332,19 +350,6 @@ function M.setup()
       'eslint_d',
       'luacheck',
       'shellcheck',
-    },
-  })
-
-  setup_with_defaults(lspconfig.ocamllsp, {
-    on_attach = function(client, bufnr)
-      M.lsp_on_attach(client, bufnr)
-      codelens.setup_codelens_refresh(bufnr)
-    end,
-    --root_dir = get_ocaml_root,
-    --cmd = { misc.build_path({ get_ocaml_root(), "_opam", "bin", "ocamllsp" }) },
-    settings = {
-      extendedHover = { enable = true },
-      codelens = { enable = true },
     },
   })
 
