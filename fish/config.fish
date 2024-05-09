@@ -18,8 +18,6 @@ end
 
 #start ssh-agent
 eval (ssh-agent -c) > /dev/null
-ssh-add ~/.ssh/id_personal > /dev/null 2> /dev/null
-ssh-add ~/.ssh/id_work > /dev/null 2> /dev/null
 
 # System specific configs
 if type -q uname 
@@ -58,6 +56,8 @@ bind '\cf' 'tmux-sessionizer'
 abbr nv 'nvim'
 abbr vi 'nvim'
 alias vim 'nvim'
+
+abbr ndc 'nix develop -c'
 
 # opam configuration
 source $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
