@@ -256,8 +256,10 @@ function M.setup()
       rust_analyzer = {},
       taplo = {},
       texlab = {},
-      tsserver = {},
       yamlls = {},
+      tsserver = {
+        init_options = { preferences = { disableSuggestions = true } },
+      },
       lua_ls = {
         on_attach = function(client, bufnr)
           M.lsp_on_attach(client, bufnr)
