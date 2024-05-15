@@ -2,6 +2,7 @@ return {
   'nvim-neorg/neorg',
   ft = 'norg',
   cmd = 'Neorg',
+  enabled = false,
   dependencies = {
     'hrsh7th/nvim-cmp',
     'nvim-treesitter/nvim-treesitter',

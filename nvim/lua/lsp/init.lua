@@ -257,6 +257,7 @@ function M.setup()
       taplo = {},
       texlab = {},
       yamlls = {},
+      terraformls = {},
       tsserver = {
         init_options = { preferences = { disableSuggestions = true } },
       },
