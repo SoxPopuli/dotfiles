@@ -258,9 +258,7 @@ function M.setup()
       texlab = {},
       yamlls = {},
       terraformls = {},
-      tsserver = {
-        init_options = { preferences = { disableSuggestions = true } },
-      },
+      tsserver = {},
       lua_ls = {
         on_attach = function(client, bufnr)
           M.lsp_on_attach(client, bufnr)
