@@ -22,7 +22,7 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'Buf
 
 local setupConfig = {
   ensure_installed = {
-    'fsharp',
+    --'fsharp',
     'rust',
     'lua',
     'vim',
