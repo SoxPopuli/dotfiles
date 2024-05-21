@@ -1,6 +1,6 @@
 vim.g.mapleader = ','
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
-vim.o.termguicolors = 1 -- Enable full color support
+vim.o.termguicolors = true -- Enable full color support
 
 if vim.go.loadplugins then
   vim.highlight.priorities.semantic_tokens = 95 -- Prefer treesitter to lsp semantic highlights
@@ -13,7 +13,7 @@ if vim.go.loadplugins then
   require('lsp').setup()
 
   vim.cmd.packadd('termdebug')
-  vim.go.termdebug_wide = 1
+  vim.g.termdebug_wide = 1
 end
 
 vim.o.path = vim.o.path .. '**'
@@ -37,7 +37,7 @@ vim.cmd('filetype plugin indent on')
 vim.cmd('filetype indent on')
 
 vim.o.showmatch = true
-vim.o.nowrap = true
+vim.o.wrap = false
 vim.o.scrolloff = 2
 
 vim.o.number = true

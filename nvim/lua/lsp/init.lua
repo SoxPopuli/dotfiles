@@ -221,7 +221,6 @@ function M.setup()
       return name
     end)
 
-
     require('mason').setup()
 
     -- Mason installed binaries don't work on nixos
@@ -252,7 +251,6 @@ function M.setup()
       html = {},
       kotlin_language_server = {},
       marksman = {},
-      nil_ls = {},
       rescriptls = {},
       rust_analyzer = {},
       taplo = {},
@@ -260,6 +258,20 @@ function M.setup()
       yamlls = {},
       terraformls = {},
       tsserver = {},
+      nil_ls = {
+        settings = {
+          ['nil'] = {
+            nix = {
+              maxMemoryMB = 8192,
+              flake = {
+                autoArchive = true,
+                autoEvalInputs = true,
+                nixpkgsInputName = 'nixpkgs',
+              },
+            },
+          },
+        },
+      },
       lua_ls = {
         on_attach = function(client, bufnr)
           M.lsp_on_attach(client, bufnr)
