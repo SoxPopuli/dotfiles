@@ -197,12 +197,6 @@ function M.setup()
   ---@field others string[]
   ---@param lst MasonConfig
   local function mason_install(lst)
-    if vim.loop.fs_stat('/etc/NIXOS') then
-      -- Mason installed binaries don't work on nixos
-      -- TODO: add nix file with lsps?
-      return
-    end
-
     ---@param lsp { setup: fun(config: table) }
     ---@param config table | nil
     local function setup_with_defaults(lsp, config)
@@ -227,12 +221,19 @@ function M.setup()
       return name
     end)
 
-    require('mason').setup()
-    require('mason-lspconfig').setup({
-      ensure_installed = lsp_names,
-    })
 
-    mason_install_list(lst.others)
+    require('mason').setup()
+
+    -- Mason installed binaries don't work on nixos
+    -- TODO: add nix file with lsps?
+    local is_nixos = vim.loop.fs_stat('/etc/NIXOS') ~= nil
+
+    if is_nixos == false then
+      require('mason-lspconfig').setup({
+        ensure_installed = lsp_names,
+      })
+      mason_install_list(lst.others)
+    end
 
     fn.iteri({ lst.lsps, lst.lsp_config_only }, function(x)
       fn.iter_pairs(x, function(name, config)
