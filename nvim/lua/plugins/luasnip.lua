@@ -64,7 +64,7 @@ return {
     'hrsh7th/cmp-nvim-lsp',
   },
 
-  lazy = false,
+  lazy = true,
 
   config = function()
     require('lsp.snippets').add_all_snippets()

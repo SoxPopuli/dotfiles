@@ -180,12 +180,21 @@ function M.lua()
   })
 end
 
+---Setup snippets for filetypes
+---@param fnames string[]
+---@param fn fun()
 local function setup_snippets(fnames, fn)
-  vim.api.nvim_create_autocmd('FileType', {
-    pattern = fnames,
-    callback = fn,
-    once = true,
-  })
+  -- call fn immediately if current fn is in filetypes
+  -- otherwise lazy load snippets
+  if vim.tbl_contains(fnames, vim.bo.filetype) then
+    fn()
+  else
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = fnames,
+      callback = fn,
+      once = true,
+    })
+  end
 end
 
 ---Add all language snippets
