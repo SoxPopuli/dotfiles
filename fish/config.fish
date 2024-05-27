@@ -8,8 +8,8 @@ set -gx __fish_git_prompt_char_upstream_behind " ↓"
 set -gx __fish_git_prompt_color_upstream yellow
 set -gx __fish_git_prompt_showupstream informative
 
-if test -n "$fish_config_dir"
-    set -l fish_config_dir "$HOME/.config/fish"
+if test -z "$fish_config_dir"
+    set -g fish_config_dir "$HOME/.config/fish"
 end
 
 if test -f "$fish_config_dir/private.fish"
