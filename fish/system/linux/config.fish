@@ -1,5 +1,5 @@
 set -gx QT_QPA_PLATFORMTHEME "qt6ct"
-set -gx LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/lib/:usr/local/lib"
+#set -gx LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/lib/:usr/local/lib"
 set -gx STUDIO_JDK "/usr/lib/jvm/java-20-temurin/"
 
 set -gx ANDROID_HOME "$HOME/Android/Sdk"
@@ -21,3 +21,5 @@ alias lsg "exa --group-directories-first"
 #alias aws awsv2
 alias copy "xclip -in -sel c"
 alias paste "xclip -out -sel c"
+
+alias nix "LD_LIBRARY_PATH= /bin/env nix"
