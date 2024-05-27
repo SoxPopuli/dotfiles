@@ -50,6 +50,8 @@ abbr gs  'git switch'
 abbr gc  'git commit'
 abbr gp  'git push'
 abbr gfo 'git fetch origin'
+abbr gaa 'git add -Av'
+abbr gpl 'git pull'
 # ▲ Git Aliases
 
 abbr tms 'tmux-sessionizer'
