@@ -3,7 +3,7 @@ vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.o.termguicolors = true -- Enable full color support
 
 if vim.go.loadplugins then
-  vim.highlight.priorities.semantic_tokens = 95 -- Prefer treesitter to lsp semantic highlights
+  vim.highlight.priorities.semantic_tokens = 110
 
   local lazy_setup = require('lazy_setup')
 
