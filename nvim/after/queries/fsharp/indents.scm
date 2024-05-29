@@ -1,0 +1,1 @@
+../../../deps/tree-sitter-fsharp/queries/indents.scm

@@ -8,21 +8,22 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'Buf
   end,
 })
 
---local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
---parser_config.fsharp = {
---  install_info = {
---    url = 'https://github.com/Nsidorenco/tree-sitter-fsharp',
---    branch = 'develop',
---    files = { 'src/scanner.cc', 'src/parser.c' },
---    generate_requires_npm = true,
---    requires_generate_from_grammar = true,
---  },
---  filetype = 'fsharp',
---}
+local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+parser_config.fsharp = {
+  install_info = {
+    url = vim.fn.stdpath('config') .. '/deps/tree-sitter-fsharp',
+    --url = 'https://github.com/Nsidorenco/tree-sitter-fsharp',
+    branch = 'main',
+    files = { 'src/scanner.c', 'src/parser.c' },
+    generate_requires_npm = true,
+    requires_generate_from_grammar = true,
+  },
+  filetype = 'fsharp',
+}
 
 local setupConfig = {
   ensure_installed = {
-    --'fsharp',
+    'fsharp',
     'rust',
     'lua',
     'vim',
@@ -42,6 +43,23 @@ local setupConfig = {
   sync_install = false,
 
   highlight = {
+    enable = true,
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = {},
+  },
+  incremental_selection = {
+    enable = true,
+    keymaps = {
+      init_selection = 'gnn', -- set to `false` to disable one of the mappings
+      node_incremental = 'gjn',
+      scope_incremental = 'gjc',
+      node_decremental = 'gjm',
+    },
+  },
+  indent = {
     enable = true,
   },
 }
