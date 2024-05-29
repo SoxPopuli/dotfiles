@@ -15,6 +15,7 @@ fish_add_path -P $HOME/Utilities
 fish_add_path -P "$HOME/Tools"
 fish_add_path -P "$HOME/.dotnet"
 fish_add_path -P "$HOME/.dotnet/tools"
+fish_add_path -P "$HOME/.local/share/bob/nvim-bin" #neovim version manager
 
 alias ls exa
 alias lsg "exa --group-directories-first"
