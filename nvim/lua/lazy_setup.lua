@@ -106,18 +106,7 @@ local plugins = {
     end,
   },
 
-  --{
-  --    'ionide/Ionide-vim',
-  --    config = function()
-  --        vim.g['fsharp#backend'] = 'disable'
-  --        vim.g['fsharp#lsp_auto_setup'] = 0
-  --        vim.g['fsharp#lsp_codelens'] = 0
-  --        vim.g['fsharp#use_recommended_server_config'] = 0
-  --    end
-  --},
-
   'simrat39/inlay-hints.nvim',
-  -- use { 'lvimuser/lsp-inlayhints.nvim' }
 
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp-signature-help',
@@ -207,6 +196,8 @@ local plugins = {
 
   { 'nvim-tree/nvim-web-devicons', lazy = true },
   { 'rescript-lang/vim-rescript', ft = 'rescript' },
+
+  { 'lewis6991/gitsigns.nvim', opts = {} },
 }
 
 function M.startup()

@@ -1,0 +1,3 @@
+[submodule "nvim/deps/tree-sitter-fsharp"]
+	path = nvim/deps/tree-sitter-fsharp
+	url = https://github.com/ionide/tree-sitter-fsharp.git
