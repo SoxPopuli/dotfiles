@@ -258,6 +258,39 @@ function M.setup()
       yamlls = {},
       terraformls = {},
       tsserver = {},
+      hls = {
+        on_attach = function(client, bufnr)
+          M.lsp_on_attach(client, bufnr)
+          vim.keymap.set('<space>cl', vim.lsp.codelens.run, { buffer = bufnr })
+        end,
+        settings = {
+          haskell = {
+            plugin = {
+              class = { -- missing class methods
+                codeLensOn = true,
+              },
+              importLens = { -- make import lists fully explicit
+                codeLensOn = true,
+              },
+              refineImports = { -- refine imports
+                codeLensOn = true,
+              },
+              tactics = { -- wingman
+                codeLensOn = true,
+              },
+              moduleName = { -- fix module names
+                globalOn = true,
+              },
+              eval = { -- evaluate code snippets
+                globalOn = true,
+              },
+              ['ghcide-type-lenses'] = { -- show/add missing type signatures
+                globalOn = true,
+              },
+            },
+          },
+        },
+      },
       nil_ls = {
         settings = {
           ['nil'] = {
