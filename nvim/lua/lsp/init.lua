@@ -291,6 +291,7 @@ function M.setup()
           },
         },
       },
+      pyright = {},
       nil_ls = {
         settings = {
           ['nil'] = {

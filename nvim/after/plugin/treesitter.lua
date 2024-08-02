@@ -60,7 +60,7 @@ local setupConfig = {
     },
   },
   indent = {
-    enable = true,
+    enable = false,
   },
 }
 

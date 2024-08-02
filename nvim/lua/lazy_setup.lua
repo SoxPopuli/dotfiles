@@ -135,7 +135,11 @@ local plugins = {
       lsp_dap.bind_keys()
     end,
   },
-  { 'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap' }, event = { 'LspAttach' } },
+  {
+    'rcarriga/nvim-dap-ui',
+    dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
+    event = { 'LspAttach' },
+  },
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',

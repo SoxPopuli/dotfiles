@@ -6,12 +6,12 @@ set -gx ANDROID_HOME "$HOME/Android/Sdk"
 fish_add_path -P "$ANDROID_HOME/emulator"
 fish_add_path -P "$ANDROID_HOME/platform-tools"
 
-fish_add_path $HOME/.local/bin
-fish_add_path $HOME/.cargo/bin
+fish_add_path "$HOME/.local/bin"
+fish_add_path "$HOME/.cargo/bin"
 fish_add_path -P /opt/resolve/bin/
 fish_add_path -P /var/lib/flatpak/exports/bin
 fish_add_path -P $HOME/.dotnet/tools
-fish_add_path -P $HOME/Utilities
+fish_add_path -P "$HOME/Utilities"
 fish_add_path -P "$HOME/Tools"
 fish_add_path -P "$HOME/.dotnet"
 fish_add_path -P "$HOME/.dotnet/tools"

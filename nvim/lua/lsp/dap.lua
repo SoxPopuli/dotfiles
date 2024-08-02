@@ -9,6 +9,12 @@ function M.bind_keys()
   end
   dapui.setup()
 
+  --  F5 => Continue
+  --  F9 => Restart
+  -- F10 => Step Over
+  -- F11 => Step Into
+  -- F12 => Step Out
+
   vim.keymap.set('n', '<leader>do', function()
     dapui.open()
   end, { desc = 'Open dap ui' })
@@ -22,6 +28,12 @@ function M.bind_keys()
   vim.keymap.set('n', '<F5>', function()
     dap.continue()
   end, { desc = 'Continue debug' })
+  vim.keymap.set('n', '<F8>', function()
+    dap.close()
+  end, { desc = 'Stop debugging' })
+  vim.keymap.set('n', '<F9>', function()
+    dap.restart()
+  end, { desc = 'Restart debug' })
   vim.keymap.set('n', '<F10>', function()
     dap.step_over()
   end, { desc = 'Step over' })
@@ -76,6 +88,15 @@ function M.config()
     'bin',
   })
 
+  local lldb = {
+    type = 'server',
+    port = '${port}',
+    executable = {
+      command = misc.build_path({ mason_bin, 'codelldb' }),
+      args = { '--port', '${port}' },
+    },
+  }
+
   dap.adapters = {
     coreclr = {
       type = 'executable',
@@ -83,14 +104,8 @@ function M.config()
       args = { '--interpreter=vscode' },
     },
 
-    codelldb = {
-      type = 'server',
-      port = '${port}',
-      executable = {
-        command = misc.build_path({ mason_bin, 'codelldb' }),
-        args = { '--port', '${port}' },
-      },
-    },
+    lldb = lldb,
+    codelldb = lldb,
 
     ocaml = {
       type = 'executable',
@@ -123,6 +138,7 @@ end
 
 vim.api.nvim_create_user_command('DapLoadLaunchJSON', function(args)
   local mappings = {
+    lldb = { 'c', 'cpp', 'rust' },
     codelldb = { 'c', 'cpp', 'rust' },
     coreclr = { 'cs', 'fsharp', 'vb' },
     ['pwa-node'] = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
