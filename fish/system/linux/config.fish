@@ -27,3 +27,4 @@ alias paste "xclip -out -sel c"
 alias nix "LD_LIBRARY_PATH= /bin/env nix"
 
 direnv hook fish | source
+fzf --fish | source
