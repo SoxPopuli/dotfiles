@@ -16,6 +16,7 @@ fish_add_path -P "$HOME/Tools"
 fish_add_path -P "$HOME/.dotnet"
 fish_add_path -P "$HOME/.dotnet/tools"
 fish_add_path -P "$HOME/.local/share/bob/nvim-bin" #neovim version manager
+fish_add_path -P "$HOME/.ghcup/bin"
 
 alias ls exa
 alias lsg "exa --group-directories-first"
@@ -24,3 +25,5 @@ alias copy "xclip -in -sel c"
 alias paste "xclip -out -sel c"
 
 alias nix "LD_LIBRARY_PATH= /bin/env nix"
+
+direnv hook fish | source

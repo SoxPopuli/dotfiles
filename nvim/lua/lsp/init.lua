@@ -258,6 +258,12 @@ function M.setup()
       yamlls = {},
       terraformls = {},
       tsserver = {},
+      purescriptls = {
+        on_attach = M.lsp_on_attach,
+        settings = {
+          purescript = { addSpagoSources = true, censorWarnings = { "ShadowedName", "MissingTypeDeclaration" }},
+        },
+      },
       hls = {
         on_attach = function(client, bufnr)
           M.lsp_on_attach(client, bufnr)
