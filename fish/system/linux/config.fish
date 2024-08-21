@@ -1,8 +1,10 @@
 set -gx QT_QPA_PLATFORMTHEME "qt6ct"
 #set -gx LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/lib/:usr/local/lib"
 set -gx STUDIO_JDK "/usr/lib/jvm/java-20-temurin/"
-
 set -gx ANDROID_HOME "$HOME/Android/Sdk"
+set -gx FZF_DEFAULT_OPTS "--history=$HOME/.fzf_history --tmux"
+
+
 fish_add_path -P "$ANDROID_HOME/emulator"
 fish_add_path -P "$ANDROID_HOME/platform-tools"
 
@@ -24,7 +26,6 @@ alias lsg "exa --group-directories-first"
 alias copy "xclip -in -sel c"
 alias paste "xclip -out -sel c"
 
-alias nix "LD_LIBRARY_PATH= /bin/env nix"
-
 direnv hook fish | source
 fzf --fish | source
+zoxide init fish | source
