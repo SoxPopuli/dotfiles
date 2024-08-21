@@ -17,4 +17,5 @@ vim.keymap.set('n', '<space>af', function()
 end, { buffer = bufnr, desc = 'Format workspace with fantomas' })
 
 --vim.bo.shiftwidth = 4
+--vim.cmd('filetype indent off')
 vim.cmd.compiler('dotnet')
