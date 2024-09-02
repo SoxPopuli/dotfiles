@@ -21,6 +21,8 @@ local plugins = {
   -- TODO: migrate to plugins folder
   { import = 'plugins' },
 
+  'andweeb/presence.nvim',
+
   'nvim-lualine/lualine.nvim',
 
   'tpope/vim-surround',
@@ -193,11 +195,6 @@ local plugins = {
   -- Async linting
   'mfussenegger/nvim-lint',
 
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    version = 'v2.20.8',
-  },
-
   { 'nvim-tree/nvim-web-devicons', lazy = true },
   { 'rescript-lang/vim-rescript', ft = 'rescript' },
 
@@ -219,7 +216,7 @@ function M.startup()
       frequency = 86400, -- Once per day
     },
     dev = {
-      path = '~/Code/lua',
+      path = '~/Code',
     },
   })
 end
