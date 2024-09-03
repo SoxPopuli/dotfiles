@@ -162,6 +162,7 @@ local function setup_cmp()
       { name = 'luasnip', priority = 1 },
     }, {
       { name = 'buffer' },
+      { name = 'path' },
     }),
   })
 
@@ -261,7 +262,7 @@ function M.setup()
       purescriptls = {
         on_attach = M.lsp_on_attach,
         settings = {
-          purescript = { addSpagoSources = true, censorWarnings = { "ShadowedName", "MissingTypeDeclaration" }},
+          purescript = { addSpagoSources = true, censorWarnings = { 'ShadowedName', 'MissingTypeDeclaration' } },
         },
       },
       hls = {
