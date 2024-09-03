@@ -17,6 +17,7 @@ parser_config.fsharp = {
     files = { 'src/scanner.c', 'src/parser.c' },
     generate_requires_npm = true,
     requires_generate_from_grammar = true,
+    location = 'fsharp',
   },
   filetype = 'fsharp',
 }
