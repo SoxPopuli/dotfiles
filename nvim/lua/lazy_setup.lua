@@ -197,16 +197,6 @@ local plugins = {
 
   { 'nvim-tree/nvim-web-devicons', lazy = true },
   { 'rescript-lang/vim-rescript', ft = 'rescript' },
-
-  {
-    'lewis6991/gitsigns.nvim',
-    opts = {},
-    lazy = false,
-    keys = {
-      { ']c', '<CMD>:Gitsigns next_hunk<CR>', desc = 'Go to next git hunk' },
-      { '[c', '<CMD>:Gitsigns prev_hunk<CR>', desc = 'Go to prev git hunk' },
-    },
-  },
 }
 
 function M.startup()
