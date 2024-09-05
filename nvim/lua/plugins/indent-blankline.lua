@@ -5,7 +5,7 @@ return {
 
   main = 'ibl',
 
-  opts = {},
+  opts = { scope = { enabled = false } },
 
   keys = {
     {

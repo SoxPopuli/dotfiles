@@ -258,7 +258,7 @@ function M.setup()
       texlab = {},
       yamlls = {},
       terraformls = {},
-      tsserver = {},
+      ts_ls = {},
       purescriptls = {
         on_attach = M.lsp_on_attach,
         settings = {
