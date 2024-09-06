@@ -237,7 +237,11 @@ function M.setup()
 
     fn.iteri({ lst.lsps, lst.lsp_config_only }, function(x)
       fn.iter_pairs(x, function(name, config)
-        setup_with_defaults(lspconfig[name], config)
+        if name == 'tsserver' then
+          setup_with_defaults(lspconfig['ts_ls'], config)
+        else
+          setup_with_defaults(lspconfig[name], config)
+        end
       end)
     end)
   end
@@ -258,7 +262,8 @@ function M.setup()
       texlab = {},
       yamlls = {},
       terraformls = {},
-      ts_ls = {},
+      -- TODO: Replace with `ts_ls` when changes to `mason-lspconfig` have been merged
+      tsserver = {},
       purescriptls = {
         on_attach = M.lsp_on_attach,
         settings = {
