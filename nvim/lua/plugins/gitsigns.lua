@@ -10,5 +10,7 @@ return {
     { '<space>gP', '<cmd>:Gitsigns preview_hunk_inline<cr>', desc = 'Preview hunk inline' },
     { '<space>gs', '<cmd>:Gitsigns stage_hunk<cr>', desc = 'Stage hunk' },
     { '<space>gu', '<cmd>:Gitsigns undo_stage_hunk<cr>', desc = 'Unstage hunk' },
+    { '<space>gb', '<cmd>:Gitsigns blame<cr>', desc = 'Git blame' },
+    { '<space>gl', '<cmd>:Gitsigns blame_line<cr>', desc = 'Git blame current line' },
   },
 }
