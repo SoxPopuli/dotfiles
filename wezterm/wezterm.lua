@@ -5,7 +5,7 @@ local utils = require('utils')
 ---@class WeztermConfig
 local config = {
   font = wezterm.font_with_fallback({
-    { family = 'JetBrains Mono' },
+    { family = 'JetBrains Mono', weight = "Bold" },
     'Symbols Nerd Font',
   }),
   font_size = 12.0,
