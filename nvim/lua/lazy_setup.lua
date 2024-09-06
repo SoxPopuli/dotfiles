@@ -21,14 +21,13 @@ local plugins = {
   -- TODO: migrate to plugins folder
   { import = 'plugins' },
 
-  'andweeb/presence.nvim',
+  {'andweeb/presence.nvim', event = 'VeryLazy' },
 
   'nvim-lualine/lualine.nvim',
 
   'tpope/vim-surround',
   'tpope/vim-repeat',
 
-  'preservim/nerdcommenter',
   { 'dracula/vim', name = 'dracula', lazy = true, priority = 1000 },
   {
     'catppuccin/nvim',
@@ -151,7 +150,7 @@ local plugins = {
     end,
   },
 
-  { 'HiPhish/rainbow-delimiters.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
+  { 'HiPhish/rainbow-delimiters.nvim', event = 'VeryLazy', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
   --use({ "~/Code/lua/rainbow-delimiters.nvim", dependencies = { "nvim-treesitter/nvim-treesitter" } })
 
   {
@@ -179,11 +178,8 @@ local plugins = {
     },
   },
 
-  -- Outline view: LSP / Treesitter driven
-  'stevearc/aerial.nvim',
-
   -- Better Syntax Support
-  'sheerun/vim-polyglot',
+  {'sheerun/vim-polyglot', event = 'VeryLazy' },
 
   -- Auto pairs for '(' '[' '{'
   {
