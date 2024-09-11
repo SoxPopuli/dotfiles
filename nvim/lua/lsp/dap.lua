@@ -100,7 +100,7 @@ function M.config()
   dap.adapters = {
     coreclr = {
       type = 'executable',
-      command = misc.build_path({ mason_bin, 'netcoredbg' }),
+      command = 'netcoredbg',
       args = { '--interpreter=vscode' },
     },
 

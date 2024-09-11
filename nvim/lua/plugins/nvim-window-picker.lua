@@ -10,7 +10,7 @@ return {
 
   keys = {
     {
-      '<leader>w',
+      '<space>w',
       function()
         local window_id = require('window-picker').pick_window()
 
