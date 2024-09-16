@@ -5,14 +5,12 @@ local codelens = require('lsp.codelens')
 
 local lspconfig = require('lspconfig')
 local cmp = require('cmp')
-local hints = require('inlay-hints')
 
-hints.setup({
-  only_current_line = false,
-  eol = {
-    right_align = false,
-  },
-})
+-- Enable inlay hints by default
+vim.lsp.inlay_hint.enable()
+vim.keymap.set('n', '<leader>h', function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = 'Toggle Inlay Hints' })
 
 local function setup_keys()
   -- Global mappings.
@@ -253,7 +251,14 @@ function M.setup()
       kotlin_language_server = {},
       marksman = {},
       rescriptls = {},
-      rust_analyzer = {},
+      --rust_analyzer = {
+      --  settings = {
+      --    ['rust-analyzer'] = {
+      --      cargo = { features = { 'all' } },
+      --      check = { features = { 'all' } }
+      --    },
+      --  },
+      --},
       taplo = {},
       texlab = {},
       yamlls = {},
