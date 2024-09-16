@@ -1,12 +1,19 @@
 vim.g.rustaceanvim = {
+  tools = {
+    float_win_config = {
+      border = 'rounded',
+    },
+    hover_actions = {
+      replace_builtin_hover = true,
+    },
+  },
   server = {
     on_attach = function(client, bufnr)
       require('lsp').lsp_on_attach(client, bufnr)
     end,
     default_settings = {
       ['rust-analyzer'] = {
-        --cargo = { features = { 'all' } },
-        --check = { features = { 'all' } }
+        cargo = { features = 'all' },
       },
     },
   },
