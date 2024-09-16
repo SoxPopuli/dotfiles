@@ -11,35 +11,23 @@ return {
     {
       '<leader>id',
       function()
-        vim.cmd('IndentBlanklineDisable')
-        vim.cmd('IndentBlanklineDisable!')
+        vim.cmd('IBLDisable')
       end,
+      desc = "Indent Blankline: Disable"
     },
     {
       '<leader>ie',
       function()
-        vim.cmd('IndentBlanklineEnable')
-        vim.cmd('IndentBlanklineEnable!')
+        vim.cmd('IBLEnable')
       end,
+      desc = "Indent Blankline: Enable"
     },
     {
       '<leader>it',
       function()
-        vim.cmd('IndentBlanklineToggle')
-        vim.cmd('IndentBlanklineToggle!')
+        vim.cmd('IBLToggle')
       end,
-    },
-    {
-      '<leader>il',
-      function()
-        vim.cmd('IndentBlanklineToggle')
-      end,
-    },
-    {
-      '<leader>ir',
-      function()
-        vim.cmd('IndentBlanklineRefresh')
-      end,
+      desc = "Indent Blankline: Toggle"
     },
   },
 }
