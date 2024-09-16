@@ -10,6 +10,7 @@ function M.bind_keys()
   dapui.setup()
 
   --  F5 => Continue
+  --  F8 => Stop
   --  F9 => Restart
   -- F10 => Step Over
   -- F11 => Step Into
