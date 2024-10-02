@@ -186,7 +186,6 @@ end
 vim.cmd.iabbrev('stirng string')
 vim.cmd.iabbrev('Stirng String')
 
-set('n', '<C-f>', function ()
-    
-    vim.cmd('silent !tmux-sessionizer')
-end, { silent = true, desc = "Tmux Sessionizer" })
+set('n', '<C-t>', function()
+  vim.cmd('silent !tmux-sessionizer')
+end, { silent = true, desc = 'Tmux Sessionizer' })
