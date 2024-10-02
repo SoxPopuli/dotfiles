@@ -345,6 +345,12 @@ function M.setup()
         },
       },
       fsautocomplete = {
+        on_new_config = function (new_config, new_root_dir)
+          -- table.insert(new_config.cmd, "--state-directory")
+          -- table.insert(new_config.cmd, new_root_dir .. "/.ionide")
+          new_config.cmd[3] = "--state-directory"
+          new_config.cmd[4] = new_root_dir .. "/.ionide/"
+        end,
         on_attach = function(client, bufnr)
           M.lsp_on_attach(client, bufnr)
           require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
