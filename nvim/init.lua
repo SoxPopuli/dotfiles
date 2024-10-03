@@ -10,7 +10,6 @@ if vim.go.loadplugins then
   lazy_setup.install_lazy()
 
   lazy_setup.startup()
-  require('lsp').setup()
 
   vim.cmd.packadd('termdebug')
   vim.g.termdebug_wide = 1

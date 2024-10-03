@@ -24,21 +24,21 @@ parser_config.fsharp = {
 
 local setupConfig = {
   ensure_installed = {
-    'fsharp',
-    'rust',
-    'lua',
-    'vim',
     'c_sharp',
     'elm',
+    'fsharp',
     'json',
     'latex',
+    'lua',
     'markdown',
-    'regex',
-    'scala',
-    'yaml',
     'ocaml',
     'ocaml_interface',
     'ocamllex',
+    'regex',
+    'rust',
+    'scala',
+    'vim',
+    'yaml',
   },
 
   sync_install = false,

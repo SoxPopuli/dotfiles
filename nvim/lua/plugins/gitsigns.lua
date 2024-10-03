@@ -1,6 +1,7 @@
 return {
   'lewis6991/gitsigns.nvim',
   opts = {},
+  event = 'VeryLazy',
   lazy = false,
   keys = {
     { ']c', '<CMD>:Gitsigns next_hunk<CR>', desc = 'Go to next git hunk' },

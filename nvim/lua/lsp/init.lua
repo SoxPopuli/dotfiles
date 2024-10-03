@@ -123,11 +123,11 @@ local function setup_cmp()
       documentation = cmp.config.window.bordered(),
     },
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-space>'] = cmp.mapping.complete(),
-      ['<C-c>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item
+      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-c>'] = cmp.mapping(cmp.mapping.abort(), { 'i', 'c' }),
+      ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i' }), -- Accept currently selected item
 
       ['<Tab>'] = cmp.mapping(function(fallback)
         if cmp.visible() then
@@ -151,8 +151,8 @@ local function setup_cmp()
         end
       end, { 'i', 's' }),
 
-      ['<Down>'] = cmp.mapping.select_next_item(),
-      ['<Up>'] = cmp.mapping.select_prev_item(),
+      ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 'c' }),
+      ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 'c' }),
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp_signature_help', priority = 10 },
@@ -344,40 +344,40 @@ function M.setup()
           },
         },
       },
-      fsautocomplete = {
-        on_new_config = function (new_config, new_root_dir)
-          -- table.insert(new_config.cmd, "--state-directory")
-          -- table.insert(new_config.cmd, new_root_dir .. "/.ionide")
-          new_config.cmd[3] = "--state-directory"
-          new_config.cmd[4] = new_root_dir .. "/.ionide/"
-        end,
-        on_attach = function(client, bufnr)
-          M.lsp_on_attach(client, bufnr)
-          require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
-          codelens.setup_codelens_refresh(bufnr)
-        end,
-        settings = {
-          FSharp = {
-            keywordsAutocomplete = false,
-            ExternalAutocomplete = false,
-            Linter = true,
-            UnionCaseStubGeneration = true,
-            UnionCaseStubGenerationBody = 'failwith "todo"',
-            RecordStubGeneration = true,
-            RecordStubGenerationBody = 'failwith "todo"',
-            InterfaceStubGeneration = true,
-            InterfaceStubGenerationBody = 'failwith "todo"',
-            InterfaceStubGenerationObjectIdentifier = 'this',
-            ResolveNamespaces = true,
-            SimplifyNameAnalyzer = true,
-            UnusedOpensAnalyzer = true,
-            UnusedDeclarationsAnalyzer = true,
-            CodeLenses = { Signature = { Enabled = true }, References = { Enabled = true } },
-            LineLens = { Enabled = 'always', Prefix = '' },
-            PipelineHints = { Enabled = true, Prefix = '' },
-          },
-        },
-      },
+      -- fsautocomplete = {
+      --   on_new_config = function(new_config, new_root_dir)
+      --     -- table.insert(new_config.cmd, "--state-directory")
+      --     -- table.insert(new_config.cmd, new_root_dir .. "/.ionide")
+      --     new_config.cmd[3] = '--state-directory'
+      --     new_config.cmd[4] = new_root_dir .. '/.ionide/'
+      --   end,
+      --   on_attach = function(client, bufnr)
+      --     M.lsp_on_attach(client, bufnr)
+      --     require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
+      --     codelens.setup_codelens_refresh(bufnr)
+      --   end,
+      --   settings = {
+      --     FSharp = {
+      --       keywordsAutocomplete = false,
+      --       ExternalAutocomplete = false,
+      --       Linter = true,
+      --       UnionCaseStubGeneration = true,
+      --       UnionCaseStubGenerationBody = 'failwith "todo"',
+      --       RecordStubGeneration = true,
+      --       RecordStubGenerationBody = 'failwith "todo"',
+      --       InterfaceStubGeneration = true,
+      --       InterfaceStubGenerationBody = 'failwith "todo"',
+      --       InterfaceStubGenerationObjectIdentifier = 'this',
+      --       ResolveNamespaces = true,
+      --       SimplifyNameAnalyzer = true,
+      --       UnusedOpensAnalyzer = true,
+      --       UnusedDeclarationsAnalyzer = true,
+      --       CodeLenses = { Signature = { Enabled = true }, References = { Enabled = true } },
+      --       LineLens = { Enabled = 'always', Prefix = '' },
+      --       PipelineHints = { Enabled = true, Prefix = '' },
+      --     },
+      --   },
+      -- },
       jsonls = {
         settings = {
           json = {
