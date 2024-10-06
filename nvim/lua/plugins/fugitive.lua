@@ -1,7 +1,7 @@
 return {
   'tpope/vim-fugitive',
   keys = {
-    { '<leader>g', '<cmd>:Git<cr>', desc = 'Open fugitive buffer' },
+    { '<leader>G', '<cmd>:Git<cr>', desc = 'Open fugitive buffer' },
   },
 
   cmd = {
