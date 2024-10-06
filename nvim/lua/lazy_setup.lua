@@ -64,30 +64,6 @@ local plugins = {
   { 'HiPhish/rainbow-delimiters.nvim', event = 'VeryLazy', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
   --use({ "~/Code/lua/rainbow-delimiters.nvim", dependencies = { "nvim-treesitter/nvim-treesitter" } })
 
-  {
-    'SoxPopuli/fsharp-tools.nvim',
-    ft = { 'fsharp', 'xml' },
-    build = './build.sh -r',
-    dev = false,
-    opts = {
-      indent = 2, --project file indent per tag
-      max_depth = 4, --maximum level of upwards directory searches
-    },
-    keys = {
-      {
-        '<leader>f',
-        function()
-          require('fsharp-tools').edit_file_order(true)
-        end,
-      },
-      {
-        '<leader>F',
-        function()
-          require('fsharp-tools').edit_file_order(false)
-        end,
-      },
-    },
-  },
 
   -- Better Syntax Support
   {'sheerun/vim-polyglot', event = 'VeryLazy' },

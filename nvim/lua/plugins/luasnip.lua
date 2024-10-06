@@ -58,6 +58,7 @@ return {
   'saadparwaiz1/cmp_luasnip',
 
   -- event = { 'InsertEnter' },
+  event = { 'LspAttach' },
 
   dependencies = {
     'L3MON4D3/LuaSnip',
