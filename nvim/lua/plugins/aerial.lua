@@ -4,7 +4,7 @@ return {
 
   config = function()
     local aerial = require('aerial')
-
+    aerial.setup({});
     _G.aerial = {
       next = function()
         aerial.next(1)

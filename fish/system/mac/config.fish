@@ -1,3 +1,4 @@
+set -gx FZF_DEFAULT_OPTS "--history=$HOME/.fzf_history --tmux"
 # load fenv
 set fish_function_path $fish_function_path $HOME/Documents/plugin-foreign-env/functions
 
@@ -16,3 +17,6 @@ fish_add_path "$HOME/.local/bin"
 fish_add_path "$HOME/Tools"
 
 set -gx GPG_TTY (tty)
+
+fzf --fish | source
+zoxide init fish | source
