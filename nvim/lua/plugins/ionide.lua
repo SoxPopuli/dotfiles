@@ -1,5 +1,8 @@
 vim.g['fsharp#lsp_auto_setup'] = 0
 vim.g['fsharp#lsp_codelens'] = 0
+vim.g['fsharp#linter'] = 1
+vim.g['fsharp#unused_opens_analyzer'] = 1
+vim.g['fsharp#unused_declarations_analyzer'] = 1
 vim.g['fsharp#exclude_project_directories'] = { 'paket_files' }
 
 return {

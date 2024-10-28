@@ -67,6 +67,9 @@ abbr ndc 'nix develop -c'
 # opam configuration
 source $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
+alias git-delete-old-branches \
+    "git fetch origin --prune && git branch -v | grep '\[gone\]' | awk '{ print \$1 }' | xargs git branch -D"
+
 # bun
 set --export BUN_INSTALL "$HOME/.bun"
 set --export PATH $BUN_INSTALL/bin $PATH

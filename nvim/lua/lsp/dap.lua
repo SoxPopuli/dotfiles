@@ -16,6 +16,13 @@ function M.bind_keys()
   -- F11 => Step Into
   -- F12 => Step Out
 
+  local function dap_hover()
+    require('dap.ui.widgets').hover()
+
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', 'q', '<Cmd>:q<CR>', { desc = 'Close' })
+  end
+
   vim.keymap.set('n', '<leader>do', function()
     dapui.open()
   end, { desc = 'Open dap ui' })
@@ -63,7 +70,7 @@ function M.bind_keys()
     dap.run_last()
   end, { desc = 'Run last debug' })
   vim.keymap.set({ 'n', 'v' }, '<space>k', function()
-    require('dap.ui.widgets').hover()
+    dap_hover()
   end, { desc = 'dap hover' })
   vim.keymap.set({ 'n', 'v' }, '<leader>dh', function()
     require('dap.ui.widgets').hover()

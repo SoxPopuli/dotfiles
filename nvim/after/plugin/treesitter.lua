@@ -22,6 +22,14 @@ parser_config.fsharp = {
   filetype = 'fsharp',
 }
 
+parser_config.reason = {
+  install_info = {
+    url = 'https://github.com/reasonml-editor/tree-sitter-reason',
+    files = { 'src/parser.c', 'src/scanner.c' },
+    branch = 'master',
+  },
+}
+
 local setupConfig = {
   ensure_installed = {
     'c_sharp',
