@@ -56,7 +56,7 @@ local plugins = {
   {
     'nvim-treesitter/nvim-treesitter',
     build = function()
-      local tsUpdate = require('nvim-treesitter.install').update({ with_sync = true })
+      local tsUpdate = require('nvim-treesitter.install').update({ with_sync = false })
       tsUpdate()
     end,
   },
