@@ -224,7 +224,7 @@ function M.setup()
 
     -- Mason installed binaries don't work on nixos
     -- TODO: add nix file with lsps?
-    local is_nixos = vim.loop.fs_stat('/etc/NIXOS') ~= nil
+    local is_nixos = vim.loop.fs_stat('/etc/nixos') ~= nil
 
     if is_nixos == false then
       require('mason-lspconfig').setup({
@@ -239,6 +239,23 @@ function M.setup()
       end)
     end)
   end
+
+  lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
+    if config.name == 'ocamllsp' then
+      local filetypes = vim.deepcopy(config.filetypes)
+      table.insert(filetypes, 'ocaml.mlx')
+      config.filetypes = filetypes
+
+      local get_language_id = config.get_language_id
+      function config.get_language_id(bufnr, ft)
+        if ft == 'ocaml.mlx' then
+          return 'ocaml'
+        else
+          return get_language_id(bufnr, ft)
+        end
+      end
+    end
+  end)
 
   mason_install({
     lsps = {
@@ -404,6 +421,22 @@ function M.setup()
           codelens = { enable = true },
         },
       },
+      -- dartls = {
+      --   on_attach = M.lsp_on_attach,
+      --   cmd = { 'dart', 'language-server', '--protocol=lsp' },
+      -- },
+      -- ['ocaml.mlx'] = {
+      --   on_attach = function(client, bufnr)
+      --     M.lsp_on_attach(client, bufnr)
+      --     codelens.setup_codelens_refresh(bufnr)
+      --   end,
+      --   --root_dir = get_ocaml_root,
+      --   --cmd = { misc.build_path({ get_ocaml_root(), "_opam", "bin", "ocamllsp" }) },
+      --   settings = {
+      --     extendedHover = { enable = true },
+      --     codelens = { enable = true },
+      --   },
+      -- },
     },
     others = {
       -- DAP Providers

@@ -30,7 +30,7 @@ local function apply_formatting(bufnr)
   local opts = {
     bufnr = bufnr,
     async = true,
-    lsp_fallback = true,
+    lsp_format = 'last',
     --range = range,
   }
 
@@ -56,39 +56,58 @@ local function path(name)
 end
 
 return {
-  'stevearc/conform.nvim',
-  lazy = true,
-  opts = {
-    formatters = {
-    --  fantomas = {
-    --    command = path('fantomas'),
-    --    args = { '$FILENAME' },
-    --  },
+  {
+    'ocaml-mlx/ocaml_mlx.nvim',
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    config = function()
+      require('lsp').setup()
+      require('ocaml_mlx')
+      vim.cmd.setfiletype('ocaml.mlx')
+    end,
+    event = 'BufRead *.mlx',
+  },
+  {
+    'stevearc/conform.nvim',
+    lazy = true,
+    opts = {
+      formatters = {
+        ocamlformat_mlx = {
+          inherit = false,
+          command = 'ocamlformat-mlx',
+          args = { '--name', '$FILENAME', '--impl', '-' },
+          stdin = true,
+        },
+      },
+
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        javascript = { 'prettierd', 'prettier' },
+        typescript = { 'prettierd', 'prettier' },
+        javascriptreact = { 'prettierd', 'prettier' },
+        typescriptreact = { 'prettierd', 'prettier' },
+        fsharp = { 'fantomas' },
+        ['ocaml.mlx'] = { 'ocamlformat_mlx' },
+        ocaml_mlx = { 'ocamlformat_mlx' },
+      },
     },
 
-    formatters_by_ft = {
-      lua = { 'stylua' },
-      javascript = { { 'prettierd', 'prettier' } },
-      typescript = { { 'prettierd', 'prettier' } },
-      javascriptreact = { { 'prettierd', 'prettier' } },
-      typescriptreact = { { 'prettierd', 'prettier' } },
-      fsharp = { 'fantomas' },
+    cmd = {
+      'ConformInfo',
     },
-  },
 
-  cmd = {
-    'ConformInfo',
-  },
-
-  keys = {
-    {
-      '<space>f',
-      function()
-        local current_buffer = vim.api.nvim_get_current_buf()
-        apply_formatting(current_buffer)
-      end,
-      desc = 'Format buffer',
-      mode = { 'n', 'v' },
+    keys = {
+      {
+        '<space>f',
+        function()
+          local current_buffer = vim.api.nvim_get_current_buf()
+          apply_formatting(current_buffer)
+        end,
+        desc = 'Format buffer',
+        mode = { 'n', 'v' },
+      },
     },
   },
 }
