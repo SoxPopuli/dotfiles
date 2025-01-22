@@ -268,14 +268,14 @@ function M.setup()
       kotlin_language_server = {},
       marksman = {},
       rescriptls = {},
-      --rust_analyzer = {
-      --  settings = {
-      --    ['rust-analyzer'] = {
-      --      cargo = { features = { 'all' } },
-      --      check = { features = { 'all' } }
-      --    },
-      --  },
-      --},
+      -- rust_analyzer = {
+      --   settings = {
+      --     ['rust-analyzer'] = {
+      --       cargo = { features = 'all' },
+      --       check = { features = 'all' }
+      --     },
+      --   },
+      -- },
       taplo = {},
       texlab = {},
       yamlls = {},

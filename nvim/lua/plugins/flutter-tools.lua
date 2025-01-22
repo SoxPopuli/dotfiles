@@ -1,26 +1,30 @@
-local flutter_path = (function()
-  ---@type string
-  local flutter_path = vim.system({ 'whereis', 'flutter' }, { text = true }):wait().stdout:sub(10)
-  if flutter_path:len() == 0 then
-    return nil
-  else
-    return flutter_path:sub(0, -2)
-  end
-end)()
+local function get_path()
+  local flutter_path = (function()
+    ---@type string
+    local flutter_path = vim.system({ 'whereis', 'flutter' }, { text = true }):wait().stdout:sub(10)
+    if flutter_path:len() == 0 then
+      return nil
+    else
+      return flutter_path:sub(0, -2)
+    end
+  end)()
 
-local dart_path = (function()
-  if flutter_path then
-    return nil
-  end
+  local dart_path = (function()
+    if flutter_path then
+      return nil
+    end
 
-  ---@type string
-  local dart_path = vim.system({ 'whereis', 'dart' }, { text = true }):wait().stdout:sub(7)
-  if dart_path:len() == 0 then
-    return nil
-  else
-    return dart_path:sub(0, -2)
-  end
-end)()
+    ---@type string
+    local dart_path = vim.system({ 'whereis', 'dart' }, { text = true }):wait().stdout:sub(7)
+    if dart_path:len() == 0 then
+      return nil
+    else
+      return dart_path:sub(0, -2)
+    end
+  end)()
+
+  return flutter_path or dart_path
+end
 
 return {
   'akinsho/flutter-tools.nvim',
@@ -36,7 +40,7 @@ return {
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
     require('flutter-tools').setup({
-      flutter_path = flutter_path or dart_path,
+      flutter_path = get_path(),
       debugger = {
         enabled = true,
         run_via_dap = true,
