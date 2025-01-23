@@ -38,7 +38,7 @@ return {
     'SoxPopuli/fsharp-tools.nvim',
     ft = 'fsharp',
     event = { "BufRead *.fsproj" },
-    build = './build.sh -r',
+    build = 'just deploy',
     dev = false,
     opts = {
       indent = 2, --project file indent per tag
