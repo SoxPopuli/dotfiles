@@ -9,18 +9,6 @@ vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'Buf
 })
 
 local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-parser_config.fsharp = {
-  install_info = {
-    url = vim.fn.stdpath('config') .. '/deps/tree-sitter-fsharp',
-    --url = 'https://github.com/Nsidorenco/tree-sitter-fsharp',
-    branch = 'main',
-    files = { 'src/scanner.c', 'src/parser.c' },
-    generate_requires_npm = true,
-    requires_generate_from_grammar = true,
-    location = 'fsharp',
-  },
-  filetype = 'fsharp',
-}
 
 parser_config.reason = {
   install_info = {
