@@ -25,7 +25,3 @@ alias lsg "exa --group-directories-first"
 #alias aws awsv2
 alias copy "xclip -in -sel c"
 alias paste "xclip -out -sel c"
-
-direnv hook fish | source
-fzf --fish | source
-zoxide init fish | source

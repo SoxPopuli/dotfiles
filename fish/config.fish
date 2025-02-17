@@ -55,12 +55,19 @@ abbr gaa 'git add -Av'
 abbr gpl 'git pull'
 # ▲ Git Aliases
 
+alias tmux-sessionizer "$HOME/.config/tmux-sessionizer"
+
 abbr tms 'tmux-sessionizer'
 bind '\cf' 'tmux-sessionizer'
 
 abbr nv 'nvim'
 abbr vi 'nvim'
 alias vim 'nvim'
+
+# Node version manager (Fast Node Manager)
+if type -q fnm
+    fnm env | source
+end
 
 abbr ndc 'nix develop -c'
 
@@ -70,6 +77,6 @@ source $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 alias git-delete-old-branches \
     "git fetch origin --prune && git branch -v | grep '\[gone\]' | awk '{ print \$1 }' | xargs git branch -D"
 
-# bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
+direnv hook fish | source
+fzf --fish | source
+zoxide init fish | source
