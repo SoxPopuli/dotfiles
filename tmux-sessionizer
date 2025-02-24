@@ -1,0 +1,36 @@
+#!/bin/bash
+
+nested_directories="
+    ${HOME}/Code
+    /shared/Code
+"
+
+directories="
+    ${HOME}/Documents
+    ${HOME}/Documents/Work
+    ${HOME}/.config
+    ${HOME}/Code
+"
+projects=$(find -L ${directories} -maxdepth 1 -type d 2> /dev/null)
+nested_projects=$(find -L ${nested_directories} -mindepth 2 -maxdepth 2 -type d 2> /dev/null)
+
+combined="${projects}
+${nested_projects}"
+
+#exit on error, but only after find
+set -e 
+
+selected=$(printf '%s\n' ${combined} | fzf-tmux -d20)
+
+name=$(basename ${selected})
+replaced_name=$(echo ${name} | sed 's/\./_/g')
+
+if ! tmux has-session -t "${replaced_name}" 2> /dev/null; then
+    tmux new-session -c "${selected}" -s "${replaced_name}" -d
+fi
+
+if [[ -z $TMUX ]]; then
+    tmux attach -t "${replaced_name}"
+else
+    tmux switch -t "${replaced_name}"
+fi
