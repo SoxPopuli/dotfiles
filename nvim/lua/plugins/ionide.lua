@@ -39,7 +39,7 @@ return {
     ft = 'fsharp',
     event = { "BufRead *.fsproj" },
     build = 'just deploy',
-    dev = true,
+    dev = false,
     opts = {
       indent = 2, --project file indent per tag
       max_depth = 4, --maximum level of upwards directory searches
