@@ -55,8 +55,8 @@ function M.lsp_on_attach(_, bufnr)
   -- if it already exists
   local keymaps = vim.api.nvim_buf_get_keymap(bufnr, 'n')
   if not misc.contains(keymaps, function(item)
-    return item.lhs == ' ca'
-  end) then
+        return item.lhs == ' ca'
+      end) then
     vim.keymap.set({ 'n', 'v' }, '<space>ac', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'Code action' })
   end
 
@@ -156,8 +156,8 @@ local function setup_cmp()
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp_signature_help', priority = 10 },
-      { name = 'nvim_lsp', priority = 5 },
-      { name = 'luasnip', priority = 1 },
+      { name = 'nvim_lsp',                priority = 5 },
+      { name = 'luasnip',                 priority = 1 },
     }, {
       { name = 'buffer' },
       { name = 'path' },
@@ -260,7 +260,9 @@ function M.setup()
   mason_install({
     lsps = {
       bashls = {},
-      clangd = {},
+      clangd = {
+        cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose', '--enable-config' },
+      },
       csharp_ls = {},
       cssls = {},
       elmls = {},

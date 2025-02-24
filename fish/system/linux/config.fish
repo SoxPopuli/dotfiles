@@ -1,12 +1,10 @@
-set -gx QT_QPA_PLATFORMTHEME "qt6ct"
-#set -gx LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/usr/lib/:usr/local/lib"
-set -gx STUDIO_JDK "/usr/lib/jvm/java-20-temurin/"
-set -gx ANDROID_HOME "$HOME/Android/Sdk"
 set -gx FZF_DEFAULT_OPTS "--history=$HOME/.fzf_history --tmux"
 
+set -gx GTK_THEME Adwaita:dark
+set -gx GTK2_RC_FILES /usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
 
-fish_add_path -P "$ANDROID_HOME/emulator"
-fish_add_path -P "$ANDROID_HOME/platform-tools"
+# set -gx QT_STYLE_OVERRIDE Adwaita-Dark
+set -gx QT_QPA_PLATFORMTHEME qt6ct
 
 fish_add_path "$HOME/.local/share/nvim/mason/bin"
 fish_add_path "$HOME/.local/bin"
