@@ -8,6 +8,7 @@ set -gx FZF_DEFAULT_OPTS "--history=$HOME/.fzf_history --tmux"
 fish_add_path -P "$ANDROID_HOME/emulator"
 fish_add_path -P "$ANDROID_HOME/platform-tools"
 
+fish_add_path "$HOME/.local/share/nvim/mason/bin"
 fish_add_path "$HOME/.local/bin"
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path -P /opt/resolve/bin/
