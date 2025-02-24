@@ -91,6 +91,7 @@ return {
         fsharp = { 'fantomas' },
         ['ocaml.mlx'] = { 'ocamlformat_mlx' },
         ocaml_mlx = { 'ocamlformat_mlx' },
+        markdown = { 'markdownfmt', 'cbfmt' },
       },
     },
 

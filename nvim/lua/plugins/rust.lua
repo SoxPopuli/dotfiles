@@ -6,6 +6,7 @@ vim.g.rustaceanvim = {
     hover_actions = {
       replace_builtin_hover = true,
     },
+    enable_clippy = true,
   },
   server = {
     -- cmd = function()
@@ -31,9 +32,9 @@ vim.g.rustaceanvim = {
           cfgs = {
             'debug_assertions',
             'miri',
-          }
+          },
         },
-        check = { features = 'all' },
+        check = { features = 'all', command = 'clippy', extraArgs = { '--no-deps' } },
       },
     },
   },

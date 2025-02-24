@@ -321,20 +321,20 @@ function M.setup()
         },
       },
       pyright = {},
-      nil_ls = {
-        settings = {
-          ['nil'] = {
-            nix = {
-              maxMemoryMB = 8192,
-              flake = {
-                autoArchive = true,
-                autoEvalInputs = true,
-                nixpkgsInputName = 'nixpkgs',
-              },
-            },
-          },
-        },
-      },
+      -- nil_ls = {
+      --   settings = {
+      --     ['nil'] = {
+      --       nix = {
+      --         maxMemoryMB = 8192,
+      --         flake = {
+      --           autoArchive = true,
+      --           autoEvalInputs = true,
+      --           nixpkgsInputName = 'nixpkgs',
+      --         },
+      --       },
+      --     },
+      --   },
+      -- },
       lua_ls = {
         on_attach = function(client, bufnr)
           M.lsp_on_attach(client, bufnr)
@@ -442,10 +442,13 @@ function M.setup()
       -- DAP Providers
       'netcoredbg',
 
-      -- Linters
+      -- Formatters
       'fantomas',
       'prettier',
       'stylua',
+      'cbfmt',
+      -- 'markdownfmt',
+      -- Linters
       'eslint_d',
       'luacheck',
       'shellcheck',
