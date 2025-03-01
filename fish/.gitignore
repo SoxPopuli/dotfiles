@@ -1,1 +1,4 @@
 private.fish
+
+# Ignore fish enivronment variables (varies by system)
+fish_variables
