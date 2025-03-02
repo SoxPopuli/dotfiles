@@ -1,0 +1,3 @@
+[submodule "tools/tmux-sessionizer"]
+	path = tools/tmux-sessionizer
+	url = https://github.com/SoxPopuli/tmux-sessionizer.git

@@ -9,5 +9,5 @@
 !/kitty/
 !/wezterm/
 !/fish/
+!/tools/
 !/flake.nix
-!/tmux-sessionizer
