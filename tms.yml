@@ -1,0 +1,9 @@
+settings:
+  default_depth: 2
+paths:
+  - ~/Code
+  - ~/Documents/Work
+  - path: ~/Documents
+    depth: 1
+  - path: ~/.config
+    depth: 1

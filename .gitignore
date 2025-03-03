@@ -10,5 +10,7 @@
 !/wezterm/
 !/fish/
 !/tools/
+
 !/flake.nix
 !/install.sh
+!/tms.yml
