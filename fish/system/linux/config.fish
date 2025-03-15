@@ -22,5 +22,10 @@ fish_add_path -P "$HOME/.ghcup/bin"
 alias ls exa
 alias lsg "exa --group-directories-first"
 #alias aws awsv2
-alias copy "xclip -in -sel c"
-alias paste "xclip -out -sel c"
+if type -q xclip
+    alias copy "xclip -in -sel c"
+    alias paste "xclip -out -sel c"
+else
+    alias copy "wl-copy"
+    alias paste "wl-paste"
+end
