@@ -7,3 +7,5 @@ paths:
     depth: 1
   - path: ~/.config
     depth: 1
+  - path: ~/vaults
+    depth: 0
