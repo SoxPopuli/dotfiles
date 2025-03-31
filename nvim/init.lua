@@ -52,6 +52,55 @@ vim.o.fixeol = false -- Preserve original end of line status
 
 require('commands')
 
+vim.api.nvim_create_autocmd('BufReadPost', {
+  pattern = '*',
+  callback = function(ev)
+    local buf = ev.buf
+    local file = ev.file
+
+    local fd = io.open(file, 'rb')
+    if fd == nil then
+      return
+    end
+
+    ---@type string
+    local first_chars = fd:read(3)
+    local has_bom = (first_chars:sub(1, 2) == string.char(0xFE, 0xFF))
+        or (first_chars:sub(1, 2) == string.char(0xFF, 0xFE))
+        or (first_chars == string.char(0xEF, 0xBB, 0xBF))
+        or (first_chars == string.char(0x00, 0x00, 0xFE, 0xFF))
+        or (first_chars == string.char(0xFF, 0xFE, 0x00, 0x00))
+    if has_bom then
+      vim.bo[buf].bomb = true
+    end
+
+    -- fd:seek("end", -1)
+
+    -- if fd:read(1) == "\n" then
+    --   vim.bo[buf].eof = true
+    -- end
+  end,
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'qf',
+  callback = function(ev)
+    vim.keymap.set('n', 'dd', function()
+      local current_index = vim.fn.line('.')
+      local qf_list = vim.fn.getqflist()
+      table.remove(qf_list, current_index)
+
+      vim.fn.setqflist(qf_list, 'r')
+
+      vim.cmd('cfirst ' .. current_index)
+      vim.cmd.copen()
+    end, {
+      desc = 'Remove current item',
+      buffer = ev.buf,
+    })
+  end,
+})
+
 -- Keybinds
 local set = vim.keymap.set
 
