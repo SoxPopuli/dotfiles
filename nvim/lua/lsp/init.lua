@@ -264,7 +264,12 @@ function M.setup()
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose', '--enable-config' },
       },
       csharp_ls = {},
-      cssls = {},
+      cssls = {
+        capabilities = (function()
+          capabilities.textDocument.completion.completionItem.snippetSupport = true
+          return capabilities
+        end)(),
+      },
       elmls = {},
       html = {},
       kotlin_language_server = {},
