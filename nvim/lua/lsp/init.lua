@@ -43,7 +43,9 @@ function M.lsp_on_attach(_, bufnr)
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local opts = { buffer = bufnr }
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, { buffer = bufnr, desc = 'Go to declaration' })
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', 'K', function()
+    vim.lsp.buf.hover({ border = 'rounded' })
+  end, opts)
   vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, opts)
   vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
   vim.keymap.set('n', '<leader>wl', function()
@@ -263,7 +265,8 @@ function M.setup()
       clangd = {
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose', '--enable-config' },
       },
-      csharp_ls = {},
+      -- csharp_ls = {},
+      omnisharp = {},
       cssls = {
         capabilities = (function()
           capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -461,8 +464,6 @@ function M.setup()
       'shellcheck',
     },
   })
-
-  vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
 end
 
 return M

@@ -52,7 +52,7 @@ vim.o.fixeol = false -- Preserve original end of line status
 
 require('commands')
 
-vim.api.nvim_create_autocmd('BufReadPost', {
+vim.api.nvim_create_autocmd('BufReadPre', {
   pattern = '*',
   callback = function(ev)
     local buf = ev.buf
@@ -65,6 +65,11 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 
     ---@type string
     local first_chars = fd:read(3)
+
+    if first_chars == nil then
+      return
+    end
+
     local has_bom = (first_chars:sub(1, 2) == string.char(0xFE, 0xFF))
         or (first_chars:sub(1, 2) == string.char(0xFF, 0xFE))
         or (first_chars == string.char(0xEF, 0xBB, 0xBF))
@@ -73,12 +78,6 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     if has_bom then
       vim.bo[buf].bomb = true
     end
-
-    -- fd:seek("end", -1)
-
-    -- if fd:read(1) == "\n" then
-    --   vim.bo[buf].eof = true
-    -- end
   end,
 })
 

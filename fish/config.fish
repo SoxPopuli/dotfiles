@@ -9,6 +9,8 @@ set -gx __fish_git_prompt_char_upstream_behind " ↓"
 set -gx __fish_git_prompt_color_upstream yellow
 set -gx __fish_git_prompt_showupstream informative
 
+fish_add_path "$HOME/.local/share/coursier/bin"
+
 if test -z "$fish_config_dir"
     set -g fish_config_dir "$HOME/.config/fish"
 end
