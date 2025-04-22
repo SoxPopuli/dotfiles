@@ -92,6 +92,7 @@ return {
         ['ocaml.mlx'] = { 'ocamlformat_mlx' },
         ocaml_mlx = { 'ocamlformat_mlx' },
         markdown = { 'markdownfmt', 'cbfmt' },
+        cs = { 'csharpier', lsp_format = 'fallback' },
       },
     },
 

@@ -457,6 +457,7 @@ function M.setup()
       'prettier',
       'stylua',
       'cbfmt',
+      'csharpier',
       -- 'markdownfmt',
       -- Linters
       'eslint_d',
