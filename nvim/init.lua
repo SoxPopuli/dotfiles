@@ -65,7 +65,6 @@ vim.api.nvim_create_autocmd('BufReadPre', {
 
     ---@type string
     local first_chars = fd:read(3)
-
     if first_chars == nil then
       return
     end
@@ -230,8 +229,16 @@ if vim.fn.has('mac') then
 end
 
 -- abbreviations
-vim.cmd.iabbrev('stirng string')
-vim.cmd.iabbrev('Stirng String')
+(function ()
+    local abbreviations = {
+      { "stirng", "string" },
+      { "Stirng", "String" }
+    }
+
+    for _, value in pairs(abbreviations) do
+      vim.cmd.iabbrev(value[1] .. " " .. value[2])
+    end
+end)()
 
 set('n', '<C-t>', function()
   vim.cmd('silent !tmux-sessionizer')
