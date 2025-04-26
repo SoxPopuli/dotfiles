@@ -10,6 +10,7 @@
 !/wezterm/
 !/fish/
 !/tools/
+!/nushell/
 
 !/flake.nix
 !/install.sh
