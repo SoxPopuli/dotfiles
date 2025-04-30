@@ -1027,7 +1027,7 @@ alias la = ls -a
 
 $env.PATH ++= [
     "~/.cargo/bin",
-    "~/.config/tools"
+    "~/.config/tools/bin"
     "~/.dotnet",
     "~/.dotnet/tools",
     "~/.ghcup/bin",

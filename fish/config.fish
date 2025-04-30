@@ -11,7 +11,7 @@ set -gx __fish_git_prompt_color_upstream yellow
 set -gx __fish_git_prompt_showupstream informative
 
 fish_add_path "$HOME/.local/share/coursier/bin"
-fish_add_path "$HOME/.config/tools"
+fish_add_path "$HOME/.config/tools/bin"
 
 if test -z "$fish_config_dir"
     set -g fish_config_dir "$HOME/.config/fish"
