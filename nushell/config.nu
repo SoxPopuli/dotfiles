@@ -1021,17 +1021,16 @@ alias vim = nvim
 alias la = ls -a
 
 $env.PATH ++= [
-    "~/.local/share/nvim/mason/bin",
-    "~/.local/bin",
     "~/.cargo/bin",
-    /opt/resolve/bin/
-    /var/lib/flatpak/exports/bin
-    ~/.dotnet/tools
-    "~/Utilities",
-    "~/Tools",
+    "~/.config/tools"
     "~/.dotnet",
     "~/.dotnet/tools",
-    "~/.local/share/bob/nvim-bin", #neovim version manager
     "~/.ghcup/bin",
+    "~/.local/bin",
+    "~/.local/share/bob/nvim-bin", #neovim version manager
+    "~/.local/share/nvim/mason/bin",
+    "/opt/resolve/bin/",
+    "~/Utilities",
+    "/var/lib/flatpak/exports/bin",
 ]
 $env.AWS_SDK_LOAD_CONFIG = 1 # Use ~/.aws/config to resolve aws credentials
