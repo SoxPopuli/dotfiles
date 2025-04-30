@@ -998,21 +998,26 @@ source runtime-config.nu
 source private-env.nu
 
 # ▼ Git Aliases
-alias g =   git
-alias ga =  git add
-alias gl =  git log
-alias gt =  git status
-alias gd =  git diff
-alias gb =  git branch
-alias gs =  git switch
-alias gc =  git commit
-alias gp =  git push
-alias gfo = git fetch origin
-alias gaa = git add -Av
-alias gpl = git pull
+
+alias g    = git
+alias ga   = git add
+alias gl   = git log
+alias gt   = git status
+alias gd   = git diff
+alias gb   = git branch
+alias gs   = git switch
+alias gc   = git commit
+alias gp   = git push
+alias gfo  = git fetch origin
+alias gaa  = git add -Av
+alias gpl  = git pull
+alias gplr = git pull --rebase
+alias grc  = git rebase --continue
+alias gra  = git rebase --abort
+alias gri  = git rebase -i
+
 # ▲ Git Aliases
 
-alias tmux-sessionizer = ~/.config/tmux-sessionizer
 alias tms = tmux-sessionizer
 alias nv =  nvim
 alias vi =  nvim
@@ -1034,3 +1039,4 @@ $env.PATH ++= [
     "/var/lib/flatpak/exports/bin",
 ]
 $env.AWS_SDK_LOAD_CONFIG = 1 # Use ~/.aws/config to resolve aws credentials
+$env.XDG_CONFIG_HOME = $"($env.HOME)/.config"

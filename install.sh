@@ -2,4 +2,4 @@
 
 git submodule update --remote --recursive
 
-just -f "./tools/tmux-sessionizer/justfile" install clean-release
+just -f "./tools/tmux-sessionizer/justfile" install

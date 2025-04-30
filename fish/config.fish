@@ -3,6 +3,7 @@ fish_vi_key_bindings
 set -gx EDITOR nvim
 set -gx AWS_SDK_LOAD_CONFIG 1 # Use ~/.aws/config to resolve aws credentials
 set -gx fish_prompt_pwd_dir_length 0
+set -gx XDG_CONFIG_HOME "$HOME/.config" # Set config dir
 
 set -gx __fish_git_prompt_char_upstream_ahead " ↑"
 set -gx __fish_git_prompt_char_upstream_behind " ↓"

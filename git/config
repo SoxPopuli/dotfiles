@@ -1,0 +1,20 @@
+[user]
+	email = charlottesmith5019@gmail.com
+	name = Charlotte Smith
+[diff]
+    tool = nvimdiff
+    guitool = nvimdiff
+[merge]
+    tool = nvimdiff
+    conflictstyle = diff3
+[mergetool]
+    keepBackup = false
+    trustExitCode = false
+    prompt = true
+[difftool]
+    prompt = false
+[core]
+    editor = nvim
+    pager = bat
+[mergetool "nvimdiff"]
+	layout = "LOCAL,BASE,REMOTE / MERGED"
