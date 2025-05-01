@@ -9,7 +9,7 @@ fish_add_path "/usr/local/bin"
 fish_add_path "$HOME/.cargo/bin"
 fish_add_path "$HOME/.local/bin"
 fish_add_path "$HOME/Tools"
-
+fish_add_path "/opt/homebrew/bin"
 
 set -gx GPG_TTY (tty)
 

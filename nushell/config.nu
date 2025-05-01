@@ -959,41 +959,7 @@ $env.config.completions.use_ls_colors = true
 # You can remove duplicate directories from the path using:
 # $env.PATH = ($env.PATH | uniq)
 
-def command-exists [command: string] { not (which $command | is-empty) }
-
-def gen-runtime-config [] {
-    let file = $"($nu.default-config-dir)/runtime-config.nu"
-
-    def save-command [cmd: string] {
-        $cmd | save -a $file
-    }
-
-    def save-alias [alias: string, cmd: string] {
-        $"alias ($alias) = ($cmd)\n" | save -a $file
-    }
-
-    '' | save -f $file
-
-    ########################################
-    # Start defining your aliases here
-
-    if (command-exists "xclip") {
-        save-alias copy "xclip -in -sel c"
-        save-alias paste "xclip -out -sel c"
-    } else {
-        save-alias copy "wl-copy"
-        save-alias paste "wl-paste"
-    }
-
-    if (command-exists bat) {
-        save-alias cat "bat"
-    }
-
-    if (command-exists "fnm") {
-        save-command "fnv env | source"
-    }
-}
-
+source gen-runtime-config.nu
 source runtime-config.nu
 source private-env.nu
 
@@ -1026,6 +992,8 @@ alias vim = nvim
 alias la = ls -a
 
 $env.PATH ++= [
+    "/opt/resolve/bin/",
+    "/var/lib/flatpak/exports/bin",
     "~/.cargo/bin",
     "~/.config/tools/bin"
     "~/.dotnet",
@@ -1033,10 +1001,12 @@ $env.PATH ++= [
     "~/.ghcup/bin",
     "~/.local/bin",
     "~/.local/share/bob/nvim-bin", #neovim version manager
+    "~/.local/share/coursier/bin"
     "~/.local/share/nvim/mason/bin",
-    "/opt/resolve/bin/",
+    "~/Tools",
     "~/Utilities",
-    "/var/lib/flatpak/exports/bin",
 ]
 $env.AWS_SDK_LOAD_CONFIG = 1 # Use ~/.aws/config to resolve aws credentials
 $env.XDG_CONFIG_HOME = $"($env.HOME)/.config"
+
+$env.PATH = $env.Path | uniq
