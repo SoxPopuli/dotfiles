@@ -1,2 +1,3 @@
-bin/* # exclude all bin files
-!bin/.gitkeep
+/bin/
+/bin/* # exclude all bin files
+!/bin/.gitkeep

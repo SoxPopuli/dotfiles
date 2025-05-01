@@ -835,7 +835,32 @@ $env.config.completions.use_ls_colors = true
 # Simple example - Static string:
 # $env.PROMPT_COMMAND = "Nushell"
 # Simple example - Dynamic closure displaying the path:
-# $env.PROMPT_COMMAND = {|| pwd}
+$env.PROMPT_COMMAND = {
+    # let dir = pwd | str replace $env.HOME "~"
+    # let dir_string = $"(ansi yellow)($dir)(ansi green)"
+
+    let dir_string = pwd
+        | str replace $env.HOME "~"
+        | split column "/"
+        | transpose -d
+        | each {|x| $"(ansi magenta)($x.column1)" }
+        | str join $"(ansi green)/"
+
+    # let timestamp = date now | format date "%H:%M:%S"
+    # let timestamp_string = $"(ansi white)($timestamp)(ansi green)"
+
+    let git_string = if (git rev-parse --is-inside-work-tree | into bool) {
+        let branch = git branch --show-current
+        let s = if ($branch | is-empty) {
+            $"(ansi green)\((ansi magenta)(git rev-parse --short HEAD)(ansi green)\)"
+        } else {
+            $"(ansi magenta)($branch)"
+        }
+        $"(ansi white)G(ansi green):($s)(ansi green)"
+    }
+    
+    $"┳[($dir_string)(ansi green)]━[($git_string)]\n┗"
+}
 
 # PROMPT_COMMAND_RIGHT
 # --------------------
@@ -852,9 +877,9 @@ $env.config.completions.use_ls_colors = true
 # $env.PROMPT_INDICATOR = "> "
 
 # When in normal vi mode:
-# $env.PROMPT_INDICATOR_VI_NORMAL = "> "
+ $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi green)┫ "
 # When in vi insert-mode:
-# $env.PROMPT_INDICATOR_VI_INSERT = ": "
+ $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)▶ "
 
 # When a commandline extends across multiple lines:
 # $env.PROMPT_MULTILINE_INDICATOR = "::: "
