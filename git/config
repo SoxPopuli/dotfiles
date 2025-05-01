@@ -1,5 +1,5 @@
 [user]
-	email = charlottesmith5019@gmail.com
+	email = charliesmith5019@gmail.com
 	name = Charlotte Smith
 [includeIf "gitdir:~/Documents/Work/"]
     path = ~/.config/git/work.gitconfig
