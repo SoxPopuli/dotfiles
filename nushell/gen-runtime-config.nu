@@ -49,7 +49,7 @@ def gen-runtime-config [] {
 
         for $it in $vars {
             if ($it.key == "PATH") {
-                save-command $"$env.PATH ++= [($it.value)]"
+                save-command $"path add ($it.value)"
             } else {
                 save-command $"$env.($it.key) = ($it.value)"
             }
