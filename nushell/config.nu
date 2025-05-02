@@ -847,7 +847,7 @@ $env.PROMPT_COMMAND = {
         | str replace $env.HOME "~"
     }
     | split column "/"
-    | transpose -d
+    | transpose 
     | each {|x| $"(ansi magenta)($x.column1)" }
     | str join $"(ansi green)/"
 
@@ -862,10 +862,10 @@ $env.PROMPT_COMMAND = {
         } else {
             $"(ansi magenta)($branch)"
         }
-        $"━[(ansi white)G(ansi green):($s)(ansi green)]"
+        $"─[(ansi white)G(ansi green):($s)(ansi green)]"
     }
     
-    $"┳[($dir_string)(ansi green)]($git_string)\n┗"
+    $"┬[($dir_string)(ansi green)]($git_string)\n└"
 }
 
 # PROMPT_COMMAND_RIGHT
@@ -883,7 +883,7 @@ $env.PROMPT_COMMAND = {
 # $env.PROMPT_INDICATOR = "> "
 
 # When in normal vi mode:
- $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi green)┫ "
+ $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi green)┤ "
 # When in vi insert-mode:
  $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)▶ "
 
@@ -1039,5 +1039,10 @@ $env.PATH ++= [
 ]
 $env.AWS_SDK_LOAD_CONFIG = 1 # Use ~/.aws/config to resolve aws credentials
 $env.XDG_CONFIG_HOME = $"($env.HOME)/.config"
+$env.FZF_DEFAULT_OPS = $"--history=($env.HOME)/.fzf_history --tmux"
+
+$env.GTK_THEME = "Adwaita:dark"
+$env.GTK2_RC_FILES = "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
+$env.QT_QPA_PLATFORMTHEME = "qt6ct"
 
 $env.PATH = $env.Path | uniq

@@ -1,3 +1,4 @@
+vim.g.bigfile_size=1024*1024*1 -- 1M
 vim.g.mapleader = ','
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.o.termguicolors = true -- Enable full color support
@@ -51,6 +52,7 @@ vim.o.foldlevel = 16
 vim.o.fixeol = false -- Preserve original end of line status
 
 require('commands')
+require('filetypes')
 
 vim.api.nvim_create_autocmd('BufReadPre', {
   pattern = '*',
