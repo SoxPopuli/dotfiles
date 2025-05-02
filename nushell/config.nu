@@ -839,27 +839,33 @@ $env.PROMPT_COMMAND = {
     # let dir = pwd | str replace $env.HOME "~"
     # let dir_string = $"(ansi yellow)($dir)(ansi green)"
 
-    let dir_string = pwd
+    let current_dir = pwd
+    let dir_string = if $current_dir == $env.HOME {
+        $current_dir
+    } else {
+        $current_dir
         | str replace $env.HOME "~"
-        | split column "/"
-        | transpose -d
-        | each {|x| $"(ansi magenta)($x.column1)" }
-        | str join $"(ansi green)/"
+    }
+    | split column "/"
+    | transpose -d
+    | each {|x| $"(ansi magenta)($x.column1)" }
+    | str join $"(ansi green)/"
 
     # let timestamp = date now | format date "%H:%M:%S"
     # let timestamp_string = $"(ansi white)($timestamp)(ansi green)"
 
-    let git_string = if (git rev-parse --is-inside-work-tree | into bool) {
+    let is_git = ((git rev-parse --is-inside-work-tree | complete).stdout | str trim) == "true"
+    let git_string = if ($is_git) {
         let branch = git branch --show-current
         let s = if ($branch | is-empty) {
             $"(ansi green)\((ansi magenta)(git rev-parse --short HEAD)(ansi green)\)"
         } else {
             $"(ansi magenta)($branch)"
         }
-        $"(ansi white)G(ansi green):($s)(ansi green)"
+        $"━[(ansi white)G(ansi green):($s)(ansi green)]"
     }
     
-    $"┳[($dir_string)(ansi green)]━[($git_string)]\n┗"
+    $"┳[($dir_string)(ansi green)]($git_string)\n┗"
 }
 
 # PROMPT_COMMAND_RIGHT
