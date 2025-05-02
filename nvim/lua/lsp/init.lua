@@ -358,7 +358,10 @@ function M.setup()
             semantic = { enable = false }, -- Disable semantic highlighting, treesitter is better imo
             capabilities = capabilities,
             workspace = {
-              library = {},
+              library = {
+                vim.fn.expand('~/.luarocks/share/lua/5.4'),
+                '/usr/share/lua/5.4',
+              },
             },
           },
         },
