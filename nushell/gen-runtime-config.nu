@@ -55,4 +55,9 @@ def gen-runtime-config [] {
             }
         }
     }
+
+    if (command-exists zoxide) {
+        zoxide init nushell | save -f $"($nu.default-config-dir)/zoxide.nu"
+        save-command "source zoxide.nu"
+    }
 }
