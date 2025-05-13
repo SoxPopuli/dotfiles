@@ -198,9 +198,9 @@ function M.setup()
   ---@field others string[]
   ---@param lst MasonConfig
   local function mason_install(lst)
-    ---@param lsp { setup: fun(config: table) }
+    ---@param name string
     ---@param config table | nil
-    local function setup_with_defaults(lsp, config)
+    local function setup_with_defaults(name, config)
       local defaults = {
         on_attach = M.lsp_on_attach,
         flags = {
@@ -215,7 +215,8 @@ function M.setup()
         config = defaults
       end
 
-      lsp.setup(config)
+      vim.lsp.config(name, config);
+      -- lsp.setup(config)
     end
 
     local lsp_names = fn.map_pairs(lst.lsps, function(name, _)
@@ -237,7 +238,7 @@ function M.setup()
 
     fn.iteri({ lst.lsps, lst.lsp_config_only }, function(x)
       fn.iter_pairs(x, function(name, config)
-        setup_with_defaults(lspconfig[name], config)
+        setup_with_defaults(name, config)
       end)
     end)
   end
@@ -266,7 +267,19 @@ function M.setup()
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose', '--enable-config' },
       },
       -- csharp_ls = {},
-      omnisharp = {},
+      omnisharp = {
+        -- cmd = {
+        --   'omnisharp',
+        --   '-z',
+        --   '--hostPID',
+        --   '24169',
+        --   'DotNet:enablePackageRestore=false',
+        --   '--encoding',
+        --   'utf-8',
+        --   '--languageserver',
+        -- },
+        on_attach = M.lsp_on_attach,
+      },
       cssls = {
         capabilities = (function()
           capabilities.textDocument.completion.completionItem.snippetSupport = true

@@ -1,6 +1,6 @@
 def command-exists [command: string] { not (which $command | is-empty) }
 
-def gen-runtime-config [] {
+export def gen-runtime-config [] {
     let file = $"($nu.default-config-dir)/runtime-config.nu"
 
     def save-command [cmd: string] {

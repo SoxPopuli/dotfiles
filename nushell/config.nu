@@ -178,6 +178,23 @@ $env.config.completions.use_ls_colors = true
 # $env.config.completions.external.completer = {|spans|
 #   carapace $spans.0 nushell ...$spans | from json
 # }
+$env.config.completions.external.completer = {|spans|
+    # if the current command is an alias, get it's expansion
+    let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
+
+    # overwrite
+    let spans = (if $expanded_alias != null  {
+        # put the first word of the expanded alias first in the span
+        $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
+    } else { $spans })
+
+    fish --command $"complete '--do-complete=($spans | str join ' ')'"
+    | from tsv --flexible --noheaders --no-infer
+    | rename value description
+    | update value {
+        if ($in | path exists) {$'"($in | str replace "\"" "\\\"" )"'} else {$in}
+    }
+}
 
 # --------------------
 # Terminal Integration
@@ -990,9 +1007,10 @@ $env.PROMPT_COMMAND = {
 # You can remove duplicate directories from the path using:
 # $env.PATH = ($env.PATH | uniq)
 
-source gen-runtime-config.nu
 source runtime-config.nu
 source private-env.nu
+use gen-runtime-config.nu *
+use functions.nu *
 
 # ▼ Git Aliases
 
@@ -1022,6 +1040,8 @@ alias vim = nvim
 
 alias la = ls -a
 
+alias o = open
+
 $env.PATH ++= [
     "/opt/resolve/bin/",
     "/var/lib/flatpak/exports/bin",
@@ -1037,12 +1057,15 @@ $env.PATH ++= [
     "~/Tools",
     "~/Utilities",
 ]
-$env.AWS_SDK_LOAD_CONFIG = 1 # Use ~/.aws/config to resolve aws credentials
-$env.XDG_CONFIG_HOME = $"($env.HOME)/.config"
-$env.FZF_DEFAULT_OPS = $"--history=($env.HOME)/.fzf_history --tmux"
+$env.PATH = $env.PATH | uniq
 
-$env.GTK_THEME = "Adwaita:dark"
-$env.GTK2_RC_FILES = "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
-$env.QT_QPA_PLATFORMTHEME = "qt6ct"
+load-env {
+    EDITOR: "nvim"
+    AWS_SDK_LOAD_CONFIG: 1 # Use ~/.aws/config to resolve aws credentials
+    XDG_CONFIG_HOME: $"($env.HOME)/.config"
+    FZF_DEFAULT_OPS: $"--history=($env.HOME)/.fzf_history --tmux"
 
-$env.PATH = $env.Path | uniq
+    GTK_THEME: "Adwaita:dark"
+    GTK2_RC_FILES: "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
+    QT_QPA_PLATFORMTHEME: "qt6ct"
+}
