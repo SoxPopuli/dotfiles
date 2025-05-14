@@ -882,8 +882,10 @@ $env.PROMPT_COMMAND = {
         }
         $"─[(ansi white)G(ansi green):($s)(ansi green)]"
     }
+
+    let whoami = $"(ansi yellow)(whoami)(ansi white):"
     
-    $"┬[($dir_string)(ansi green)]($git_string)\n└"
+    $"┬[($whoami)($dir_string)(ansi green)]($git_string)\n└"
 }
 
 # PROMPT_COMMAND_RIGHT
