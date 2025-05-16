@@ -1,4 +1,4 @@
-vim.g.bigfile_size=1024*1024*1 -- 1M
+vim.g.bigfile_size = 1024 * 1024 * 1 -- 1M
 vim.g.mapleader = ','
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.o.termguicolors = true -- Enable full color support
@@ -9,7 +9,6 @@ if vim.go.loadplugins then
   local lazy_setup = require('lazy_setup')
 
   lazy_setup.install_lazy()
-
   lazy_setup.startup()
 
   vim.cmd.packadd('termdebug')
@@ -231,15 +230,15 @@ if vim.fn.has('mac') then
 end
 
 -- abbreviations
-(function ()
-    local abbreviations = {
-      { "stirng", "string" },
-      { "Stirng", "String" }
-    }
+(function()
+  local abbreviations = {
+    { 'stirng', 'string' },
+    { 'Stirng', 'String' },
+  }
 
-    for _, value in pairs(abbreviations) do
-      vim.cmd.iabbrev(value[1] .. " " .. value[2])
-    end
+  for _, value in pairs(abbreviations) do
+    vim.cmd.iabbrev(value[1] .. ' ' .. value[2])
+  end
 end)()
 
 set('n', '<C-t>', function()

@@ -3,7 +3,7 @@ local misc = require('misc')
 local fn = require('functional')
 local codelens = require('lsp.codelens')
 
-local lspconfig = require('lspconfig')
+-- local lspconfig = require('lspconfig')
 local cmp = require('cmp')
 
 -- Enable inlay hints by default
@@ -215,7 +215,7 @@ function M.setup()
         config = defaults
       end
 
-      vim.lsp.config(name, config);
+      vim.lsp.config(name, config)
       -- lsp.setup(config)
     end
 
@@ -243,22 +243,22 @@ function M.setup()
     end)
   end
 
-  lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
-    if config.name == 'ocamllsp' then
-      local filetypes = vim.deepcopy(config.filetypes)
-      table.insert(filetypes, 'ocaml.mlx')
-      config.filetypes = filetypes
+  -- lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
+  --   if config.name == 'ocamllsp' then
+  --     local filetypes = vim.deepcopy(config.filetypes)
+  --     table.insert(filetypes, 'ocaml.mlx')
+  --     config.filetypes = filetypes
 
-      local get_language_id = config.get_language_id
-      function config.get_language_id(bufnr, ft)
-        if ft == 'ocaml.mlx' then
-          return 'ocaml'
-        else
-          return get_language_id(bufnr, ft)
-        end
-      end
-    end
-  end)
+  --     local get_language_id = config.get_language_id
+  --     function config.get_language_id(bufnr, ft)
+  --       if ft == 'ocaml.mlx' then
+  --         return 'ocaml'
+  --       else
+  --         return get_language_id(bufnr, ft)
+  --       end
+  --     end
+  --   end
+  -- end)
 
   mason_install({
     lsps = {
@@ -291,14 +291,6 @@ function M.setup()
       kotlin_language_server = {},
       marksman = {},
       rescriptls = {},
-      -- rust_analyzer = {
-      --   settings = {
-      --     ['rust-analyzer'] = {
-      --       cargo = { features = 'all' },
-      --       check = { features = 'all' }
-      --     },
-      --   },
-      -- },
       taplo = {},
       texlab = {},
       yamlls = {},
@@ -463,6 +455,15 @@ function M.setup()
       --     codelens = { enable = true },
       --   },
       -- },
+      rust_analyzer = {
+        cmd = {},
+        settings = {
+          ['rust-analyzer'] = {
+            cargo = { features = 'all' },
+            check = { features = 'all' }
+          },
+        },
+      },
     },
     others = {
       -- DAP Providers
