@@ -17,6 +17,7 @@ return {
     },
     ft = 'fsharp',
     config = function()
+      vim.lsp.enable('fsautocomplete', false)
       local ionide = require('ionide')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local codelens = require('lsp.codelens')
