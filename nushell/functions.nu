@@ -89,3 +89,24 @@ export def read-env []: string -> record {
     }
     | table to-record key value
 }
+
+# eXamine (open file or ls directory)
+export def x [
+    file?: string
+    -a # show hidden (if directory)
+] {
+    let file = match $in {
+        null => ($file | default "."),
+        _ => $in
+    }
+
+    match ($file | path type) {
+        "file" | "symlink" => (open $file),
+        "dir" => (if $a {
+            (ls -a $file)
+        } else {
+            (ls $file)
+        }),
+        null => null,
+    }
+}
