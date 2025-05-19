@@ -457,12 +457,6 @@ function M.setup()
       -- },
       rust_analyzer = {
         cmd = {},
-        settings = {
-          ['rust-analyzer'] = {
-            cargo = { features = 'all' },
-            check = { features = 'all' }
-          },
-        },
       },
     },
     others = {

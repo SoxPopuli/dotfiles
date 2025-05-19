@@ -194,7 +194,13 @@ $env.config.completions.external.completer = {|spans|
     | update value {
         if ($in | path exists) {$'"($in | str replace "\"" "\\\"" )"'} else {$in}
     }
-    | str trim --char '"'
+    | update value {
+        if ($in | str contains " ") {
+            str replace --all '"' '`'
+        } else {
+            str trim --char '"'
+        }
+    } 
 }
 
 # --------------------
