@@ -52,8 +52,34 @@ export def --wrapped df [...rest] {
 }
 
 # Run gamescope with pre-existing settings
-export def gamescope-start [cmd: string] {
-    gamescope --backend sdl -w 3840 -h 2160 -W 3840 -H 2160 -s 2 --force-grab-cursor $cmd
+export def gamescope-start [
+    cmd: string
+    --backend (-b): string
+    --sensitivity (-s): int
+    --steam (-e)
+    --no-grab-cursor
+] {
+    let backend = $backend | default "sdl"
+    let sensitivity = $sensitivity | default 2
+
+    mut args = [
+        --backend $backend 
+        -w 3840 
+        -h 2160 
+        -W 3840 
+        -H 2160 
+        -s $sensitivity 
+    ]
+
+    if not $no_grab_cursor {
+        $args = $args | append "--force-grab-cursor"
+    }
+
+    if $steam {
+        $args = $args | append "--steam"
+    }
+
+    gamescope ...$args $cmd
 }
 
 export def extract [archive: string] {
