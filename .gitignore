@@ -12,6 +12,7 @@
 !/tools/
 !/nushell/
 !/git/
+!/mpv/
 
 !/flake.nix
 !/install.sh

@@ -137,3 +137,23 @@ export def x [
         null => null,
     }
 }
+
+export def git-log [
+    branch?: string
+    --no-trunc (-t) # Don't truncate subject line
+    --max-subject-len (-l): int
+] {
+    let max_subject_len = $max_subject_len | default 60
+
+    git log --pretty=%h»¦«%s»¦«%aN»¦«%aE»¦«%aD 
+    | lines 
+    | do -i { split column "»¦«" commit subject name email date } 
+    | upsert date {|d| $d.date | into datetime} 
+    | upsert subject { 
+        if not $no_trunc and (($in |  str length) > $max_subject_len) { 
+            ($in | str substring ..=$max_subject_len | str trim --right) + "..." 
+        } else { 
+            $in 
+        }  
+    }
+}
