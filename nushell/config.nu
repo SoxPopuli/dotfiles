@@ -1079,4 +1079,5 @@ load-env {
     GTK_THEME: "Adwaita:dark"
     GTK2_RC_FILES: "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
     QT_QPA_PLATFORMTHEME: "qt6ct"
+    SSH_AUTH_SOCK: $"($env.XDG_RUNTIME_DIR)/ssh-agent.socket"
 }
