@@ -290,7 +290,9 @@ function M.setup()
       html = {},
       kotlin_language_server = {},
       marksman = {},
-      rescriptls = {},
+      rescriptls = {
+        on_attach = M.lsp_on_attach,
+      },
       taplo = {},
       texlab = {},
       yamlls = {},

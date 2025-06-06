@@ -103,8 +103,8 @@ export def read-env []: string -> record {
     $in 
     | lines
     | filter { is-not-empty }
-    | filter { not ($in | str trim | str starts-with '#') }
     | str trim
+    | filter { not ($in | str starts-with '#') }
     | str replace -r '^export ' ''
     | split column -n 2 -r '\s*=\s*'
     | rename key value
