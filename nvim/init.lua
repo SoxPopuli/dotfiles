@@ -15,6 +15,18 @@ if vim.go.loadplugins then
   vim.g.termdebug_wide = 1
 end
 
+-- Explicitly set shell to bash
+vim.go.shell = (function()
+  local result = vim.system({'whereis', 'bash'}, { text = true }):wait()
+
+  if result.code ~= 0 then
+    return vim.go.shell
+  end
+
+  local capture = result.stdout:match([[^bash: ([%w_/%-]+).*$]])
+  return capture
+end)()
+
 vim.o.path = vim.o.path .. '**'
 vim.o.listchars = vim.o.listchars .. ',space:·'
 vim.o.fillchars = 'vert:┃'
