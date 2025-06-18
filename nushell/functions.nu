@@ -51,12 +51,21 @@ export def --wrapped df [...rest] {
     | update 'use%' { str trim --char '%' | into int }
 }
 
+def append-if [condition: bool, element: any]: list -> list {
+    if $condition {
+        $in | append $element
+    } else {
+        $in
+    }
+}
+
 # Run gamescope with pre-existing settings
 export def gamescope-start [
     cmd: string
     --backend (-b): string
     --sensitivity (-s): int
     --steam (-e)
+    --mangoapp (-m)
     --no-grab-cursor
 ] {
     let backend = $backend | default "sdl"
@@ -71,13 +80,9 @@ export def gamescope-start [
         -s $sensitivity 
     ]
 
-    if not $no_grab_cursor {
-        $args = $args | append "--force-grab-cursor"
-    }
-
-    if $steam {
-        $args = $args | append "--steam"
-    }
+    $args = $args | append-if $mangoapp "--mangoapp"
+    $args = $args | append-if (not $no_grab_cursor) "--force-grab-cursor"
+    $args = $args | append-if $steam "--steam"
 
     gamescope ...$args $cmd
 }
@@ -102,9 +107,9 @@ export def "table to-record" [
 export def read-env []: string -> record {
     $in 
     | lines
-    | filter { is-not-empty }
+    | where { is-not-empty }
     | str trim
-    | filter { not ($in | str starts-with '#') }
+    | where { not ($in | str starts-with '#') }
     | str replace -r '^export ' ''
     | split column -n 2 -r '\s*=\s*'
     | rename key value
