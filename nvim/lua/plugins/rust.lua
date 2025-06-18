@@ -9,19 +9,15 @@ vim.g.rustaceanvim = {
     enable_clippy = true,
   },
   server = {
-    -- cmd = function()
-    --   local mason_registry = require('mason-registry')
-    --   if mason_registry.is_installed('rust-analyzer') then
-    --     -- This may need to be tweaked depending on the operating system.
-    --     local ra = mason_registry.get_package('rust-analyzer')
-    --     local ra_filename = ra:get_receipt():get().links.bin['rust-analyzer']
-    --     return { ('%s/%s'):format(ra:get_install_path(), ra_filename or 'rust-analyzer') }
-    --   else
-    --     -- global installation
-    --     return { 'rust-analyzer' }
-    --   end
-    -- end,
-    -- cmd = { '/usr/local/opt/rustup/bin/rust-analyzer' },
+    cmd = (function()
+      local dir = vim.env.HOME .. '/Code/rust-analyzer/target/release/rust-analyzer'
+
+      if vim.uv.fs_stat(dir) then
+        return { dir }
+      else
+        return nil
+      end
+    end)(),
     on_attach = function(client, bufnr)
       require('lsp').lsp_on_attach(client, bufnr)
     end,
