@@ -1054,6 +1054,7 @@ alias lal = ls -al
 alias o = open
 
 $env.PATH ++= [
+    "/usr/local/bin",
     "/opt/resolve/bin/",
     "/var/lib/flatpak/exports/bin",
     "~/.cargo/bin",
@@ -1070,6 +1071,11 @@ $env.PATH ++= [
 ]
 $env.PATH = $env.PATH | uniq
 
+match ($env | get -i XDG_RUNTIME_DIR) {
+    null => ()
+    $x => { $env.SSH_AUTH_SOCK = $"($x)/ssh-agent.socket" }
+}
+
 load-env {
     EDITOR: "nvim"
     AWS_SDK_LOAD_CONFIG: 1 # Use ~/.aws/config to resolve aws credentials
@@ -1079,5 +1085,4 @@ load-env {
     GTK_THEME: "Adwaita:dark"
     GTK2_RC_FILES: "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
     QT_QPA_PLATFORMTHEME: "qt6ct"
-    SSH_AUTH_SOCK: $"($env.XDG_RUNTIME_DIR)/ssh-agent.socket"
 }
