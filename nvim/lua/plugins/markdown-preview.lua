@@ -8,13 +8,12 @@ return {
   },
 
   cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-  --build = 'cd app && yarn install',
-  build = function ()
-    vim.fn["mkdp#util#install"]()
-  end,
+  build = 'bash -c "cd app && npm install"',
   init = function()
     vim.g.mkdp_filetypes = { 'markdown' }
-    vim.g.mkdp_browser = 'firefox'
+    if not (vim.uv.os_uname().sysname == "Darwin") then
+      vim.g.mkdp_browser = 'firefox'
+    end
   end,
   ft = { 'markdown' },
 }
