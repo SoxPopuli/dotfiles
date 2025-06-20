@@ -52,18 +52,6 @@ local plugins = {
     },
   },
 
-  -- Treesitter
-  {
-    'nvim-treesitter/nvim-treesitter',
-    build = function()
-      local tsUpdate = require('nvim-treesitter.install').update({ with_sync = false })
-      tsUpdate()
-    end,
-  },
-
-  { 'HiPhish/rainbow-delimiters.nvim', event = 'VeryLazy', dependencies = { 'nvim-treesitter/nvim-treesitter' } },
-  --use({ "~/Code/lua/rainbow-delimiters.nvim", dependencies = { "nvim-treesitter/nvim-treesitter" } })
-
 
   -- Better Syntax Support
   {'sheerun/vim-polyglot', event = 'VeryLazy' },
