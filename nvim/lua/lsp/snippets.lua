@@ -74,7 +74,7 @@ function M.fsharp()
       'mem',
       fmt(
         [[
-        member {} {} = 
+        member {} {} =
             {}
         ]],
         { i(1, 'fn'), i(2, '()'), i(3, 'failwith "todo"') }
@@ -85,7 +85,7 @@ function M.fsharp()
       'smem',
       fmt(
         [[
-        static member {} {} = 
+        static member {} {} =
             {}
         ]],
         { i(1, 'fn'), i(2, '()'), i(3, 'failwith "todo"') }
@@ -180,6 +180,28 @@ function M.lua()
   })
 end
 
+function M.rescript()
+  ls.add_snippets('rescript', {
+    s('let', fmt([[let {name} = {value}]], { name = i(1, 'name'), value = i(2, 'value') })),
+
+    s(
+      'letfn',
+      fmt(
+        [[
+        let [name] = ([params]) => {
+          [body]
+        }]],
+        {
+          name = i(1, 'name'),
+          params = i(2, ''),
+          body = i(3, ''),
+        },
+        { delimiters = '[]' }
+      )
+    ),
+  })
+end
+
 ---Setup snippets for filetypes
 ---@param fnames string[]
 ---@param fn fun()
@@ -208,6 +230,7 @@ function M.add_all_snippets()
   setup_snippets({ 'fsharp' }, M.fsharp)
   setup_snippets({ 'lua' }, M.lua)
   setup_snippets({ 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' }, M.js)
+  setup_snippets({ 'rescript' }, M.rescript)
 end
 
 return M

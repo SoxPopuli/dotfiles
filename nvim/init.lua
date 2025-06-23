@@ -256,3 +256,9 @@ end)()
 set('n', '<C-t>', function()
   vim.cmd('silent !tmux-sessionizer')
 end, { silent = true, desc = 'Tmux Sessionizer' })
+
+-- unset default keymaps
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'grn')
