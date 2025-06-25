@@ -61,7 +61,7 @@ def append-if [condition: bool, element: any]: list -> list {
 
 # Run gamescope with pre-existing settings
 export def gamescope-start [
-    cmd: string
+    cmd?: string
     --backend (-b): string
     --sensitivity (-s): int
     --steam (-e)
@@ -84,7 +84,11 @@ export def gamescope-start [
     $args = $args | append-if (not $no_grab_cursor) "--force-grab-cursor"
     $args = $args | append-if $steam "--steam"
 
-    gamescope ...$args $cmd
+    if ($cmd | is-not-empty) {
+        gamescope ...$args $cmd
+    } else {
+        gamescope ...$args
+    }
 }
 
 export def extract [archive: string] {
@@ -161,4 +165,14 @@ export def git-log [
             $in 
         }  
     }
+}
+
+export def cargo-test-file [] {
+    cargo test --no-run 
+    | complete
+    | get stderr
+    | lines 
+    | last 
+    | parse -r '\((.*)\)' 
+    | get capture0.0
 }
