@@ -295,6 +295,7 @@ function M.setup()
       },
       taplo = {},
       texlab = {},
+      tinymist = {},
       yamlls = {},
       terraformls = {},
       ts_ls = {},
