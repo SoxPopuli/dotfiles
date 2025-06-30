@@ -64,6 +64,10 @@ export def gamescope-start [
     cmd?: string
     --backend (-b): string
     --sensitivity (-s): int
+    --output-width (-W): int # Output width
+    --output-height (-H): int # Output height
+    --nested-width (-w): int # Game width
+    --nested-height (-h): int # Game height
     --steam (-e)
     --mangoapp (-m)
     --no-grab-cursor
@@ -73,10 +77,10 @@ export def gamescope-start [
 
     mut args = [
         --backend $backend 
-        -w 3840 
-        -h 2160 
-        -W 3840 
-        -H 2160 
+        -w ($nested_width | default 3840) 
+        -h ($nested_height | default 2160)
+        -W ($output_width | default 3840)
+        -H ($output_height | default 2160)
         -s $sensitivity 
     ]
 
