@@ -74,6 +74,12 @@ return {
     lazy = true,
     opts = {
       formatters = {
+        csharpier = {
+          inherit = true,
+          command = path('csharpier'),
+          args = { 'format', '$FILENAME' },
+          stdin = false,
+        },
         ocamlformat_mlx = {
           inherit = false,
           command = 'ocamlformat-mlx',

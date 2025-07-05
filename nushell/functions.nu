@@ -119,15 +119,14 @@ export def read-env []: string -> record {
     | str trim
     | where { not ($in | str starts-with '#') }
     | str replace -r '^export ' ''
-    | split column -n 2 -r '\s*=\s*'
-    | rename key value
+    | split column -n 2 -r '\s*=\s*' key value
     | upsert value { default "" | str trim -c '"' }
     | each { |row|
         if ($row.value | str starts-with '$') {
             update value { ^bash -c $"echo ($row.value)" }
         } else { $row }
     }
-    | table to-record key value
+    | transpose -r -d
 }
 
 # eXamine (open file or ls directory)
