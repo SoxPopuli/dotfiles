@@ -1055,6 +1055,7 @@ alias o = open
 
 $env.PATH ++= [
     "/usr/local/bin",
+    "/usr/local/share/dotnet",
     "/opt/resolve/bin/",
     "/var/lib/flatpak/exports/bin",
     "~/.cargo/bin",

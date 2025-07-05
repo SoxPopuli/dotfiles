@@ -119,15 +119,14 @@ export def read-env []: string -> record {
     | str trim
     | where { not ($in | str starts-with '#') }
     | str replace -r '^export ' ''
-    | split column -n 2 -r '\s*=\s*'
-    | rename key value
+    | split column -n 2 -r '\s*=\s*' key value
     | upsert value { default "" | str trim -c '"' }
     | each { |row|
         if ($row.value | str starts-with '$') {
             update value { ^bash -c $"echo ($row.value)" }
         } else { $row }
     }
-    | table to-record key value
+    | transpose -r -d
 }
 
 # eXamine (open file or ls directory)
@@ -179,4 +178,18 @@ export def cargo-test-file [] {
     | last 
     | parse -r '\((.*)\)' 
     | get capture0.0
+}
+
+export def cloc [] {
+    let files = git ls-files | lines
+    let loc = ^cloc --json ...$files | from json
+
+    $loc
+    | transpose language info
+    | upsert file_count { |x| $x.info | get -i nFiles }
+    | upsert blank { |x| $x.info | get -i blank }
+    | upsert comment { |x| $x.info | get -i comment }
+    | upsert code { |x| $x.info | get -i code }
+    | reject info
+    | skip 1
 }
