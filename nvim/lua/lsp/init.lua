@@ -213,6 +213,7 @@ function M.setup()
         config = defaults
       end
 
+      vim.lsp.enable(name)
       vim.lsp.config(name, config)
       -- lsp.setup(config)
     end
@@ -365,6 +366,7 @@ function M.setup()
       rust_analyzer = {
         cmd = {},
       },
+      nushell = {}
     },
     others = {
       -- DAP Providers

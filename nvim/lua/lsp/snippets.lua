@@ -182,7 +182,29 @@ end
 
 function M.rescript()
   ls.add_snippets('rescript', {
-    s('let', fmt([[let {name} = {value}]], { name = i(1, 'name'), value = i(2, 'value') })),
+    s({ trig = 'let', desc = 'variable or function' }, {
+
+      c(1, {
+        sn(nil, {
+          t('let '),
+          r(1, 'name'),
+          t(' = '),
+          i(2, 'value'),
+        }, { key = 'var' }),
+
+        sn(nil, {
+          t('let '),
+          r(1, 'name'),
+          t(' = ('),
+          i(2, ''),
+          t(') => { '),
+          i(3, ''),
+          t(' }'),
+        }),
+      }),
+    }, {
+      stored = { name = i(1, 'name') },
+    }),
 
     s(
       'letfn',
