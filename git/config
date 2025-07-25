@@ -22,3 +22,5 @@
 	layout = "LOCAL,BASE,REMOTE / MERGED"
 [init]
 	defaultBranch = main
+[push]
+    autoSetupRemote = true

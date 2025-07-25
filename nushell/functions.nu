@@ -170,8 +170,8 @@ export def git-log [
     }
 }
 
-export def cargo-test-file [] {
-    cargo test --no-run 
+export def --wrapped cargo-test-file [...args] {
+    cargo test --no-run ...$args
     | complete
     | get stderr
     | lines 
