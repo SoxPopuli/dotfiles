@@ -27,3 +27,5 @@ alias ll = ls -l
 alias lal = ls -al
 
 alias o = open
+
+alias pn = pnpm
