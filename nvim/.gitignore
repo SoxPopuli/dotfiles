@@ -2,3 +2,6 @@ autoload/
 !autoload/plug.vim
 plugin/packer_compiled.lua
 deps/tree-sitter-fsharp/fsharp/package-lock.json
+
+# Lazy lockfile
+lazy-lock.json
