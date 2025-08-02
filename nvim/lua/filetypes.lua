@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
 })
 
 vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufReadPost' }, {
-  pattern = '*.res',
+  pattern = '*.res,*.resi',
   callback = function(ev)
     vim.bo[ev.buf].ft = 'rescript'
   end,
