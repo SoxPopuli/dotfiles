@@ -1,0 +1,8 @@
+---@class AutocmdEvent
+---@field id number autocommand id
+---@field event string name of the triggered event *see: autocmd-events*
+---@field group number|nil autocommand group id, if any
+---@field file string \<afile> (not expanded to a full path)
+---@field match string \<amatch> (expanded to a full path)
+---@field buf number arbitrary data passed from
+---@field data any
