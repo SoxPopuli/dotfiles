@@ -88,8 +88,6 @@ function M.lsp_on_attach(_, bufnr)
   vim.keymap.set('n', 'gr', functions.references, { buffer = bufnr, desc = 'Go to references' })
 
   vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'Signature help' })
-  -- hints.setup()
-  -- hints.on_attach(client, bufnr)
 end
 
 local function mason_install_list(list)
@@ -197,7 +195,7 @@ function M.setup()
   ---@field lsp_config_only { [string]: table }
   ---@field others string[]
   ---@param lst MasonConfig
-  local function mason_install(lst)
+  local function lsp_setup_and_install(lst)
     ---@param name string
     ---@param config table | nil
     local function setup_with_defaults(name, config)
@@ -243,41 +241,13 @@ function M.setup()
     end)
   end
 
-  -- lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
-  --   if config.name == 'ocamllsp' then
-  --     local filetypes = vim.deepcopy(config.filetypes)
-  --     table.insert(filetypes, 'ocaml.mlx')
-  --     config.filetypes = filetypes
-
-  --     local get_language_id = config.get_language_id
-  --     function config.get_language_id(bufnr, ft)
-  --       if ft == 'ocaml.mlx' then
-  --         return 'ocaml'
-  --       else
-  --         return get_language_id(bufnr, ft)
-  --       end
-  --     end
-  --   end
-  -- end)
-
-  mason_install({
+  lsp_setup_and_install({
     lsps = {
       bashls = {},
       clangd = {
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose', '--enable-config' },
       },
-      -- csharp_ls = {},
       omnisharp = {
-        -- cmd = {
-        --   'omnisharp',
-        --   '-z',
-        --   '--hostPID',
-        --   '24169',
-        --   'DotNet:enablePackageRestore=false',
-        --   '--encoding',
-        --   'utf-8',
-        --   '--languageserver',
-        -- },
         on_attach = M.lsp_on_attach,
       },
       cssls = {
@@ -339,20 +309,6 @@ function M.setup()
         },
       },
       pyright = {},
-      -- nil_ls = {
-      --   settings = {
-      --     ['nil'] = {
-      --       nix = {
-      --         maxMemoryMB = 8192,
-      --         flake = {
-      --           autoArchive = true,
-      --           autoEvalInputs = true,
-      --           nixpkgsInputName = 'nixpkgs',
-      --         },
-      --       },
-      --     },
-      --   },
-      -- },
       lua_ls = {
         on_attach = function(client, bufnr)
           M.lsp_on_attach(client, bufnr)
@@ -382,40 +338,6 @@ function M.setup()
           },
         },
       },
-      -- fsautocomplete = {
-      --   on_new_config = function(new_config, new_root_dir)
-      --     -- table.insert(new_config.cmd, "--state-directory")
-      --     -- table.insert(new_config.cmd, new_root_dir .. "/.ionide")
-      --     new_config.cmd[3] = '--state-directory'
-      --     new_config.cmd[4] = new_root_dir .. '/.ionide/'
-      --   end,
-      --   on_attach = function(client, bufnr)
-      --     M.lsp_on_attach(client, bufnr)
-      --     require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
-      --     codelens.setup_codelens_refresh(bufnr)
-      --   end,
-      --   settings = {
-      --     FSharp = {
-      --       keywordsAutocomplete = false,
-      --       ExternalAutocomplete = false,
-      --       Linter = true,
-      --       UnionCaseStubGeneration = true,
-      --       UnionCaseStubGenerationBody = 'failwith "todo"',
-      --       RecordStubGeneration = true,
-      --       RecordStubGenerationBody = 'failwith "todo"',
-      --       InterfaceStubGeneration = true,
-      --       InterfaceStubGenerationBody = 'failwith "todo"',
-      --       InterfaceStubGenerationObjectIdentifier = 'this',
-      --       ResolveNamespaces = true,
-      --       SimplifyNameAnalyzer = true,
-      --       UnusedOpensAnalyzer = true,
-      --       UnusedDeclarationsAnalyzer = true,
-      --       CodeLenses = { Signature = { Enabled = true }, References = { Enabled = true } },
-      --       LineLens = { Enabled = 'always', Prefix = '' },
-      --       PipelineHints = { Enabled = true, Prefix = '' },
-      --     },
-      --   },
-      -- },
       jsonls = {
         settings = {
           json = {
@@ -435,29 +357,11 @@ function M.setup()
           M.lsp_on_attach(client, bufnr)
           codelens.setup_codelens_refresh(bufnr)
         end,
-        --root_dir = get_ocaml_root,
-        --cmd = { misc.build_path({ get_ocaml_root(), "_opam", "bin", "ocamllsp" }) },
         settings = {
           extendedHover = { enable = true },
           codelens = { enable = true },
         },
       },
-      -- dartls = {
-      --   on_attach = M.lsp_on_attach,
-      --   cmd = { 'dart', 'language-server', '--protocol=lsp' },
-      -- },
-      -- ['ocaml.mlx'] = {
-      --   on_attach = function(client, bufnr)
-      --     M.lsp_on_attach(client, bufnr)
-      --     codelens.setup_codelens_refresh(bufnr)
-      --   end,
-      --   --root_dir = get_ocaml_root,
-      --   --cmd = { misc.build_path({ get_ocaml_root(), "_opam", "bin", "ocamllsp" }) },
-      --   settings = {
-      --     extendedHover = { enable = true },
-      --     codelens = { enable = true },
-      --   },
-      -- },
       rust_analyzer = {
         cmd = {},
       },
