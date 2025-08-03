@@ -1,1 +1,0 @@
-../../../deps/tree-sitter-fsharp/queries/locals.scm

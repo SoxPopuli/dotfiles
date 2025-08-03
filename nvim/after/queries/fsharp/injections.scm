@@ -1,1 +1,0 @@
-../../../deps/tree-sitter-fsharp/queries/injections.scm

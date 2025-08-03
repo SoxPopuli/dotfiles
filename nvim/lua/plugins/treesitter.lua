@@ -27,8 +27,6 @@ return {
         },
       }
 
-      vim.treesitter.language.register('ocaml_mlx', 'ocaml.mlx')
-
       local setupConfig = {
         ensure_installed = {
           'c_sharp',

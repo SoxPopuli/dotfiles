@@ -193,3 +193,12 @@ export def cloc [] {
     | reject info
     | skip 1
 }
+
+export def --wrapped opam-env [...args] {
+    opam env ...$args
+    | lines 
+    | each { str replace -r ';.*$' '' } 
+    | split column -n 2 '=' key value 
+    | upsert value { str trim -c "'" } 
+    | transpose -rd
+}

@@ -63,9 +63,7 @@ return {
       'nvim-treesitter/nvim-treesitter',
     },
     config = function()
-      require('lsp').setup()
       require('ocaml_mlx')
-      vim.cmd.setfiletype('ocaml.mlx')
     end,
     event = 'BufRead *.mlx',
   },
@@ -79,12 +77,6 @@ return {
           command = path('csharpier'),
           args = { 'format', '$FILENAME' },
           stdin = false,
-        },
-        ocamlformat_mlx = {
-          inherit = false,
-          command = 'ocamlformat-mlx',
-          args = { '--name', '$FILENAME', '--impl', '-' },
-          stdin = true,
         },
       },
 
