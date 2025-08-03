@@ -29,3 +29,5 @@ alias lal = ls -al
 alias o = open
 
 alias pn = pnpm
+
+alias oil = nvim -c Oil

@@ -194,8 +194,21 @@ function M.rescript()
         {
           name = i(1, 'name'),
           params = i(2, ''),
-          body = i(3, ''),
+          body = i(3, '()'),
         },
+        { delimiters = '[]' }
+      )
+    ),
+
+    s(
+      'mod',
+      fmt(
+        [[
+        module [name] = {
+            [body]
+        }
+      ]],
+        { name = i(1, 'Name'), body = i(2, '') },
         { delimiters = '[]' }
       )
     ),
