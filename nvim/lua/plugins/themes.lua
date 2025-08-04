@@ -3,15 +3,16 @@ return {
   {
     'catppuccin/nvim',
     name = 'catppuccin',
-    lazy = true,
+    tag = 'v1.10.0',
+    lazy = false,
     priority = 1000,
-    -- config = function()
-    --   vim.cmd.colorscheme('catppuccin-mocha')
-    -- end,
+    config = function()
+      vim.cmd.colorscheme('catppuccin-mocha')
+    end,
   },
   {
     'folke/tokyonight.nvim',
-    lazy = false,
+    lazy = true,
     priority = 1000,
     config = function()
       vim.cmd.colorscheme('tokyonight')
