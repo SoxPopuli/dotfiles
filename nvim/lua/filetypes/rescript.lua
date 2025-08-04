@@ -34,7 +34,7 @@ function M.setup(event)
 
   vim.api.nvim_create_autocmd('SafeState', {
     callback = function(_)
-      set_highlight_groups()
+      -- set_highlight_groups()
     end,
     once = true,
     buffer = event.buf,

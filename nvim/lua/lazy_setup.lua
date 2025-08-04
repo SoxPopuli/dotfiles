@@ -21,23 +21,12 @@ local plugins = {
   -- TODO: migrate to plugins folder
   { import = 'plugins' },
 
-  {'andweeb/presence.nvim', event = 'VeryLazy' },
+  { 'andweeb/presence.nvim', event = 'VeryLazy' },
 
   'nvim-lualine/lualine.nvim',
 
   'tpope/vim-surround',
   'tpope/vim-repeat',
-
-  { 'dracula/vim', name = 'dracula', lazy = true, priority = 1000 },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.cmd.colorscheme('catppuccin-mocha')
-    end,
-  },
 
   {
     'mbbill/undotree',
@@ -52,12 +41,11 @@ local plugins = {
     },
   },
 
-
   -- Better Syntax Support
-  {'sheerun/vim-polyglot', event = 'VeryLazy' },
+  { 'sheerun/vim-polyglot', event = 'VeryLazy' },
 
   -- Async linting
-  {'mfussenegger/nvim-lint', event = 'VeryLazy'},
+  { 'mfussenegger/nvim-lint', event = 'VeryLazy' },
 
   { 'nvim-tree/nvim-web-devicons', lazy = true },
   { 'rescript-lang/vim-rescript', ft = 'rescript' },

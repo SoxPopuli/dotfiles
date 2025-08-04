@@ -23,21 +23,17 @@ end
 local function config()
   local luasnip = require('luasnip')
 
-  vim.keymap.set({ 'i', 's' }, '<C-e>', function()
+  vim.keymap.set({ 'i', 's' }, '<C-p>', function()
     if luasnip.choice_active() then
       luasnip.change_choice(1)
+    elseif not jump_prev() then
+      return '<C-p>'
     end
   end)
 
   vim.keymap.set({ 'i', 's' }, '<C-n>', function()
     if not jump_next() then
       return '<C-n>'
-    end
-  end)
-
-  vim.keymap.set({ 'i', 's' }, '<C-p>', function()
-    if not jump_prev() then
-      return '<C-p>'
     end
   end)
 
