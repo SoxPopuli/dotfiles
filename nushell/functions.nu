@@ -186,10 +186,10 @@ export def cloc [] {
 
     $loc
     | transpose language info
-    | upsert file_count { |x| $x.info | get -i nFiles }
-    | upsert blank { |x| $x.info | get -i blank }
-    | upsert comment { |x| $x.info | get -i comment }
-    | upsert code { |x| $x.info | get -i code }
+    | upsert file_count { |x| $x.info | get -o nFiles }
+    | upsert blank { |x| $x.info | get -o blank }
+    | upsert comment { |x| $x.info | get -o comment }
+    | upsert code { |x| $x.info | get -o code }
     | reject info
     | skip 1
 }

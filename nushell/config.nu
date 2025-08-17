@@ -180,7 +180,7 @@ $env.config.completions.use_ls_colors = true
 # }
 $env.config.completions.external.completer = {|spans|
     # if the current command is an alias, get it's expansion
-    let expanded_alias = (scope aliases | where name == $spans.0 | get -i 0 | get -i expansion)
+    let expanded_alias = (scope aliases | where name == $spans.0 | get -o 0 | get -i expansion)
 
     # overwrite
     let spans = (if $expanded_alias != null  {
@@ -1041,7 +1041,7 @@ $env.PATH ++= [
 ]
 $env.PATH = $env.PATH | uniq
 
-match ($env | get -i XDG_RUNTIME_DIR) {
+match ($env | get -o XDG_RUNTIME_DIR) {
     null => ()
     $x => { $env.SSH_AUTH_SOCK = $"($x)/ssh-agent.socket" }
 }
