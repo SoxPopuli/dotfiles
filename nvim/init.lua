@@ -60,6 +60,8 @@ vim.o.foldlevel = 16
 
 vim.o.fixeol = false -- Preserve original end of line status
 
+vim.o.jumpoptions = 'stack'
+
 require('commands')
 require('filetypes')
 

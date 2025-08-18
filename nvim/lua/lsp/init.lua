@@ -3,7 +3,6 @@ local misc = require('misc')
 local fn = require('functional')
 local codelens = require('lsp.codelens')
 
--- local lspconfig = require('lspconfig')
 local cmp = require('cmp')
 
 -- Enable inlay hints by default
@@ -189,6 +188,21 @@ function M.setup()
 
   -- Set up lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  capabilities = vim.tbl_deep_extend('force', capabilities, {
+    textDocument = {
+      diagnostic = {
+        dynamicRegistration = true,
+      },
+    },
+    workspace = {
+      didChangeWorkspaceFolders = {
+        dynamicRegistration = true,
+      },
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      },
+    },
+  })
 
   ---@class MasonConfig
   ---@field lsps { [string]: table }
@@ -207,15 +221,10 @@ function M.setup()
         capabilities = capabilities,
       }
 
-      if config ~= nil then
-        config = vim.tbl_deep_extend('force', defaults, config)
-      else
-        config = defaults
-      end
+      local old_config = vim.lsp.config[name]
 
+      vim.lsp.config(name, vim.tbl_deep_extend('force', defaults, old_config, config or {}))
       vim.lsp.enable(name)
-      vim.lsp.config(name, config)
-      -- lsp.setup(config)
     end
 
     local lsp_names = fn.map_pairs(lst.lsps, function(name, _)
@@ -231,6 +240,12 @@ function M.setup()
     if is_nixos == false then
       require('mason-lspconfig').setup({
         ensure_installed = lsp_names,
+        automatic_enable = {
+          exclude = {
+            'rust_analyzer',
+            -- 'ts_ls',
+          },
+        },
       })
       mason_install_list(lst.others)
     end
@@ -353,20 +368,17 @@ function M.setup()
       },
     },
     lsp_config_only = {
-      ocamllsp = {
-        on_attach = function(client, bufnr)
-          M.lsp_on_attach(client, bufnr)
-          codelens.setup_codelens_refresh(bufnr)
-        end,
-        settings = {
-          extendedHover = { enable = true },
-          codelens = { enable = true },
-        },
-      },
-      rust_analyzer = {
-        cmd = {},
-      },
       nushell = {}
+      -- ocamllsp = {
+      --   on_attach = function(client, bufnr)
+      --     M.lsp_on_attach(client, bufnr)
+      --     codelens.setup_codelens_refresh(bufnr)
+      --   end,
+      --   settings = {
+      --     extendedHover = { enable = true },
+      --     codelens = { enable = true },
+      --   },
+      -- },
     },
     others = {
       -- DAP Providers

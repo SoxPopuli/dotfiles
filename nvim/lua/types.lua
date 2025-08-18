@@ -4,5 +4,5 @@
 ---@field group number|nil autocommand group id, if any
 ---@field file string \<afile> (not expanded to a full path)
 ---@field match string \<amatch> (expanded to a full path)
----@field buf number arbitrary data passed from
----@field data any
+---@field buf number buffer number
+---@field data any arbitrary data passed in

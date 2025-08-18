@@ -28,6 +28,21 @@ local function set_highlight_groups()
   hl('@constructor.rescript', 'Label')
 end
 
+local function refresh_diagnostics(buf)
+  local clients = vim.lsp.get_clients({ bufnr = buf })
+
+  for _, client in ipairs(clients) do
+    local name = client.name
+    -- vim.cmd({ cmd = 'LspRestart', args = { name } })
+    client:notify('textDocument/diagnostic', {
+      textDocument = vim.lsp.util.make_text_document_params(),
+    })
+  end
+
+  -- vim.lsp.enable('rescriptls', false)
+  -- vim.lsp.enable('rescriptls', true)
+end
+
 ---@param event AutocmdEvent
 function M.setup(event)
   vim.keymap.set('n', '<M-i>', rescript_switch_file)
@@ -39,6 +54,28 @@ function M.setup(event)
     once = true,
     buffer = event.buf,
   })
+
+  vim.api.nvim_create_autocmd('BufWritePost', {
+    ---@param e AutocmdEvent
+    callback = function(e)
+      -- refresh_diagnostics(e.buf)
+    end,
+  })
+
+  -- vim.lsp.log.set_level(0)
+  -- vim.lsp.log.set_format_func(vim.inspect)
+
+  -- vim.api.nvim_create_autocmd('LspNotify', {
+  --   callback = function(args)
+  --     local bufnr = args.buf
+  --     local client_id = args.data.client_id
+  --     local method = args.data.method
+  --     local params = args.data.params
+
+  --     -- do something with the notification
+  --     print(method .. '{ ' .. vim.inspect(params) .. ' }')
+  --   end,
+  -- })
 end
 
 return M
