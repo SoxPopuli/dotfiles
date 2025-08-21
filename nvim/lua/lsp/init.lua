@@ -248,18 +248,17 @@ function M.setup()
         automatic_enable = {
           exclude = {
             'rust_analyzer',
-            -- 'ts_ls',
           },
         },
       })
       mason_install_list(lst.others)
     end
 
-    fn.iteri({ lst.lsps, lst.lsp_config_only }, function(x)
-      fn.iter_pairs(x, function(name, config)
+    for _, lsp_config in pairs({ lst.lsps, lst.lsp_config_only }) do
+      for name, config in pairs(lsp_config) do
         setup_with_defaults(name, config)
-      end)
-    end)
+      end
+    end
   end
 
   lsp_setup_and_install({
@@ -285,17 +284,25 @@ function M.setup()
       tinymist = {},
       yamlls = {},
       terraformls = {},
-      ts_ls = {},
+      ts_ls = {
+        root_markers = {
+          'package-lock.json',
+          'yarn.lock',
+          'pnpm-lock.yaml',
+          'bun.lockb',
+          'bun.lock',
+        },
+      },
       purescriptls = {
         settings = {
           purescript = { addSpagoSources = true, censorWarnings = { 'ShadowedName', 'MissingTypeDeclaration' } },
         },
       },
       hls = {
-        on_attach = function(client, bufnr)
-          M.lsp_on_attach(client, bufnr)
-          vim.keymap.set('<space>cl', vim.lsp.codelens.run, { buffer = bufnr })
-        end,
+        -- on_attach = function(client, bufnr)
+        --   M.lsp_on_attach(client, bufnr)
+        --   vim.keymap.set('<space>cl', vim.lsp.codelens.run, { buffer = bufnr })
+        -- end,
         settings = {
           haskell = {
             plugin = {
@@ -397,6 +404,8 @@ function M.setup()
       'shellcheck',
     },
   })
+
+  vim.lsp.config.ts_ls.root_dir = nil
 end
 
 return M
