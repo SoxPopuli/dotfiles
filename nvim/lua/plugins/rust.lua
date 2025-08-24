@@ -9,15 +9,15 @@ vim.g.rustaceanvim = {
     enable_clippy = true,
   },
   server = {
-    cmd = (function()
-      -- local dir = vim.env.HOME .. '/Code/rust-analyzer/target/release/rust-analyzer'
+    -- cmd = (function()
+    --   local dir = vim.env.HOME .. '/Code/rust-analyzer/target/release/rust-analyzer'
 
-      -- if vim.uv.fs_stat(dir) then
-      --   return { dir }
-      -- else
-      --   return nil
-      -- end
-    end)(),
+    --   if vim.uv.fs_stat(dir) then
+    --     return { dir }
+    --   else
+    --     return nil
+    --   end
+    -- end)(),
     on_attach = function(client, bufnr)
       require('lsp').lsp_on_attach(client, bufnr)
     end,
