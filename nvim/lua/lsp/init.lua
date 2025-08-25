@@ -213,17 +213,22 @@ function M.setup()
     ---@param name string
     ---@param config table | nil
     local function setup_with_defaults(name, config)
+      local old_config = vim.lsp.config[name]
+
       local defaults = {
-        on_attach = M.lsp_on_attach,
+        on_attach = function(client, buf)
+          if old_config and old_config.on_attach then
+            old_config.on_attach(client, buf)
+          end
+          M.lsp_on_attach(client, buf)
+        end,
         flags = {
           debounce_text_changes = 300,
         },
         capabilities = capabilities,
       }
 
-      local old_config = vim.lsp.config[name]
-
-      vim.lsp.config(name, vim.tbl_deep_extend('force', defaults, old_config, config or {}))
+      vim.lsp.config(name, vim.tbl_deep_extend('force', old_config, defaults, config or {}))
       vim.lsp.enable(name)
     end
 
