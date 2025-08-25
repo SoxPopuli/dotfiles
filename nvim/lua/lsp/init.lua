@@ -213,7 +213,7 @@ function M.setup()
     ---@param name string
     ---@param config table | nil
     local function setup_with_defaults(name, config)
-      local old_config = vim.lsp.config[name]
+      local old_config = vim.lsp.config[name] or {}
 
       local defaults = {
         on_attach = function(client, buf)
@@ -268,9 +268,7 @@ function M.setup()
       clangd = {
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose', '--enable-config' },
       },
-      omnisharp = {
-        on_attach = M.lsp_on_attach,
-      },
+      omnisharp = {},
       cssls = {
         capabilities = (function()
           capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -281,9 +279,7 @@ function M.setup()
       html = {},
       kotlin_language_server = {},
       marksman = {},
-      rescriptls = {
-        on_attach = M.lsp_on_attach,
-      },
+      rescriptls = {},
       taplo = {},
       texlab = {},
       tinymist = {},
@@ -291,7 +287,6 @@ function M.setup()
       terraformls = {},
       ts_ls = {},
       purescriptls = {
-        on_attach = M.lsp_on_attach,
         settings = {
           purescript = { addSpagoSources = true, censorWarnings = { 'ShadowedName', 'MissingTypeDeclaration' } },
         },
@@ -331,9 +326,6 @@ function M.setup()
       },
       pyright = {},
       lua_ls = {
-        on_attach = function(client, bufnr)
-          M.lsp_on_attach(client, bufnr)
-        end,
         settings = {
           filetypes = { 'lua' },
           Lua = {
