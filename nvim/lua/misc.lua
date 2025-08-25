@@ -113,4 +113,24 @@ function M.contains(list, pred)
   return false
 end
 
+--- Remove last extension from path
+---@param s string
+---@return string
+function M.remove_ext(s)
+  local index = -1
+  local dot_char = ('.'):byte()
+  for i = s:len(), 1, -1 do
+    if s:byte(i) == dot_char then
+      index = i
+      break
+    end
+  end
+
+  if index ~= -1 then
+    return s:sub(1, index - 1)
+  else
+    return s
+  end
+end
+
 return M

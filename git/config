@@ -26,3 +26,5 @@
     autoSetupRemote = true
 [blame]
 	ignoreRevsFile = .git-blame-ignore-revs
+[rerere]
+	enabled = true

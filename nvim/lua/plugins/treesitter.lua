@@ -75,17 +75,15 @@ return {
   },
 
   {
-    'HiPhish/rainbow-delimiters.nvim',
+    'SoxPopuli/rainbow-delimiters.nvim',
+    branch = 'rescript',
     event = 'VeryLazy',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      local rainbow_delimiters = require('rainbow-delimiters')
-      -- rainbow_delimiters.setup({})
-
-      vim.g.rainbow_delimiters = {
+      require('rainbow-delimiters.setup')({
         strategy = {
-          [''] = rainbow_delimiters.strategy['global'],
-          vim = rainbow_delimiters.strategy['local'],
+          [''] = 'rainbow-delimiters.strategy.global',
+          vim = 'rainbow-delimiters.strategy.local',
         },
         query = {
           [''] = 'rainbow-delimiters',
@@ -100,7 +98,7 @@ return {
           'RainbowDelimiterViolet',
           'RainbowDelimiterCyan',
         },
-      }
+      })
     end,
   },
 }
