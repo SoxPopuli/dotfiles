@@ -374,16 +374,15 @@ function M.setup()
     lsp_config_only = {
       nushell = {},
       ocamllsp = {
-        cmd = function()
-          return { 'ocamllsp' }
-        end,
-        on_attach = function(client, bufnr)
-          M.lsp_on_attach(client, bufnr)
-          codelens.setup_codelens_refresh(bufnr)
-        end,
+        -- on_attach = function(client, bufnr)
+        --   M.lsp_on_attach(client, bufnr)
+        --   codelens.setup_codelens_refresh(bufnr)
+        -- end,
         settings = {
           extendedHover = { enable = true },
           codelens = { enable = true },
+          inlayHints = { enable = true },
+          syntaxDocumentation = { enable = true },
         },
       },
     },

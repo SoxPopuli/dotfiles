@@ -19,6 +19,7 @@ export def main [] {
 
     '' | save -f $file
 
+    save-command "use functions.nu *"
     save-command "use std/util \"path add\""
 
     save-path "/opt/homebrew/bin"
