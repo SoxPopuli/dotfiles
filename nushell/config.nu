@@ -1016,7 +1016,6 @@ $env.PROMPT_COMMAND = {
 # You can remove duplicate directories from the path using:
 # $env.PATH = ($env.PATH | uniq)
 
-source runtime-config.nu
 source private-env.nu
 source aliases.nu
 use gen-runtime-config.nu *
@@ -1056,3 +1055,5 @@ load-env {
     GTK2_RC_FILES: "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
     QT_QPA_PLATFORMTHEME: "qt6ct"
 }
+
+source runtime-config.nu
