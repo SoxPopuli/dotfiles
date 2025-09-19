@@ -178,30 +178,13 @@ $env.config.completions.use_ls_colors = true
 # $env.config.completions.external.completer = {|spans|
 #   carapace $spans.0 nushell ...$spans | from json
 # }
-$env.config.completions.external.completer = {|spans|
-    # if the current command is an alias, get it's expansion
-    let expanded_alias = (scope aliases | where name == $spans.0 | get -o 0 | get -o expansion)
 
-    # overwrite
-    let spans = (if $expanded_alias != null  {
-        # put the first word of the expanded alias first in the span
-        $spans | skip 1 | prepend ($expanded_alias | split row " " | take 1)
-    } else { $spans })
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+mkdir ~/.cache/carapace
+carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
 
-    fish --command $"complete '--do-complete=($spans | str join ' ')'"
-    | from tsv --flexible --noheaders --no-infer
-    | rename value description
-    | update value {
-        if ($in | path exists) {$'"($in | str replace "\"" "\\\"" )"'} else {$in}
-    }
-    | update value {
-        if ($in | str contains " ") {
-            str replace --all '"' '`'
-        } else {
-            str trim --char '"'
-        }
-    } 
-}
+#~/.config/nushell/config.nu
+source ~/.cache/carapace/init.nu
 
 # --------------------
 # Terminal Integration
