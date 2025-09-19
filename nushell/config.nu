@@ -178,12 +178,6 @@ $env.config.completions.use_ls_colors = true
 # $env.config.completions.external.completer = {|spans|
 #   carapace $spans.0 nushell ...$spans | from json
 # }
-
-$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-mkdir ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
-
-#~/.config/nushell/config.nu
 source ~/.cache/carapace/init.nu
 
 # --------------------
