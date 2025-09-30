@@ -42,21 +42,6 @@ export def main [] {
         save-alias cat "bat"
     }
 
-    if (command-exists "fnm") {
-        let vars = fnm env --shell bash
-            | lines 
-            | parse 'export {key}={value}' 
-            | upsert 'value' { |x| $x.value | str replace ':"$PATH"' '' }
-
-        for $it in $vars {
-            if ($it.key == "PATH") {
-                save-command $"path add ($it.value)"
-            } else {
-                save-command $"$env.($it.key) = ($it.value)"
-            }
-        }
-    }
-
     if (command-exists zoxide) {
         zoxide init nushell | save -f $"($nu.default-config-dir)/zoxide.nu"
         save-command "source zoxide.nu"

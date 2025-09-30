@@ -16,6 +16,30 @@
 #
 # You can remove these comments if you want or leave
 # them for future reference.
-$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-mkdir ~/.cache/carapace
-carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+def command-exists [command: string] { not (which $command | is-empty) }
+
+if (command-exists carapace) {
+    $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+    mkdir ~/.cache/carapace
+    carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+}
+
+use std/util "path add"
+
+if (command-exists fnm) {
+    let vars: list = fnm env --shell bash
+        | lines 
+        | parse 'export {key}={value}' 
+        | upsert 'value' { |x| $x.value | str replace ':"$PATH"' '' }
+
+    let vars: record = $vars | transpose -rd
+
+    let path = $vars | get -o "PATH"
+    let vars = $vars | reject "PATH"
+
+    if ($path != null) {
+        path add $path
+    }
+
+    load-env $vars
+}

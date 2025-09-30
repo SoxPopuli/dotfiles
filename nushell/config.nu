@@ -423,7 +423,19 @@ source ~/.cache/carapace/init.nu
 #          It can be reset by assigning an empty string as below:
 
 # Before each prompt is displayed
-# $env.config.hooks.pre_prompt = []
+$env.config.hooks.pre_prompt = [
+    { ||
+      if (which direnv | is-empty) {
+        return
+      }
+
+      direnv export json | from json | default {} | load-env
+      if 'ENV_CONVERSIONS' in $env and 'PATH' in $env.ENV_CONVERSIONS {
+        $env.PATH = do $env.ENV_CONVERSIONS.PATH.from_string $env.PATH
+      }
+    }
+]
+
 # After <enter> is pressed; before the commandline is executed
 # $env.config.hooks.pre_execution = []
 # When a specified environment variable changes
