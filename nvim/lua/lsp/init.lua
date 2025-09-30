@@ -56,8 +56,8 @@ function M.lsp_on_attach(_, bufnr)
   -- if it already exists
   local keymaps = vim.api.nvim_buf_get_keymap(bufnr, 'n')
   if not misc.contains(keymaps, function(item)
-        return item.lhs == ' ca'
-      end) then
+    return item.lhs == ' ca'
+  end) then
     vim.keymap.set({ 'n', 'v' }, '<space>ac', vim.lsp.buf.code_action, { buffer = bufnr, desc = 'Code action' })
   end
 
@@ -155,8 +155,8 @@ local function setup_cmp()
     }),
     sources = cmp.config.sources({
       { name = 'nvim_lsp_signature_help', priority = 10 },
-      { name = 'nvim_lsp',                priority = 5 },
-      { name = 'luasnip',                 priority = 1 },
+      { name = 'nvim_lsp', priority = 5 },
+      { name = 'luasnip', priority = 1 },
     }, {
       { name = 'buffer' },
       { name = 'path' },
@@ -373,6 +373,27 @@ function M.setup()
     },
     lsp_config_only = {
       nushell = {},
+      nixd = {
+        cmd = { 'nixd' },
+        settings = {
+          nixd = {
+            nixpkgs = {
+              expr = 'import <nixpkgs> { }',
+            },
+            formatting = {
+              command = { 'nixfmt' },
+            },
+            options = {
+              nixos = {
+                expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.k-on.options',
+              },
+              home_manager = {
+                expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."ruixi@k-on".options',
+              },
+            },
+          },
+        },
+      },
       ocamllsp = {
         -- on_attach = function(client, bufnr)
         --   M.lsp_on_attach(client, bufnr)
