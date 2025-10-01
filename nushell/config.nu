@@ -1039,9 +1039,6 @@ load-env {
     AWS_SDK_LOAD_CONFIG: 1 # Use ~/.aws/config to resolve aws credentials
     XDG_CONFIG_HOME: $"($env.HOME)/.config"
     FZF_DEFAULT_OPS: $"--history=($env.HOME)/.fzf_history --tmux"
-
-    GTK_THEME: "Adwaita:dark"
-    GTK2_RC_FILES: "/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc"
     QT_QPA_PLATFORMTHEME: "qt6ct"
 }
 

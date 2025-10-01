@@ -14,6 +14,7 @@
 !/git/
 !/mpv/
 !/systemd/
+!/home-manager/
 
 !/flake.nix
 !/install.sh

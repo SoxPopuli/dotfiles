@@ -31,6 +31,7 @@ if (command-exists fnm) {
         | lines 
         | parse 'export {key}={value}' 
         | upsert 'value' { |x| $x.value | str replace ':"$PATH"' '' }
+        | upsert 'value' { str replace --all '"' '' }
 
     let vars: record = $vars | transpose -rd
 
@@ -43,3 +44,14 @@ if (command-exists fnm) {
 
     load-env $vars
 }
+
+let home_manager_session_script = $"($env.HOME)/.nix-profile/etc/profile.d/hm-session-vars.sh"
+
+if ($home_manager_session_script | path exists) {
+    open $home_manager_session_script
+    | lines
+    | parse 'export {key}={value}'
+    | transpose -rd
+    | load-env
+}
+
