@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, nixgl, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -15,25 +15,34 @@
   # release notes.
   home.stateVersion = "25.05"; # Please read the comment before changing.
 
+  nixGL.packages = nixgl.packages;
+  nixGL.defaultWrapper = "mesa";
+  nixGL.installScripts = [ "mesa" ];
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+  home.packages = with pkgs; [
+    (with dotnetCorePackages; combinePackages [
+      sdk_8_0-bin
+      sdk_10_0-bin
+    ])
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    wineWowPackages.stable
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+    bat
+    carapace
+    carapace-bridge
+    direnv
+    fd
+    fzf
+    haskell-language-server
+    luajitPackages.luarocks
+    nixd
+    nixfmt
+    ripgrep
+    tmux
+    unzip
+    zellij
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -68,7 +77,7 @@
   #  /etc/profiles/per-user/charlotte/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   # Let Home Manager install and manage itself.
