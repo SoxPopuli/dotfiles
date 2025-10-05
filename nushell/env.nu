@@ -51,6 +51,7 @@ if ($home_manager_session_script | path exists) {
     open $home_manager_session_script
     | lines
     | parse 'export {key}={value}'
+    | update 'value' { str replace --all '"' '' }
     | transpose -rd
     | load-env
 }
