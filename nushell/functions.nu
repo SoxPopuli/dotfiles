@@ -40,11 +40,20 @@ export def dp [] {
 }
 
 export def --wrapped df [...rest] {
-    (^df ...$rest)
-    | str replace 'Mounted on' 'mounted_on'
-    | from ssv --minimum-spaces 1
-    | rename -b { str downcase }
-    | rename -c { '1k-blocks': size }
+    let t: table = with-env { "BLOCKSIZE": 1024 } { ^df ...$rest }
+        | str replace 'Mounted on' 'mounted_on'
+        | from ssv --minimum-spaces 1
+        | rename -b { str downcase }
+
+    let cols = ($t | columns)
+
+    let t: table = if '1k-blocks' in $cols { 
+        $t | rename -c { '1k-blocks': size }
+    } else {
+        $t | rename -c { '1024-blocks': size }
+    }
+
+    $t
     | update size { $"($in) KiB" | into filesize }
     | update used { $"($in) KiB" | into filesize }
     | update available { $"($in) KiB" | into filesize }
@@ -123,7 +132,8 @@ export def read-env []: string -> record {
     | upsert value { default "" | str trim -c '"' }
     | each { |row|
         if ($row.value | str starts-with '$') {
-            update value { ^bash -c $"echo ($row.value)" }
+            update value { ^bash -c $'printf "%q" "($row.value)"'
+        }
         } else { $row }
     }
     | transpose -r -d
@@ -167,6 +177,26 @@ export def git-log [
         } else { 
             $in 
         }  
+    }
+}
+
+export def "git branches" [
+    --all (-a) # Show local and remote branches
+] {
+    let cmd = if $all {
+        git branch -v --all
+    } else {
+        git branch -v
+    }
+
+    $cmd
+    | parse --regex '([\w\d_\-\/\.]+)\s+([a-z0-9]+) (\[gone\])?\s?(.*)' 
+    | rename branch ref gone message
+    | upsert gone { 
+        match $in {
+            null => false
+            _ => true
+        }
     }
 }
 
