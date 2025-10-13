@@ -10,8 +10,11 @@ local config = {
   }),
   font_size = 12.0,
   harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' },
+
+  -- color_scheme = 'Kanagawa (Gogh)',
   color_scheme = 'catppuccin-mocha',
   -- color_scheme = 'tokyonight_moon',
+
   enable_tab_bar = false,
 
   front_end = 'WebGpu',
@@ -21,7 +24,6 @@ local config = {
   foreground_text_hsb = {
     hue = 1.0,
     saturation = 1.0,
-    --saturation = 1.2,
     brightness = 1.2,
   },
 
@@ -31,6 +33,8 @@ local config = {
     cursor_fg = 'black',
     cursor_bg = 'white',
   },
+
+  window_background_opacity = 1.0,
 
   keys = keys.maps()
 }

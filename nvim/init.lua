@@ -2,6 +2,7 @@ vim.g.bigfile_size = 1024 * 1024 * 1 -- 1M
 vim.g.mapleader = ','
 vim.env.NVIM_TUI_ENABLE_TRUE_COLOR = 1
 vim.o.termguicolors = true -- Enable full color support
+vim.go.foldenable = false
 
 if vim.go.loadplugins then
   local lazy_setup = require('lazy_setup')
@@ -258,6 +259,7 @@ set('n', '<C-t>', function()
 end, { silent = true, desc = 'Tmux Sessionizer' })
 
 -- unset default keymaps
+vim.keymap.del('n', 'grt')
 vim.keymap.del('n', 'gra')
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'grr')

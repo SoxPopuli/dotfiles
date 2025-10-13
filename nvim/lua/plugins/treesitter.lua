@@ -9,15 +9,19 @@ return {
     config = function()
       require('nvim-treesitter').setup({})
 
-      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufAdd', 'BufNew', 'BufNewFile', 'BufWinEnter' }, {
-        group = vim.api.nvim_create_augroup('TS_FOLD_WORKAROUND', {}),
+      local parsers = require('nvim-treesitter.parsers')
+      local parser_config = parsers.get_parser_configs()
+
+      vim.api.nvim_create_autocmd({ 'FileType' }, {
         callback = function()
-          vim.opt.foldmethod = 'expr'
-          vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+          if parsers.has_parser() then
+            vim.opt.foldmethod = 'expr'
+            vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+          else
+            vim.opt.foldmethod = 'syntax'
+          end
         end,
       })
-
-      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
 
       parser_config.reason = {
         install_info = {

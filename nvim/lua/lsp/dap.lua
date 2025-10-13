@@ -105,12 +105,14 @@ function M.config()
     },
   }
 
+  local netCore = {
+    type = 'executable',
+    command = 'netcoredbg',
+    args = { '--interpreter=vscode' },
+  }
   dap.adapters = {
-    coreclr = {
-      type = 'executable',
-      command = 'netcoredbg',
-      args = { '--interpreter=vscode' },
-    },
+    coreclr = netCore,
+    netcoredbg = netCore,
 
     lldb = lldb,
     codelldb = lldb,
@@ -120,6 +122,17 @@ function M.config()
       command = './_opam/bin/ocamlearlybird',
       args = { 'debug' },
       cwd = '${workspaceFolder}',
+    },
+  }
+
+  dap.configurations.cs = {
+    {
+      type = 'coreclr',
+      name = 'launch - netcoredbg',
+      request = 'launch',
+      program = function()
+        return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+      end,
     },
   }
 
