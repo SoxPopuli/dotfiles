@@ -69,7 +69,7 @@ def append-if [condition: bool, element: any]: list -> list {
 }
 
 # Run gamescope with pre-existing settings
-export def gamescope-start [
+export def --wrapped gamescope-start [
     cmd?: string
     --backend (-b): string
     --sensitivity (-s): int
@@ -80,6 +80,7 @@ export def gamescope-start [
     --steam (-e)
     --mangoapp (-m)
     --no-grab-cursor
+    ...rest
 ] {
     let backend = $backend | default "sdl"
     let sensitivity = $sensitivity | default 2
@@ -98,9 +99,9 @@ export def gamescope-start [
     $args = $args | append-if $steam "--steam"
 
     if ($cmd | is-not-empty) {
-        gamescope ...$args $cmd
+        gamescope ...$args $cmd -- ...$rest
     } else {
-        gamescope ...$args
+        gamescope ...$args -- ...$rest
     }
 }
 

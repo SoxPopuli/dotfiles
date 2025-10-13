@@ -17,8 +17,6 @@ local config = {
 
   enable_tab_bar = false,
 
-  front_end = 'WebGpu',
-
   audible_bell = 'Disabled',
 
   foreground_text_hsb = {
@@ -38,6 +36,10 @@ local config = {
 
   keys = keys.maps()
 }
+
+if utils.system == "Darwin" then
+  config.front_end = "WebGpu"
+end
 
 if wezterm.config_builder then
   utils.merge(config, wezterm.config_builder())

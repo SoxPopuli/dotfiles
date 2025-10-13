@@ -237,7 +237,7 @@ set('n', '<leader>s', function()
 end, { desc = 'Set shiftwidth' })
 
 -- MacOS specific functionality
-if vim.fn.has('mac') then
+if vim.fn.has('mac') == 1 then
   -- Fix gx not working properly on Mac
   set('n', 'gx', '<cmd>:silent exec "!open <cWORD>"<cr>', { silent = true })
 end

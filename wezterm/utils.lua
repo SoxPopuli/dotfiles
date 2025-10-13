@@ -12,7 +12,7 @@ end
 
 ---Run cmd, capturing stdout
 ---@param cmd string
----@param raw boolean
+---@param raw? boolean
 ---@return string
 function M.capture(cmd, raw)
   local io = require('io')
@@ -27,5 +27,7 @@ function M.capture(cmd, raw)
   return s
 end
 
+M.system = M.capture("/usr/bin/env uname -s")
+M.hostname =M.capture("/usr/bin/env uname -n")
 
 return M

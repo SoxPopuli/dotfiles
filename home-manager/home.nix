@@ -39,6 +39,7 @@
     luajitPackages.luarocks
     nixd
     nixfmt
+    paru
     ripgrep
     tmux
     unzip

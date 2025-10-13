@@ -35,8 +35,6 @@ local function mac_binds()
 end
 
 function M.maps()
-    local success, system = pcall(utils.capture, 'uname -s')
-
     local maps = {
         {
             key = ' ',
@@ -50,7 +48,7 @@ function M.maps()
         },
     }
 
-    if success and system == 'Darwin' then
+    if utils.system == 'Darwin' then
         utils.merge(maps, mac_binds())
     end
 
