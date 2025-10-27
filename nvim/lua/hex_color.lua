@@ -62,11 +62,12 @@ function M.highlight_hex_strings(bufnr)
   for row, line in ipairs(lines) do
     local matches = get_match_indices(line, pattern)
     for _, match in pairs(matches) do
-      local hl_group = 'HexColor_' .. match.content
+      local content = match.content:lower()
+      local hl_group = 'HexColor_' .. content
       if vim.fn.hlID(hl_group) == 0 then
         local style = {
-          bg = '#' .. match.content,
-          fg = '#' .. get_foreground_color(match.content),
+          bg = '#' .. content,
+          fg = '#' .. get_foreground_color(content),
         }
         vim.api.nvim_set_hl(0, hl_group, style)
       end
