@@ -23,8 +23,6 @@ local plugins = {
 
   { 'andweeb/presence.nvim', event = 'VeryLazy' },
 
-  'nvim-lualine/lualine.nvim',
-
   'tpope/vim-surround',
   'tpope/vim-repeat',
 
@@ -42,13 +40,10 @@ local plugins = {
   },
 
   -- Better Syntax Support
-  { 'sheerun/vim-polyglot', event = 'VeryLazy' },
-
-  -- Async linting
-  { 'mfussenegger/nvim-lint', event = 'VeryLazy' },
+  { 'sheerun/vim-polyglot',        event = 'VeryLazy' },
 
   { 'nvim-tree/nvim-web-devicons', lazy = true },
-  { 'rescript-lang/vim-rescript', ft = 'rescript' },
+  { 'rescript-lang/vim-rescript',  ft = 'rescript' },
 }
 
 function M.startup()

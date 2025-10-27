@@ -137,7 +137,7 @@ export def read-env []: string -> record {
         }
         } else { $row }
     }
-    | transpose -r -d
+    | transpose -r -d -l
 }
 
 # eXamine (open file or ls directory)

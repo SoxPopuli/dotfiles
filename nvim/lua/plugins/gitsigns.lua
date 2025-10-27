@@ -14,7 +14,6 @@ return {
     }
   end,
   event = 'VeryLazy',
-  lazy = false,
   keys = {
     {
       ']c',
