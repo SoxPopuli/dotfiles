@@ -105,6 +105,14 @@ export def --wrapped gamescope-start [
     }
 }
 
+export def --wrapped with-gamescope [process_closure: closure, ...args] {
+    let jid = job spawn { gamescope-start ...$args }
+
+    with-env { DISPLAY: ":1" } $process_closure
+
+    job kill $jid
+}
+
 export def extract [archive: string] {
     let file_name = $archive | split row '.' | drop 1 | str join '.'
     7z x $archive -o($file_name)
@@ -232,4 +240,21 @@ export def --wrapped opam-env [...args] {
     | split column -n 2 '=' key value 
     | upsert value { str trim -c "'" } 
     | transpose -rd
+}
+
+# Kill all members of `process`
+export def killall [
+    process: string, # process name
+] {
+    let kill_fn = { |process|
+        let pid = $process | get pid
+        
+        kill -f $pid
+
+        $process
+    }
+
+    ps 
+    | where {|x| $x.name | str contains -i $process }
+    | each $kill_fn
 }
