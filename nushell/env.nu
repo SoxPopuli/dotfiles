@@ -20,8 +20,8 @@ def command-exists [command: string] { not (which $command | is-empty) }
 
 if (command-exists carapace) {
     $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
-    mkdir ~/.cache/carapace
-    carapace _carapace nushell | save --force ~/.cache/carapace/init.nu
+    mkdir $"($nu.cache-dir)"
+    carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
 }
 
 use std/util "path add"
@@ -56,3 +56,8 @@ if ($home_manager_session_script | path exists) {
     | load-env
 }
 
+use functions.nu *
+
+if (command-exists "opam") {
+    load-env (opam-env)
+}

@@ -46,8 +46,4 @@ export def main [] {
         zoxide init nushell | save -f $"($nu.default-config-dir)/zoxide.nu"
         save-command "source zoxide.nu"
     }
-
-    if (command-exists "opam") {
-        save-command "load-env (opam-env)"
-    }
 }

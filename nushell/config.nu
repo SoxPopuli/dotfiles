@@ -154,11 +154,11 @@ $env.config.completions.use_ls_colors = true
 # true: search for external commands on the Path
 # false: disabling might be desired for performance if your path includes
 #        directories on a slower filesystem
-# $env.config.completions.external.enable = true
+$env.config.completions.external.enable = true
 
 # max_results (int): Limit the number of external commands retrieved from
 # path to this value. Has no effect if `...external.enable` (above) is set to `false`
-# $env.config.completions.external.max_results = 50
+$env.config.completions.external.max_results = 250
 
 # completer (closure with a |spans| parameter): A command to call for *argument* completions
 # to commands (internal or external).
@@ -175,10 +175,7 @@ $env.config.completions.use_ls_colors = true
 # Note: The following is an over-simplified completer command that will call Carapace if it
 # is installed. Please use the official Carapace completer, which can be generated automatically
 # by Carapace itself. See the Carapace documentation for the proper syntax.
-# $env.config.completions.external.completer = {|spans|
-#   carapace $spans.0 nushell ...$spans | from json
-# }
-source ~/.cache/carapace/init.nu
+# source $"($nu.cache-dir)/carapace.nu"
 
 # --------------------
 # Terminal Integration
@@ -898,9 +895,9 @@ $env.PROMPT_COMMAND = {
 # $env.PROMPT_INDICATOR = "> "
 
 # When in normal vi mode:
- $env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi green)┤ "
+$env.PROMPT_INDICATOR_VI_NORMAL = $"(ansi green)┤ "
 # When in vi insert-mode:
- $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)▶ "
+$env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)▶ "
 
 # When a commandline extends across multiple lines:
 # $env.PROMPT_MULTILINE_INDICATOR = "::: "

@@ -30,8 +30,6 @@
     wineWowPackages.stable
 
     bat
-    carapace
-    carapace-bridge
     direnv
     fd
     fzf

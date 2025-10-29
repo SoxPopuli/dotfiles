@@ -240,6 +240,7 @@ export def --wrapped opam-env [...args] {
     | split column -n 2 '=' key value 
     | upsert value { str trim -c "'" } 
     | transpose -rd
+    | update PATH { split row ':' }
 }
 
 # Kill all members of `process`
