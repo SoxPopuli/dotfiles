@@ -153,6 +153,7 @@ set('i', '<C-;>', '::')
 set('i', '<S-Tab>', '<C-d>')
 set('i', '<C-,>', '<<<')
 set('i', '<C-.>', '>>>')
+set('i', '<M-=>', '===')
 
 set('n', '<leader>p', '<C-w><C-p>', { remap = true })
 
