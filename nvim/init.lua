@@ -149,7 +149,10 @@ set('n', '<A-Right>', '<C-w><Right>', { remap = true })
 --set('n', '<A-l>', '<C-w>l')
 
 set('i', '<C-l>', '::')
+set('i', '<C-;>', '::')
 set('i', '<S-Tab>', '<C-d>')
+set('i', '<C-,>', '<<<')
+set('i', '<C-.>', '>>>')
 
 set('n', '<leader>p', '<C-w><C-p>', { remap = true })
 
