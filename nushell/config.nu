@@ -175,7 +175,7 @@ $env.config.completions.external.max_results = 250
 # Note: The following is an over-simplified completer command that will call Carapace if it
 # is installed. Please use the official Carapace completer, which can be generated automatically
 # by Carapace itself. See the Carapace documentation for the proper syntax.
-# source $"($nu.cache-dir)/carapace.nu"
+source $"($nu.cache-dir)/carapace.nu"
 
 # --------------------
 # Terminal Integration
