@@ -1026,6 +1026,10 @@ $env.PATH ++= [
 ]
 $env.PATH = $env.PATH | uniq
 
+# Fix for java swing apps
+$env._JAVA_AWT_WM_NONREPARENTING = 1
+$env.AWT_TOOLKIT = "MToolkit"
+
 match ($env | get -o XDG_RUNTIME_DIR) {
     null => ()
     $x => { $env.SSH_AUTH_SOCK = $"($x)/ssh-agent.socket" }
