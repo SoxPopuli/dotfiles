@@ -1053,6 +1053,7 @@ load-env {
     XDG_CONFIG_HOME: $"($env.HOME)/.config"
     FZF_DEFAULT_OPS: $"--history=($env.HOME)/.fzf_history --tmux"
     QT_QPA_PLATFORMTHEME: "qt6ct"
+    MAKEFLAGS: $"-j(sys cpu | length)"
 }
 
 source runtime-config.nu

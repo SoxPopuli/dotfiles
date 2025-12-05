@@ -83,6 +83,8 @@ local themes = {
             ['@type.builtin.c'] = { fg = C.yellow, style = {} },
             ['@type.builtin.cpp'] = { fg = C.yellow, style = {} },
             ['@lsp.type.enumMember'] = { fg = C.peach },
+            -- Rust
+            ['@lsp.type.interface.rust'] = { fg = C.flamingo },
           }
         end,
       })
