@@ -1,3 +1,5 @@
+#!/usr/bin/env nu
+
 def command-exists [command: string] { not (which $command | is-empty) }
 
 export def main [] {
@@ -40,6 +42,9 @@ export def main [] {
 
     if (command-exists bat) {
         save-alias cat "bat"
+    } else if (command-exists batcat) {
+        save-alias cat "batcat"
+        save-alias bat "batcat"
     }
 
     if (command-exists zoxide) {

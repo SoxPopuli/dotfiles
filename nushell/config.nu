@@ -880,10 +880,18 @@ $env.PROMPT_COMMAND = {
     $"┬[($whoami)($dir_string)(ansi green)]($git_string)\n└"
 }
 
+let time_prompt = {|| 
+    let slash = $"(ansi green)/(ansi magenta)"
+    let colon = $"(ansi green):(ansi magenta)"
+
+    date now | format date $"%d($slash)%m($slash)%Y %H($colon)%M($colon)%S %p" 
+}
+
 # PROMPT_COMMAND_RIGHT
 # --------------------
 # Defines a prompt which will appear right-aligned in the terminal
 # $env.PROMPT_COMMAND_RIGHT = {|| date now | format date "%d-%a %r" }
+$env.PROMPT_COMMAND_RIGHT = $time_prompt
 
 # PROMPT_INDICATOR*
 # -----------------
@@ -916,7 +924,7 @@ $env.PROMPT_INDICATOR_VI_INSERT = $"(ansi green)▶ "
 # Tip: Removing the transient multiline indicator and right-prompt can simplify
 #      copying from the terminal
 # $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = ""
-# $env.TRANSIENT_PROMPT_COMMAND_RIGHT = ""
+$env.TRANSIENT_PROMPT_COMMAND_RIGHT = $time_prompt
 
 # ENV_CONVERSIONS
 # ---------------
@@ -1024,6 +1032,10 @@ $env.PATH ++= [
     "~/Tools",
     "~/Utilities",
 ]
+$env.PATH = [ 
+    "/home/linuxbrew/.linuxbrew/bin",
+    "/home/linuxbrew/.linuxbrew/opt/node@24/bin",
+] ++ $env.PATH
 $env.PATH = $env.PATH | uniq
 
 # Fix for java swing apps
