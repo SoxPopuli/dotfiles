@@ -880,7 +880,7 @@ def create_left_prompt [] {
     $"┬[($whoami)($dir_string)(ansi green)]($git_string)\n└"
 }
 
-$env.PROMPT_COMMAND = create_left_prompt
+$env.PROMPT_COMMAND = {|| create_left_prompt }
 
 let time_prompt = {|| 
     let slash = $"(ansi green)/(ansi magenta)"
