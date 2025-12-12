@@ -845,7 +845,7 @@ $env.config.hooks.pre_prompt = [
 # Simple example - Static string:
 # $env.PROMPT_COMMAND = "Nushell"
 # Simple example - Dynamic closure displaying the path:
-$env.PROMPT_COMMAND = {
+def create_left_prompt [] {
     # let dir = pwd | str replace $env.HOME "~"
     # let dir_string = $"(ansi yellow)($dir)(ansi green)"
 
@@ -879,6 +879,8 @@ $env.PROMPT_COMMAND = {
     
     $"┬[($whoami)($dir_string)(ansi green)]($git_string)\n└"
 }
+
+$env.PROMPT_COMMAND = create_left_prompt
 
 let time_prompt = {|| 
     let slash = $"(ansi green)/(ansi magenta)"
@@ -1011,6 +1013,7 @@ $env.TRANSIENT_PROMPT_COMMAND_RIGHT = $time_prompt
 # $env.PATH = ($env.PATH | uniq)
 
 source private-env.nu
+use private-env.nu *
 source aliases.nu
 use gen-runtime-config.nu *
 use functions.nu *
@@ -1031,6 +1034,10 @@ $env.PATH ++= [
     "~/.local/share/nvim/mason/bin",
     "~/Tools",
     "~/Utilities",
+
+    # Go paths
+    "/usr/local/go/bin",
+    $"(go env GOPATH)/bin",
 ]
 $env.PATH = [ 
     "/home/linuxbrew/.linuxbrew/bin",
