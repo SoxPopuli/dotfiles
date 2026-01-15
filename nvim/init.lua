@@ -54,14 +54,11 @@ vim.o.number = true
 vim.o.relativenumber = true
 
 vim.o.mouse = 'nv'
-
 vim.o.cursorline = true
-
 vim.o.foldlevel = 16
-
 vim.o.fixeol = false -- Preserve original end of line status
-
 vim.o.jumpoptions = 'stack'
+vim.o.winborder = 'rounded'
 
 require('commands')
 require('filetypes')
