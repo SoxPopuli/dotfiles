@@ -1,6 +1,6 @@
 #!/usr/bin/env nu
 
-def command-exists [command: string] { not (which $command | is-empty) }
+export def command-exists [command: string] { not (which $command | is-empty) }
 
 export def main [] {
     let file = $"($nu.default-config-dir)/runtime-config.nu"
@@ -26,6 +26,9 @@ export def main [] {
 
     save-path "/opt/homebrew/bin"
     save-path "/opt/homebrew/Caskroom"
+
+    save-path "/home/linuxbrew/.linuxbrew/bin"
+    save-path "/home/linuxbrew/.linuxbrew/opt/node@24/bin"
 
     let is_macos = (sys host).name == "Darwin"
 

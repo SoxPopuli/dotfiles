@@ -17,5 +17,6 @@
 !/home-manager/
 
 !/flake.nix
+!/flake.lock
 !/install.sh
 !/tms.yml

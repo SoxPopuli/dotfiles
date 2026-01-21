@@ -267,22 +267,29 @@ function M.setup()
       clangd = {
         cmd = { 'clangd', '--background-index', '--clang-tidy', '--log=verbose', '--enable-config' },
       },
-      omnisharp = {},
       cssls = {
         capabilities = (function()
           capabilities.textDocument.completion.completionItem.snippetSupport = true
           return capabilities
         end)(),
       },
+      dhall_lsp_server = {},
       elmls = {},
+      gopls = {},
       html = {},
       kotlin_language_server = {},
       marksman = {},
+      omnisharp = {},
+      purescriptls = {
+        settings = {
+          purescript = { addSpagoSources = true, censorWarnings = { 'ShadowedName', 'MissingTypeDeclaration' } },
+        },
+      },
+      pyright = {},
       rescriptls = {},
       taplo = {},
       texlab = {},
       tinymist = {},
-      yamlls = {},
       terraformls = {},
       ts_ls = {
         root_markers = {
@@ -293,12 +300,6 @@ function M.setup()
           'bun.lock',
         },
       },
-      purescriptls = {
-        settings = {
-          purescript = { addSpagoSources = true, censorWarnings = { 'ShadowedName', 'MissingTypeDeclaration' } },
-        },
-      },
-      pyright = {},
       lua_ls = {
         settings = {
           filetypes = { 'lua' },
@@ -334,6 +335,13 @@ function M.setup()
                 url = 'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json',
               },
             },
+          },
+        },
+      },
+      yamlls = {
+        settings = {
+          yaml = {
+            schemas = {},
           },
         },
       },

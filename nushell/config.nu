@@ -1013,10 +1013,11 @@ $env.TRANSIENT_PROMPT_COMMAND_RIGHT = $time_prompt
 # $env.PATH = ($env.PATH | uniq)
 
 source private-env.nu
-use private-env.nu *
 source aliases.nu
 use gen-runtime-config.nu *
 use functions.nu *
+
+let home = $env.HOME
 
 $env.PATH ++= [
     "/usr/local/bin",
@@ -1034,15 +1035,14 @@ $env.PATH ++= [
     "~/.local/share/nvim/mason/bin",
     "~/Tools",
     "~/Utilities",
+    "~/.bun/bin",
+    "~/.nix-profile/bin",
+    "/nix/var/nix/profiles/default/bin",
 
     # Go paths
     "/usr/local/go/bin",
     $"(go env GOPATH)/bin",
 ]
-$env.PATH = [ 
-    "/home/linuxbrew/.linuxbrew/bin",
-    "/home/linuxbrew/.linuxbrew/opt/node@24/bin",
-] ++ $env.PATH
 $env.PATH = $env.PATH | uniq
 
 # Fix for java swing apps
@@ -1063,4 +1063,12 @@ load-env {
     MAKEFLAGS: $"-j(sys cpu | length)"
 }
 
+if (command-exists nvimpager) {
+    load-env {
+        MANPAGER: "nvimpager"
+        PAGER: "nvimpager"
+    }
+}
+
+# keep last
 source runtime-config.nu
