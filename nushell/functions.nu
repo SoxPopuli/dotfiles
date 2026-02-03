@@ -245,7 +245,7 @@ export def --wrapped opam-env [...args] {
 
 # Kill all members of `process`
 export def killall [
-    process: string, # process name
+    ...process: string, # process name
 ] {
     let kill_fn = { |process|
         let pid = $process | get pid
@@ -255,7 +255,21 @@ export def killall [
         $process
     }
 
-    ps 
-    | where {|x| $x.name | str contains -i $process }
-    | each $kill_fn
+    $process
+    | each {|p|
+        ps 
+        | where {|x| $x.name | str contains -i $p }
+        | each $kill_fn
+    }
+    | flatten
+}
+
+export def sway_swapcaps [option: bool] { 
+    if $option {
+        swaymsg input type:keyboard xkb_options "caps:swapescape"
+        print "swapcaps enabled"
+    } else {
+        swaymsg 'input type:keyboard xkb_options ""'
+        print "swapcaps disabled"
+    }
 }
