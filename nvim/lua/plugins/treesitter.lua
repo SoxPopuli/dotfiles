@@ -7,21 +7,7 @@ return {
       tsUpdate()
     end,
     config = function()
-      require('nvim-treesitter').setup({})
-
-      local parsers = require('nvim-treesitter.parsers')
-      local parser_config = parsers.get_parser_configs()
-
-      vim.api.nvim_create_autocmd({ 'FileType' }, {
-        callback = function()
-          if parsers.has_parser() then
-            vim.opt.foldmethod = 'expr'
-            vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-          else
-            vim.opt.foldmethod = 'syntax'
-          end
-        end,
-      })
+      local parser_config = require('nvim-treesitter.parsers')
 
       parser_config.reason = {
         install_info = {
@@ -31,24 +17,39 @@ return {
         },
       }
 
+      vim.api.nvim_create_autocmd({ 'FileType' }, {
+        callback = function(e)
+          local ft = vim.bo[e.buf].filetype
+
+          if parser_config[ft] ~= nil then
+            vim.opt.foldmethod = 'expr'
+            vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+          else
+            vim.opt.foldmethod = 'syntax'
+          end
+        end,
+      })
+
+      local ensure_installed = {
+        'c_sharp',
+        'elm',
+        'fsharp',
+        'json',
+        'latex',
+        'lua',
+        'markdown',
+        'ocaml',
+        'ocaml_interface',
+        'ocamllex',
+        'regex',
+        'rust',
+        'scala',
+        'vim',
+        'yaml',
+      }
+
       local setupConfig = {
-        ensure_installed = {
-          'c_sharp',
-          'elm',
-          'fsharp',
-          'json',
-          'latex',
-          'lua',
-          'markdown',
-          'ocaml',
-          'ocaml_interface',
-          'ocamllex',
-          'regex',
-          'rust',
-          'scala',
-          'vim',
-          'yaml',
-        },
+        ensure_installed = ensure_installed,
 
         sync_install = false,
 
@@ -74,7 +75,9 @@ return {
         },
       }
 
-      require('nvim-treesitter.configs').setup(setupConfig)
+      -- require('nvim-treesitter.config').setup(setupConfig)
+      require('nvim-treesitter').setup({})
+      require('nvim-treesitter').install(ensure_installed)
     end,
   },
 

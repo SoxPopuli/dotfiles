@@ -34,6 +34,7 @@
             ripgrep
             tmux
             zoxide
+            just
           ];
           pathsToLink = [
             "/share"
