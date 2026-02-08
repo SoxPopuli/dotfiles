@@ -37,7 +37,29 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "tmux-sessionizer": "tmux-sessionizer"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "tmux-sessionizer",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770520253,
+        "narHash": "sha256-6rWuHgSENXKnC6HGGAdRolQrnp/8IzscDn7FQEo1uEQ=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "ebb8a141f60bb0ec33836333e0ca7928a072217f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "systems": {
@@ -52,6 +74,30 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tmux-sessionizer": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1770588619,
+        "narHash": "sha256-itXprAyo14A/xj50oi+LxPGKLb2TgldGf60swTT+MpU=",
+        "owner": "SoxPopuli",
+        "repo": "tmux-sessionizer",
+        "rev": "57ddbae42b4c831878bd7a27e79d2d5d12eb9bf5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "SoxPopuli",
+        "repo": "tmux-sessionizer",
         "type": "github"
       }
     }
