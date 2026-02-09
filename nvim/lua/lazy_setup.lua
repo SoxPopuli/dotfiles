@@ -40,10 +40,14 @@ local plugins = {
   },
 
   -- Better Syntax Support
-  { 'sheerun/vim-polyglot',        event = 'VeryLazy' },
+  {
+    'sheerun/vim-polyglot',
+    event = 'VeryLazy',
+    enabled = false,
+  },
 
   { 'nvim-tree/nvim-web-devicons', lazy = true },
-  { 'rescript-lang/vim-rescript',  ft = 'rescript' },
+  { 'rescript-lang/vim-rescript', ft = 'rescript' },
 }
 
 function M.startup()
