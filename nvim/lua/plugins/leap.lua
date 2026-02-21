@@ -1,5 +1,6 @@
 return {
-  'ggandor/leap.nvim',
+  url = 'https://codeberg.org/andyg/leap.nvim',
+  -- 'ggandor/leap.nvim',
   dependencies = { 'tpope/vim-repeat' },
   opts = {
     case_sensitive = false,
@@ -18,7 +19,7 @@ return {
     },
   },
   keys = {
-      { '<space>s', '<Plug>(leap-forward)', mode = { 'n', 'x', 'o' } },
-      { '<space><S-s>', '<Plug>(leap-backward)', mode = { 'n', 'x', 'o' } },
+    { '<space>s', '<Plug>(leap-forward)', mode = { 'n', 'x', 'o' } },
+    { '<space><S-s>', '<Plug>(leap-backward)', mode = { 'n', 'x', 'o' } },
   },
 }
