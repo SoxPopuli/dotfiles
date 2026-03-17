@@ -1,7 +1,7 @@
 local M = {}
 local misc = require('misc')
 local fn = require('functional')
-local codelens = require('lsp.codelens')
+-- local codelens = require('lsp.codelens')
 
 local cmp = require('cmp')
 
@@ -275,7 +275,9 @@ function M.setup()
       },
       dhall_lsp_server = {},
       elmls = {},
-      gopls = {},
+      gopls = {
+        settings = { Build = { buildFlags = { 'integration' } } },
+      },
       html = {},
       kotlin_language_server = {},
       marksman = {},
