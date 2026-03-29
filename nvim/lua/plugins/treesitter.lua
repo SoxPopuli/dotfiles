@@ -119,6 +119,7 @@ return {
         'ocamllex',
         'python',
         'regex',
+        'rescript',
         'rust',
         'scala',
         'tsx',
