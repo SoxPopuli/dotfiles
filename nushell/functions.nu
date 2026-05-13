@@ -273,3 +273,70 @@ export def sway_swapcaps [option: bool] {
         print "swapcaps disabled"
     }
 }
+
+# Format a number with comma-separated thousands (e.g. 1000 -> "1,000")
+export def delimit [sep?: string]: number -> string {
+    let sep = $sep | default ","
+
+    let negative = $in < 0
+    let s = $in | math abs | into string
+    let parts = $s | split row '.'
+    let int_part = $parts | first
+    let dec_part = if ($parts | length) > 1 { $".($parts | last)" } else { "" }
+
+    let formatted = $int_part
+        | split chars
+        | reverse
+        | chunks 3
+        | each { str join }
+        | str join $sep
+        | split chars
+        | reverse
+        | str join
+
+    if $negative { $"-($formatted)($dec_part)" } else { $"($formatted)($dec_part)" }
+}
+
+# Convert a box-drawing character table into a nushell table
+export def "from box-table" []: string -> table {
+    # Replace separator lines (┌───┬───┐, ├───┼───┤, └───┴───┘) with a
+    # split marker, then split to get text sections between separators
+    let sections = (
+        $in
+        | str replace --regex --all '(?m)^\s*[┌├└].*[┐┤┘]\s*$' '<<<SEP>>>'
+        | split row '<<<SEP>>>'
+        | where { ($in | str trim) != '' }
+    )
+
+    # Parse each section: split lines by │ to get cells,
+    # then join multi-line cells within the same logical row
+    let parsed = $sections | each { |section|
+        let cell_rows = (
+            $section
+            | lines
+            | where { ($in | str trim) != '' }
+            | each { |line|
+                $line | split row '│' | skip 1 | drop 1 | each { str trim }
+            }
+        )
+        let num_cols = ($cell_rows | first | length)
+        0..($num_cols - 1) | each { |col|
+            $cell_rows
+            | each { |row| $row | get $col }
+            | where { $in != '' }
+            | str join ' '
+        }
+    }
+
+    # First section is headers, rest are data rows
+    let headers = $parsed | first
+    let table = $parsed 
+      | skip 1 
+      | each { |row|
+        $headers | zip $row | reduce --fold {} { |pair, acc|
+            $acc | insert $pair.0 $pair.1
+      }
+    }
+
+    $table | str trim
+}
