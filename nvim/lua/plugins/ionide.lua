@@ -20,25 +20,26 @@ return {
       vim.lsp.enable('fsautocomplete', false)
       local ionide = require('ionide')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local codelens = require('lsp.codelens')
+      -- local codelens = require('lsp.codelens')
 
-      ionide.setup({
+      vim.lsp.config('ionide', {
         autostart = true,
         on_attach = function(client, bufnr)
           require('lsp').lsp_on_attach(client, bufnr)
-          require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
+          -- require('vim.lsp.codelens').on_codelens = codelens.codelens_fix()
         end,
         flags = {
           debounce_text_changes = 200,
         },
         capabilities = capabilities,
       })
+      vim.lsp.enable('ionide')
     end,
   },
   {
     'SoxPopuli/fsharp-tools.nvim',
     ft = 'fsharp',
-    event = { "BufRead *.fsproj" },
+    event = { 'BufRead *.fsproj' },
     build = 'just deploy',
     dev = false,
     opts = {

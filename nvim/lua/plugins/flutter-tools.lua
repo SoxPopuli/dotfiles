@@ -5,7 +5,8 @@ local function get_path()
     if flutter_path:len() == 0 then
       return nil
     else
-      return flutter_path:sub(0, -2)
+      local _, path = flutter_path:match('flutter: ([^%s]+)')
+      return path
     end
   end)()
 
@@ -19,7 +20,8 @@ local function get_path()
     if dart_path:len() == 0 then
       return nil
     else
-      return dart_path:sub(0, -2)
+      local _, path = dart_path:match('dart: ([^%s]+)')
+      return path
     end
   end)()
 
@@ -46,10 +48,11 @@ return {
         run_via_dap = true,
       },
       lsp = {
-        color = { enabled = true },
         capabilities = capabilities,
-        on_attach = require('lsp').lsp_on_attach,
-        -- cmd = { 'dart', 'language-server', '--protocol=lsp' },
+        on_attach = function(client, bufnr)
+          require('lsp').lsp_on_attach(client, bufnr)
+          vim.lsp.document_color.enable(true, { bufnr = bufnr, })
+        end,
       },
     })
   end,

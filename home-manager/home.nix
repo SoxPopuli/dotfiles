@@ -27,11 +27,12 @@
       sdk_10_0-bin
     ])
 
-    wineWowPackages.stable
+    wineWow64Packages.stable
 
     bat
     direnv
     fd
+    fsautocomplete
     fzf
     haskell-language-server
     luajitPackages.luarocks
