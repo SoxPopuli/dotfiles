@@ -4,7 +4,7 @@ local function apply_formatting(bufnr)
   local conform = require('conform')
 
   ---@type string
-  local mode = vim.fn.mode():lower():sub(1, 1)
+  -- local mode = vim.fn.mode():lower():sub(1, 1)
 
   --[[
    [  local range = (function ()
@@ -30,7 +30,7 @@ local function apply_formatting(bufnr)
   local opts = {
     bufnr = bufnr,
     async = true,
-    lsp_format = 'last',
+    lsp_format = 'fallback',
     --range = range,
   }
 
@@ -91,6 +91,8 @@ return {
         ocaml_mlx = { 'ocamlformat_mlx' },
         markdown = { 'markdownfmt', 'cbfmt' },
         cs = { 'csharpier', lsp_format = 'fallback' },
+        c = { 'clang-format' },
+        cpp = { 'clang-format' },
       },
     },
 

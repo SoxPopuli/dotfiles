@@ -103,6 +103,8 @@ return {
       }
 
       local ensure_installed = {
+        'bash',
+        'capnp',
         'c_sharp',
         'elm',
         'fsharp',
