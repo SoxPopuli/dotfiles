@@ -845,6 +845,37 @@ $env.config.hooks.pre_prompt = [
 # Simple example - Static string:
 # $env.PROMPT_COMMAND = "Nushell"
 # Simple example - Dynamic closure displaying the path:
+
+def get_git_string [] {
+    let is_jj = (jj root | complete).exit_code == 0
+    let is_git = ((git rev-parse --is-inside-work-tree | complete).stdout | str trim) == "true"
+
+    if ($is_jj) {
+      let bookmark = jj log -r '@' --no-graph -T 'bookmarks.join(" ")'
+        | str trim
+
+      let s = if ($bookmark | is-empty) {
+        let commit_id = jj log -r '@' --no-graph -T 'commit_id.short()'
+
+        $"(ansi green)\((ansi magenta)($commit_id)(ansi green)\)"
+      } else {
+        $"(ansi magenta)($bookmark)"
+      }
+
+      $"─[(ansi white)J(ansi green):($s)(ansi green)]"
+    } else if ($is_git) {
+        let branch = git branch --show-current
+        let s = if ($branch | is-empty) {
+            $"(ansi green)\((ansi magenta)(git rev-parse --short HEAD)(ansi green)\)"
+        } else {
+            $"(ansi magenta)($branch)"
+        }
+        $"─[(ansi white)G(ansi green):($s)(ansi green)]"
+    } else {
+      null
+    }
+}
+
 def create_left_prompt [] {
     # let dir = pwd | str replace $env.HOME "~"
     # let dir_string = $"(ansi yellow)($dir)(ansi green)"
@@ -865,15 +896,7 @@ def create_left_prompt [] {
     # let timestamp_string = $"(ansi white)($timestamp)(ansi green)"
 
     let is_git = ((git rev-parse --is-inside-work-tree | complete).stdout | str trim) == "true"
-    let git_string = if ($is_git) {
-        let branch = git branch --show-current
-        let s = if ($branch | is-empty) {
-            $"(ansi green)\((ansi magenta)(git rev-parse --short HEAD)(ansi green)\)"
-        } else {
-            $"(ansi magenta)($branch)"
-        }
-        $"─[(ansi white)G(ansi green):($s)(ansi green)]"
-    }
+    let git_string = get_git_string
 
     let whoami = $"(ansi yellow)(whoami)(ansi white):"
     
@@ -1019,6 +1042,9 @@ use functions.nu *
 
 let home = $env.HOME
 
+let pnpm_home = $"($env.HOME)/.local/share/pnpm"
+$env.PNPM_HOME = $pnpm_home
+
 $env.PATH ++= [
     "/usr/local/bin",
     "/usr/local/share/dotnet",
@@ -1042,6 +1068,10 @@ $env.PATH ++= [
     # Go paths
     "/usr/local/go/bin",
     $"(go env GOPATH)/bin",
+
+    # pnpm
+    $pnpm_home
+    $"($pnpm_home)/bin"
 ]
 $env.PATH = $env.PATH | uniq
 

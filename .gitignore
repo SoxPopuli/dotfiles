@@ -15,6 +15,7 @@
 !/mpv/
 !/systemd/
 !/home-manager/
+!/jj/
 
 !/flake.nix
 !/flake.lock

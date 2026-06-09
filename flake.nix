@@ -37,6 +37,7 @@
               fd
               fzf
               jless
+              jujutsu
               just
               nixd
               nixfmt

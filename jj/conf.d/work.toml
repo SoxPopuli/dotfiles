@@ -1,0 +1,4 @@
+--when.repositories = ["~/Documents/Work"]
+
+[user]
+email = "csmith@cloudflare.com"
