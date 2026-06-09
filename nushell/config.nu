@@ -1072,6 +1072,9 @@ $env.PATH ++= [
     # pnpm
     $pnpm_home
     $"($pnpm_home)/bin"
+
+    # flutter SDK
+    $"($home)/flutter/bin"
 ]
 $env.PATH = $env.PATH | uniq
 
