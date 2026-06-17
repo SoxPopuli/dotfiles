@@ -2,3 +2,6 @@
 
 [user]
 email = "csmith@cloudflare.com"
+
+[templates]
+git_push_bookmark = '"csmith/push-" ++ change_id.short()'
