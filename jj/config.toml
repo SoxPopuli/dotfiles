@@ -2,3 +2,6 @@
 [user]
 name = "Charlotte Smith"
 email = "charliesmith5019@gmail.com"
+
+[ui]
+default-command = "log"
