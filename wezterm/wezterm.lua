@@ -5,7 +5,7 @@ local utils = require('utils')
 ---@class WeztermConfig
 local config = {
   font = wezterm.font_with_fallback({
-    { family = 'JetBrains Mono', weight = "Bold" },
+    { family = 'JetBrains Mono', weight = 'Bold' },
     'Symbols Nerd Font',
   }),
   font_size = 12.0,
@@ -34,11 +34,13 @@ local config = {
 
   window_background_opacity = 1.0,
 
-  keys = keys.maps()
+  warn_about_missing_glyphs = false,
+
+  keys = keys.maps(),
 }
 
-if utils.system == "Darwin" then
-  config.front_end = "WebGpu"
+if utils.system == 'Darwin' then
+  config.front_end = 'WebGpu'
 end
 
 if wezterm.config_builder then
