@@ -91,6 +91,17 @@ vim.api.nvim_create_user_command('DotnetFullRestore', function()
 
   vim.cmd('!dotnet restore')
 end, { nargs = 0 })
+
+vim.api.nvim_create_user_command('ReferenceFileLine', function()
+  local file_path = vim.fn.expand('%')
+  local cursor_pos = tostring(vim.fn.getcurpos()[2])
+
+  local line_ref = '@' .. file_path .. ':' .. cursor_pos
+
+  vim.fn.setreg('+', line_ref)
+
+  print("copied '" .. line_ref .. "' to clipboard")
+end, { nargs = 0 })
 -------------------------- Autocommands -----------------------------------
 
 vim.api.nvim_create_autocmd('FileType', {
