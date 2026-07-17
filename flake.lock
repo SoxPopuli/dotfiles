@@ -20,11 +20,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1779560665,
-        "narHash": "sha256-tpyBcxPpcQb8ukyNF7DoCwfSY3VPsxHoYwj00Cayv5o=",
+        "lastModified": 1784120854,
+        "narHash": "sha256-KesHgItiZPgGX740axSiQLcIQ8D24MDqNpkKYWIek8k=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "64c08a7ca051951c8eae34e3e3cb1e202fe36786",
+        "rev": "753cc8a3a87467296ddd1fa93f0cc3e81120ee46",
         "type": "github"
       },
       "original": {
@@ -88,11 +88,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1773419269,
-        "narHash": "sha256-R2b+DzCt9473pLlX/AbhZmKRR345J8LLJ/kJTZ3T6xE=",
+        "lastModified": 1783082234,
+        "narHash": "sha256-09HpSo6muJ5dBoCxxRXq6CY5BBtBEmcBOY4UNWbW2VQ=",
         "owner": "SoxPopuli",
         "repo": "tmux-sessionizer",
-        "rev": "edef02130551c99d41dda4db0953eaa0128aadda",
+        "rev": "a463180d57435a894293c518dbb7c12fe2a81d23",
         "type": "github"
       },
       "original": {
