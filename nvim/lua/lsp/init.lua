@@ -83,8 +83,11 @@ function M.lsp_on_attach(_, bufnr)
   vim.keymap.set('n', 'gI', functions.implementation, { buffer = bufnr, desc = 'Go to implementation' })
   vim.keymap.set('n', '<leader>wq', functions.symbols, { buffer = bufnr, desc = 'Show workspace symbols' })
   vim.keymap.set('n', 'gd', functions.definitions, { buffer = bufnr, desc = 'Go to definition' })
-  vim.keymap.set('n', '<space>D', functions.type_definitions, { buffer = bufnr, desc = 'Go to type definition' })
   vim.keymap.set('n', 'gr', functions.references, { buffer = bufnr, desc = 'Go to references' })
+
+  for _, mapping in pairs({'<space>D', 'gy'}) do
+      vim.keymap.set('n', mapping, functions.type_definitions, { buffer = bufnr, desc = 'Go to type definition' })
+  end
 
   vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'Signature help' })
 end
