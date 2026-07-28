@@ -187,9 +187,13 @@ function M.setup()
   setup_keys()
 
   -- Set up lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities = vim.tbl_deep_extend('force', capabilities, {
     textDocument = {
+      completion = {
+        completionItem = { snippetSupport = true },
+      },
       diagnostic = {
         dynamicRegistration = true,
       },
@@ -331,19 +335,31 @@ function M.setup()
       jsonls = {
         settings = {
           json = {
-            schemas = {
-              {
-                fileMatch = { 'package.json' },
-                url = 'https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/schemas/json/package.json',
+            validate = { enable = true },
+            schemas = require('schemastore').json.schemas({
+              extra = {
+                {
+                  description = 'rescript.json',
+                  name = 'rescript.json',
+                  fileMatch = { 'rescript.json' },
+                  url = vim.fn.stdpath('config') .. '/schemas/rescript.json',
+                },
               },
-            },
+            }),
           },
         },
       },
       yamlls = {
         settings = {
           yaml = {
-            schemas = {},
+            schemaStore = {
+              -- You must disable built-in schemaStore support if you want to use
+              -- this plugin and its advanced options like `ignore`.
+              enable = false,
+              -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+              url = '',
+            },
+            schemas = require('schemastore').yaml.schemas(),
           },
         },
       },
