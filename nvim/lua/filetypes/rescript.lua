@@ -37,49 +37,12 @@ local function switch_to_generated()
   end
 end
 
--- local function set_highlight_groups()
---   local function hl(from, to)
---     if type(from) == 'table' then
---       for _, value in pairs(from) do
---         vim.api.nvim_set_hl(0, value, { link = to })
---       end
---     else
---       vim.api.nvim_set_hl(0, from, { link = to })
---     end
---   end
-
---   hl({ '@lsp.type.namespace.rescript', '@module.rescript' }, 'Tag')
---   hl('@tag.attribute.rescript', '@variable.parameter')
---   hl('@constructor.rescript', 'Label')
--- end
-
--- local function refresh_diagnostics(buf)
---   local clients = vim.lsp.get_clients({ bufnr = buf })
-
---   for _, client in ipairs(clients) do
---     local name = client.name
---     -- vim.cmd({ cmd = 'LspRestart', args = { name } })
---     client:notify('textDocument/diagnostic', {
---       textDocument = vim.lsp.util.make_text_document_params(),
---     })
---   end
-
---   -- vim.lsp.enable('rescriptls', false)
---   -- vim.lsp.enable('rescriptls', true)
--- end
-
----@param event AutocmdEvent
-function M.setup(event)
+---@param e AutocmdEvent
+function M.setup(e)
   vim.keymap.set('n', '<M-i>', switch_file)
   vim.keymap.set('n', '<M-o>', switch_to_generated)
 
-  -- vim.api.nvim_create_autocmd('SafeState', {
-  --   callback = function(_)
-  --     set_highlight_groups()
-  --   end,
-  --   once = true,
-  --   buffer = event.buf,
-  -- })
+  vim.bo[e.buf].shiftwidth = 2
 end
 
 return M
