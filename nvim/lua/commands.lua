@@ -8,18 +8,6 @@ local function system_noeol(cmd, input)
 end
 
 --------------------------- User Commands ---------------------------------
-vim.api.nvim_create_user_command('HexColorEnable', function()
-  require('hex_color').enable()
-end, {})
-vim.api.nvim_create_user_command('HexColorDisable', function()
-  require('hex_color').disable()
-end, {})
-vim.api.nvim_create_user_command('HexColorRefresh', function()
-  local hex = require('hex_color')
-  hex.clear_highlights()
-  hex.highlight_hex_strings()
-end, {})
-
 -- Go to next row containing text on column
 vim.api.nvim_create_user_command('ColDown', function(_)
   vim.cmd.call([[search('\%' . virtcol('.') . 'v\S', 'W')]])
