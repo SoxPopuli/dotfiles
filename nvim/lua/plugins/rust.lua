@@ -24,12 +24,14 @@ vim.g.rustaceanvim = {
     default_settings = {
       ['rust-analyzer'] = {
         cargo = {
+          buildScripts = { enable = true },
           features = 'all',
           cfgs = {
             'debug_assertions',
             'miri',
           },
         },
+        procMacro = { enable = true },
         check = { features = 'all', command = 'clippy', extraArgs = { '--no-deps' } },
       },
     },
@@ -66,6 +68,28 @@ return {
         completion = true,
         hover = true,
       },
+    },
+  },
+  { -- Rust LSP extensions
+    'vxpm/ferris.nvim',
+    config = function()
+      local ferris = require('ferris')
+      ferris.setup()
+      ferris.create_commands()
+    end,
+    cmd = {
+      'FerrisViewHIR',
+      'FerrisViewMIR',
+      'FerrisJoinLines',
+      'FerrisExpandMacro',
+      'FerrisViewItemTree',
+      'FerrisOpenCargoToml',
+      'FerrisRebuildMacros',
+      'FerrisViewSyntaxTree',
+      'FerrisReloadWorkspace',
+      'FerrisOpenParentModule',
+      'FerrisViewMemoryLayout',
+      'FerrisOpenDocumentation',
     },
   },
 }
