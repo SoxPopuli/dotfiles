@@ -13,6 +13,10 @@ doc = "Closest mutable, non-empty, described commits at or behind to"
 [revsets]
 bookmark-advance-to = "closest_pushable(@)"
 
+[aliases.ba]
+definition = ["bookmark", "advance"]
+doc = "Alias for 'bookmark advance'"
+
 # Stack aliases
 # https://alan.norbauer.com/articles/stacks-in-jujutsu/
 [aliases.move-to]
