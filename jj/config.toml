@@ -6,8 +6,12 @@ email = "charliesmith5019@gmail.com"
 [ui]
 default-command = "log"
 
+[revset-aliases."closest_pushable(to)"]
+definition = 'heads(::to & mutable() & ~empty() & description(regex:".+"))'
+doc = "Closest mutable, non-empty, described commits at or behind to"
+
 [revsets]
-bookmark-advance-to = "@-"
+bookmark-advance-to = "closest_pushable(@)"
 
 # Stack aliases
 # https://alan.norbauer.com/articles/stacks-in-jujutsu/
