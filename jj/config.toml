@@ -5,6 +5,21 @@ email = "charliesmith5019@gmail.com"
 
 [ui]
 default-command = "log"
+diff-formatter = ["difft", "--color=always", "$left", "$right"]
+
+[aliases.with-delta]
+definition = [
+    "--config",
+    "ui.diff-formatter=[\"delta\", \"--side-by-side\", \"--line-numbers\", \"$left\", \"$right\"]",
+]
+
+[aliases.diff-delta]
+definition = ["with-delta", "diff"]
+doc = "Render diff with delta"
+
+[aliases.show-delta]
+definition = ["with-delta", "show"]
+doc = "Render show with delta"
 
 [revset-aliases."closest_pushable(to)"]
 definition = 'heads(::to & mutable() & ~empty() & description(regex:".+"))'
@@ -52,13 +67,13 @@ doc = "Shorthand for stack-bookmarks"
 
 [aliases.stack-bookmarks]
 definition = [
-  "--config",
-  "revsets.log=substack()",
-  "log",
-  "--no-graph",
-  "--reversed",
-  "-T",
-  'if(local_bookmarks, local_bookmarks.map(|b| b.name()).join(" ") ++ " ", "")'
+    "--config",
+    "revsets.log=substack()",
+    "log",
+    "--no-graph",
+    "--reversed",
+    "-T",
+    'if(local_bookmarks, local_bookmarks.map(|b| b.name()).join(" ") ++ " ", "")',
 ]
 doc = "Local bookmark names in substack(@), oldest first, space-separated"
 
