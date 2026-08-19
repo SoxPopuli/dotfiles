@@ -3,6 +3,8 @@
 	name = Charlotte Smith
 [includeIf "gitdir:~/Documents/Work/"]
     path = ~/.config/git/work.gitconfig
+[include]
+    path = ~/.config/delta/catppuccin.gitconfig
 [diff]
     tool = nvimdiff
     guitool = nvimdiff

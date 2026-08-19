@@ -17,6 +17,8 @@
 !/home-manager/
 !/jj/
 !/bat/
+!/delta/
+!/nvimpager/
 
 !/flake.nix
 !/flake.lock
