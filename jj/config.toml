@@ -9,8 +9,8 @@ diff-formatter = ["difft", "--color=always", "$left", "$right"]
 
 [aliases.with-delta]
 definition = [
-    "--config",
-    "ui.diff-formatter=[\"delta\", \"--side-by-side\", \"--line-numbers\", \"$left\", \"$right\"]",
+    "--config", "ui.pager=\"delta --side-by-side --line-numbers\"",
+    "--config", "ui.diff-formatter=\":git\"",
 ]
 
 [aliases.diff-delta]

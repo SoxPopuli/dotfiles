@@ -16,6 +16,7 @@
 !/systemd/
 !/home-manager/
 !/jj/
+!/bat/
 
 !/flake.nix
 !/flake.lock

@@ -33,6 +33,8 @@
               carapace
               carapace-bridge
               cloc
+              delta
+              difftastic
               direnv
               fd
               fzf
