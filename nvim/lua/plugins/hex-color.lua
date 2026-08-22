@@ -4,7 +4,7 @@ return {
   config = function()
     require('hex-color')
   end,
-  build = 'just deploy',
+  build = 'just deploy clean',
   cmd = {
     'HexColorEnable',
     'HexColorDisable',
