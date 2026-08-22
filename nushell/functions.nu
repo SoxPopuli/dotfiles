@@ -8,7 +8,7 @@ export def di [] {
     | move Tag --first 
     | move ID --after Tag 
     | move Repository --before Tag
-    | rename -b { str downcase }
+    | rename -b { str lowercase }
     | rename -c { createdat: created }
 }
 
@@ -35,7 +35,7 @@ export def dp [] {
     | move Ports --last
     | move Mounts --last
     | move Names --first
-    | rename -b { str downcase }
+    | rename -b { str lowercase }
     | rename -c { createdat: created }
 }
 
@@ -43,7 +43,7 @@ export def --wrapped df [...rest] {
     let t: table = with-env { "BLOCKSIZE": 1024 } { ^df ...$rest }
         | str replace 'Mounted on' 'mounted_on'
         | from ssv --minimum-spaces 1
-        | rename -b { str downcase }
+        | rename -b { str lowercase }
 
     let cols = ($t | columns)
 
