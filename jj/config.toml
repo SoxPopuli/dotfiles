@@ -34,6 +34,10 @@ bookmark-advance-to = "closest_pushable(@)"
 definition = ["bookmark", "advance"]
 doc = "Alias for 'bookmark advance'"
 
+[aliases.bc]
+definition = ["bookmark", "create"]
+doc = "Alias for 'bookmark create'"
+
 [aliases.l]
 definition = ["log", "-r", "::@"]
 doc = "Show full tree log"
