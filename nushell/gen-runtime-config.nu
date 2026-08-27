@@ -30,19 +30,6 @@ export def main [] {
     save-path "/home/linuxbrew/.linuxbrew/bin"
     save-path "/home/linuxbrew/.linuxbrew/opt/node@24/bin"
 
-    let is_macos = (sys host).name == "Darwin"
-
-    if ($is_macos) {
-        save-alias copy "pbcopy"
-        save-alias paste "pbpaste"
-    } else if (command-exists "xclip") {
-        save-alias copy "xclip -in -sel c"
-        save-alias paste "xclip -out -sel c"
-    } else {
-        save-alias copy "wl-copy"
-        save-alias paste "wl-paste"
-    }
-
     if (command-exists bat) {
         save-alias cat "bat"
     } else if (command-exists batcat) {

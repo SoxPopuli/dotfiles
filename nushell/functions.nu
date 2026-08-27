@@ -340,3 +340,35 @@ export def "from box-table" []: string -> table {
 
     $table | str trim
 }
+
+def command-exists [command: string] { not (which $command | is-empty) }
+def is_macos [] { (sys host).name == "Darwin" }
+
+# Copy to clipboard
+export def copy [] {
+
+    if (is_macos) {
+        $in | pbcopy
+    } else if (command-exists "xclip") {
+        $in | xclip -in -sel c
+    } else {
+        $in | wl-copy
+    }
+}
+
+# Paste from clipboard
+export def paste [] {
+    if (is_macos) {
+        $in | pbpaste
+    } else if (command-exists "xclip") {
+        $in | xclip -out -sel c
+    } else {
+        $in | wl-paste
+    }
+}
+
+# Copy to clipboard and tee to stdout
+export def tcopy []: any -> any { 
+  $in | copy 
+  $in
+}
