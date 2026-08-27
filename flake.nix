@@ -47,6 +47,7 @@
               pnpm
               ripgrep
               tmux
+              watchman
               zoxide
             ])
             ++ [ tmux-sessionizer.outputs.packages.${system}.default ];

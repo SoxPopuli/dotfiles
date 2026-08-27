@@ -29,3 +29,7 @@ doc = "Closest mutable, non-empty, described commits at or behind to"
 
 [revsets]
 bookmark-advance-to = "closest_pushable(@)"
+
+[fsmonitor]
+backend = "watchman"
+watchman = { register-snapshot-trigger = true }
