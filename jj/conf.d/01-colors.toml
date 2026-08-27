@@ -1,0 +1,42 @@
+[colors]
+commit_id = "#89b4fa" # Blue
+change_id = "#cba6f7" # Mauve
+author = "#f9e2af"    # Yellow
+committer = "#f9e2af"
+timestamp = "#94e2d5" # Teal
+
+working_copies = "#a6e3a1"   # Green
+workspace_name = "#a6e3a1"
+bookmark = "#f5c2e7"         # Pink
+bookmarks = "#f5c2e7"
+local_bookmarks = "#f5c2e7"
+remote_bookmarks = "#cba6f7"
+git_ref = "#a6e3a1"
+
+conflict = "#f38ba8"                  # Red
+divergent = "#f5c2e7"
+"mutable divergent" = "#f38ba8"
+empty = "#a6e3a1"
+placeholder = "#f38ba8"
+"description placeholder" = "#f9e2af"
+
+separator = "#6c7086" # Overlay 0
+elided = "#6c7086"
+
+"working_copy commit_id" = "#89b4fa"
+"working_copy change_id" = "#cba6f7"
+"working_copy author" = "#f9e2af"
+"working_copy committer" = "#f9e2af"
+"working_copy timestamp" = "#94e2d5"
+
+"node elided" = "#6c7086"
+"node working_copy" = { fg = "#a6e3a1", bold = true }
+"node immutable" = { fg = "#89dceb", bold = true }
+"node conflicted" = { fg = "#f38ba8", bold = true }
+
+"diff header" = "#f9e2af"
+"diff hunk_header" = "#89dceb"
+"diff removed" = { fg = "#f38ba8" }
+"diff added" = { fg = "#a6e3a1" }
+"diff modified" = "#89dceb"
+

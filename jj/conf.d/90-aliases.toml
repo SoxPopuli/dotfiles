@@ -1,0 +1,23 @@
+[aliases.ba]
+definition = ["bookmark", "advance"]
+doc = "Alias for 'bookmark advance'"
+
+[aliases.bc]
+definition = ["bookmark", "create"]
+doc = "Alias for 'bookmark create'"
+
+[aliases.l]
+definition = ["log", "-r", "::@"]
+doc = "Show full tree log"
+
+[aliases.lf]
+definition = ["log", "-r", "::"]
+doc = "Show full log"
+
+[aliases.fetch]
+definition = ["git", "fetch"]
+doc = "Alias for 'git fetch'"
+
+[aliases.push]
+definition = ["git", "push"]
+doc = "Alias for 'git push'"
