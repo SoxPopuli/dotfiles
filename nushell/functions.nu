@@ -372,3 +372,40 @@ export def tcopy []: any -> any {
   $in | copy 
   $in
 }
+
+# Run `cargo clean` on each directory in the working directory
+export def cargo-clean-dir [] {
+  ls 
+  | where type == "dir"
+  | each { |x| 
+    cd $x.name
+    let res = cargo clean 
+      | complete
+      | get stderr
+      | find -R --no-highlight "Removed"
+      | match $in {
+        [$val] => {
+          let res = $val
+            | parse -r 'Removed (\d+) files(?:, ([0-9\.]+\w+) total)?'
+
+          let count = $res | get capture0.0 | each { into int }
+          let size = $res 
+            | get capture1.0 
+            | default 0 
+            | into filesize 
+
+          { 
+            success: true,
+            files: $count,
+            size: $size,
+          }
+        }
+        _ => { success: false }
+      }
+
+    { name: $x.name, msg: $res }
+  }
+  | flatten
+  | where success == true
+  | reject success
+}
