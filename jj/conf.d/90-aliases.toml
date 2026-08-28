@@ -21,3 +21,11 @@ doc = "Alias for 'git fetch'"
 [aliases.push]
 definition = ["git", "push"]
 doc = "Alias for 'git push'"
+
+[aliases.rebase-main]
+definition = ["rebase", "-o", "main@origin"]
+doc = "Rebase onto main"
+
+[aliases.rebase-master]
+definition = ["rebase", "-o", "master@origin"]
+doc = "Rebase onto master"
