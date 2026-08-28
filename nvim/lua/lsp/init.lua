@@ -15,14 +15,18 @@ local function setup_keys()
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open diagnostic window' })
-  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Previous diagnostic' })
-  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Next diagnostic' })
+  vim.keymap.set('n', '[d', function()
+    vim.diagnostic.jump({ count = 1 })
+  end, { desc = 'Previous diagnostic' })
+  vim.keymap.set('n', ']d', function()
+    vim.diagnostic.jump({ count = -1 })
+  end, { desc = 'Next diagnostic' })
 
   vim.keymap.set('n', '[e', function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
   end, { desc = 'Previous error' })
   vim.keymap.set('n', ']e', function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
   end, { desc = 'Next error' })
 
   vim.keymap.set('n', '<space>q', function()
@@ -85,8 +89,8 @@ function M.lsp_on_attach(_, bufnr)
   vim.keymap.set('n', 'gd', functions.definitions, { buffer = bufnr, desc = 'Go to definition' })
   vim.keymap.set('n', 'gr', functions.references, { buffer = bufnr, desc = 'Go to references' })
 
-  for _, mapping in pairs({'<space>D', 'gy'}) do
-      vim.keymap.set('n', mapping, functions.type_definitions, { buffer = bufnr, desc = 'Go to type definition' })
+  for _, mapping in pairs({ '<space>D', 'gy' }) do
+    vim.keymap.set('n', mapping, functions.type_definitions, { buffer = bufnr, desc = 'Go to type definition' })
   end
 
   vim.keymap.set('n', 'gs', vim.lsp.buf.signature_help, { buffer = bufnr, desc = 'Signature help' })
