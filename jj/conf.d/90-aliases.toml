@@ -32,10 +32,12 @@ doc = "Rebase onto master"
 
 [aliases.update]
 definition = ["util", "exec", "--", "bash", "-c", """
+set -euo pipefail
 root=$(jj log -r 'exactly(roots(mutable() & ::@), 1)-' --no-graph \
     -T 'local_bookmarks.map(|b| b.name())')
 
 jj git fetch 
+echo "jj: Rebasing onto ${root}..."
 jj rebase -o "$root"@origin
 """ ]
 doc = "Fetches remote state, then rebases current stack onto root commit"
