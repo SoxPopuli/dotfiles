@@ -49,3 +49,7 @@ watchman = { register-snapshot-trigger = true }
 
 [templates]
 git_push_bookmark = 'slugify(description) ++ "/" ++ change_id.short()'
+
+[git]
+# Prevent pushing work in progress or anything explicitly labeled "private"
+private-commits = "description('wip:*') | description('private:*')"
