@@ -2,6 +2,13 @@
 definition = ["bookmark", "advance"]
 doc = "Alias for 'bookmark advance'"
 
+[aliases.bap]
+definition = ["util", "exec", "--", "bash", "-c", """
+jj bookmark advance
+jj git push
+"""]
+doc = "Advance bookmark and push"
+
 [aliases.bc]
 definition = ["bookmark", "create"]
 doc = "Alias for 'bookmark create'"
@@ -39,5 +46,5 @@ root=$(jj log -r 'exactly(roots(mutable() & ::@), 1)-' --no-graph \
 jj git fetch 
 echo "jj: Rebasing onto ${root}..."
 jj rebase -o "$root"@origin
-""" ]
+"""]
 doc = "Fetches remote state, then rebases current stack onto root commit"
