@@ -48,3 +48,7 @@ echo "jj: Rebasing onto ${root}..."
 jj rebase -o "$root"@origin
 """]
 doc = "Fetches remote state, then rebases current stack onto root commit"
+
+[aliases.clean]
+definition = ["util", "exec", "--", "git", "clean", "-e", ".jj/"]
+doc = "Like `git clean` but ignores `.jj/` directory"
