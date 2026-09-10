@@ -1,4 +1,5 @@
 /history.*
+/private/
 
 runtime-config.nu
 private-env.nu

@@ -38,7 +38,16 @@ export def main [] {
     }
 
     if (command-exists zoxide) {
-        zoxide init nushell | save -f $"($nu.default-config-dir)/zoxide.nu"
-        save-command "source zoxide.nu"
+        let zoxide_path = $"($nu.default-config-dir)/private/zoxide.nu"
+
+        zoxide init nushell | save -f $zoxide_path
+        save-command $"source ($zoxide_path)"
+    }
+
+    if (command-exists jj) {
+      let jj_completion_path = $"($nu.default-config-dir)/private/jj.nu"
+
+      jj util completion nushell | save -f $jj_completion_path
+      save-command $"source ($jj_completion_path)"
     }
 }
