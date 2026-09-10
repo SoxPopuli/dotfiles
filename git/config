@@ -20,6 +20,7 @@
 [core]
     editor = nvim
     pager = bat
+	excludesFile = ~/config/git/ignore
 [mergetool "nvimdiff"]
 	layout = "LOCAL,BASE,REMOTE / MERGED"
 [init]
