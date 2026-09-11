@@ -20,4 +20,4 @@ email = "csmith@cloudflare.com"
 '''
 
 [templates]
-git_push_bookmark = '"csmith/" ++ slugify(description) ++ "/" ++ change_id.short()'
+git_push_bookmark = '"csmith/" ++ slugify(description)'

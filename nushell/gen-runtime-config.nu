@@ -43,11 +43,4 @@ export def main [] {
         zoxide init nushell | save -f $zoxide_path
         save-command $"source ($zoxide_path)"
     }
-
-    if (command-exists jj) {
-      let jj_completion_path = $"($nu.default-config-dir)/private/jj.nu"
-
-      jj util completion nushell | save -f $jj_completion_path
-      save-command $"source ($jj_completion_path)"
-    }
 }

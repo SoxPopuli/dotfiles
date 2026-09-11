@@ -43,11 +43,15 @@ set -euo pipefail
 root=$(jj log -r 'exactly(roots(mutable() & ::@), 1)-' --no-graph \
     -T 'local_bookmarks.map(|b| b.name())')
 
+descendants=$(jj log -r 'heads(descendants(main)) & mutable()' --no-graph \
+    -T 'change_id.short() ++ "\n"')
+descendants_joined=$(echo "$descendants" | awk '{printf "-b " $1 " "}')
+
 jj git fetch 
-echo "jj: Rebasing onto ${root}..."
-jj rebase -o "$root"@origin
+echo "jj: Rebasing $(echo "$descendants" | wc -l) branches onto ${root}..."
+jj rebase -o "$root"@origin $descendants_joined
 """]
-doc = "Fetches remote state, then rebases current stack onto root commit"
+doc = "Fetches remote state, then rebases descendants onto root commit"
 
 [aliases.clean]
 definition = ["util", "exec", "--", "git", "clean", "-e", ".jj/"]
