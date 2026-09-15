@@ -1,9 +1,8 @@
-local function setup_commands()
-  vim.api.nvim_create_user_command('RustDbg', 'RustLsp debug', {
-    desc = 'Debug closest target to cursor',
-  })
+---@param bufnr integer
+local function setup_commands(bufnr)
   vim.keymap.set('n', '<F4>', ':RustLsp debug<CR>', {
     desc = 'Debug target closest to cursor',
+    buf = bufnr,
   })
 end
 
@@ -29,7 +28,10 @@ vim.g.rustaceanvim = {
     -- end)(),
     on_attach = function(client, bufnr)
       require('lsp').lsp_on_attach(client, bufnr)
-      setup_commands()
+      vim.api.nvim_create_user_command('RustDbg', 'RustLsp debug', {
+        desc = 'Debug closest target to cursor',
+      })
+      setup_commands(bufnr)
     end,
     default_settings = {
       ['rust-analyzer'] = {
