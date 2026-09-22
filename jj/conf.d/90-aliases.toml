@@ -38,7 +38,7 @@ restack = ["rebase", "-o", "trunk()", "-s", "mutable_roots()"]
 [aliases.update]
 definition = ["util", "exec", "--", "bash", "-c", """
 jj git fetch 
-jj restack
+jj rebase -o 'trunk()' -s 'mutable_roots()'
 """]
 doc = "Fetches remote state, then rebases descendants onto root commit"
 
