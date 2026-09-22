@@ -38,6 +38,11 @@ restack = ["rebase", "-o", "trunk()", "-s", "mutable_roots()"]
 [aliases.update]
 definition = ["util", "exec", "--", "bash", "-c", """
 jj git fetch 
+
+trunk_name=$(jj log -r 'trunk()' -T 'local_bookmarks ++ "\n"' --no-graph | head -n1)
+branches=$(jj log -r 'mutable_roots()' --no-graph -T 'change_id ++ "\n"')
+echo "jj: Rebasing $(echo "$branches" | wc -l) branches onto ${trunk_name}..."
+
 jj rebase -o 'trunk()' -s 'mutable_roots()'
 """]
 doc = "Fetches remote state, then rebases descendants onto root commit"
