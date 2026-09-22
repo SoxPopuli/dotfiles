@@ -39,17 +39,8 @@ doc = "Rebase onto master"
 
 [aliases.update]
 definition = ["util", "exec", "--", "bash", "-c", """
-set -euo pipefail
-root=$(jj log -r 'exactly(roots(mutable() & ::@), 1)-' --no-graph \
-    -T 'local_bookmarks.map(|b| b.name())')
-
-descendants=$(jj log -r 'heads(descendants(main)) & mutable()' --no-graph \
-    -T 'change_id.short() ++ "\n"')
-descendants_joined=$(echo "$descendants" | awk '{printf "-b " $1 " "}')
-
 jj git fetch 
-echo "jj: Rebasing $(echo "$descendants" | wc -l) branches onto ${root}..."
-jj rebase -o "$root"@origin $descendants_joined
+jj rebase -s '(::trunk())+ & mutable()' -o 'trunk()'
 """]
 doc = "Fetches remote state, then rebases descendants onto root commit"
 
