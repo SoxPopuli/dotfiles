@@ -29,18 +29,16 @@ doc = "Alias for 'git fetch'"
 definition = ["git", "push"]
 doc = "Alias for 'git push'"
 
-[aliases.rebase-main]
-definition = ["rebase", "-o", "main@origin"]
-doc = "Rebase onto main"
+[revset-aliases]
+"mutable_roots()" = "roots(trunk()..) & mutable()"
 
-[aliases.rebase-master]
-definition = ["rebase", "-o", "master@origin"]
-doc = "Rebase onto master"
+[aliases]
+restack = ["rebase", "-o", "trunk()", "-s", "mutable_roots()"]
 
 [aliases.update]
 definition = ["util", "exec", "--", "bash", "-c", """
 jj git fetch 
-jj rebase -s '(::trunk())+ & mutable()' -o 'trunk()'
+jj restack
 """]
 doc = "Fetches remote state, then rebases descendants onto root commit"
 
