@@ -262,6 +262,11 @@ end, { silent = true, desc = 'Tmux Sessionizer' })
 -- Replay last macro ('Q' functionality pre 0.13)
 vim.keymap.set('n', '<C-Q>', '@@', { silent = true, desc = 'Replay last macro' })
 
+vim.keymap.set('n', '<space>q', function()
+  local mc_ns = vim.api.nvim_create_namespace('nvim.multicursor')
+  vim.api.nvim_buf_clear_namespace(0, mc_ns, 0, -1)
+end, { desc = 'Clear multicursors' })
+
 -- unset default keymaps
 vim.keymap.del('n', 'grt')
 vim.keymap.del('n', 'gra')
