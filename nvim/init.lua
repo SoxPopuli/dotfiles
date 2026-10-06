@@ -16,7 +16,7 @@ end
 
 -- Explicitly set shell to bash
 vim.go.shell = (function()
-  local result = vim.system({'whereis', 'bash'}, { text = true }):wait()
+  local result = vim.system({ 'whereis', 'bash' }, { text = true }):wait()
 
   if result.code ~= 0 then
     return vim.go.shell
@@ -81,10 +81,10 @@ vim.api.nvim_create_autocmd('BufReadPre', {
     end
 
     local has_bom = (first_chars:sub(1, 2) == string.char(0xFE, 0xFF))
-        or (first_chars:sub(1, 2) == string.char(0xFF, 0xFE))
-        or (first_chars == string.char(0xEF, 0xBB, 0xBF))
-        or (first_chars == string.char(0x00, 0x00, 0xFE, 0xFF))
-        or (first_chars == string.char(0xFF, 0xFE, 0x00, 0x00))
+      or (first_chars:sub(1, 2) == string.char(0xFF, 0xFE))
+      or (first_chars == string.char(0xEF, 0xBB, 0xBF))
+      or (first_chars == string.char(0x00, 0x00, 0xFE, 0xFF))
+      or (first_chars == string.char(0xFF, 0xFE, 0x00, 0x00))
     if has_bom then
       vim.bo[buf].bomb = true
     end
@@ -258,6 +258,9 @@ end)()
 set('n', '<C-t>', function()
   vim.cmd('silent !tmux-sessionizer')
 end, { silent = true, desc = 'Tmux Sessionizer' })
+
+-- Replay last macro ('Q' functionality pre 0.13)
+vim.keymap.set('n', '<C-Q>', '@@', { silent = true, desc = 'Replay last macro' })
 
 -- unset default keymaps
 vim.keymap.del('n', 'grt')
