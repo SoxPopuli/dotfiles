@@ -409,3 +409,16 @@ export def cargo-clean-dir [] {
   | where success == true
   | reject success
 }
+
+# Split number into number of stacks + remainder
+export def stack-split [stack_size?: int]: int -> string {
+  let stack_size = $stack_size | default 64 
+  let stacks = $in / $stack_size | math floor
+  let rem = $in mod $stack_size
+
+  if $rem == 0 { 
+    $"($stacks)"
+  } else {
+    $"($stacks) + ($rem)"
+  }
+}
