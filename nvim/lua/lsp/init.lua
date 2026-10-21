@@ -39,21 +39,27 @@ end
 function M.disable_inlay_hint_on_insert()
   vim.api.nvim_create_autocmd('InsertEnter', {
     desc = 'Disable lsp.inlay_hint when in insert mode',
-    callback = function(args)
-      local filter = { bufnr = args.buf }
+    callback = function(_)
+      -- local filter = { bufnr = args.buf }
       local inlay_hint = vim.lsp.inlay_hint
-      if inlay_hint.is_enabled(filter) then
-        inlay_hint.enable(false, filter)
+      if inlay_hint.is_enabled() then
+        inlay_hint.enable(false)
         vim.api.nvim_create_autocmd('InsertLeave', {
           once = true,
           desc = 'Re-enable lsp.inlay_hint when leaving insert mode',
           callback = function()
-            inlay_hint.enable(true, filter)
+            inlay_hint.enable(true)
           end,
         })
       end
     end,
   })
+end
+-- inlay hints flickering on nightly 0.13
+-- TODO: remove if this gets fixed on stable?
+local version = vim.version()
+if version.major == 0 and version.minor >= 13 then
+    M.disable_inlay_hint_on_insert()
 end
 
 ---@param _ number

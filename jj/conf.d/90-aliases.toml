@@ -36,7 +36,13 @@ doc = "Alias for 'git push'"
 restack = ["rebase", "-o", "trunk()", "-s", "mutable_roots()"]
 
 [aliases.update]
-definition = ["util", "exec", "--", "bash", "-c", """
+definition = [
+    "util",
+    "exec",
+    "--",
+    "bash",
+    "-c",
+    """
 jj git fetch 
 
 trunk_name=$(jj log -r 'trunk()' -T 'local_bookmarks ++ "\n"' --no-graph | head -n1)
@@ -44,9 +50,34 @@ branches=$(jj log -r 'mutable_roots()' --no-graph -T 'change_id ++ "\n"')
 echo "jj: Rebasing $(echo "$branches" | wc -l) branches onto ${trunk_name}..."
 
 jj rebase -o 'trunk()' -s 'mutable_roots()'
-"""]
+""",
+]
 doc = "Fetches remote state, then rebases descendants onto root commit"
 
 [aliases.clean]
 definition = ["util", "exec", "--", "git", "clean", "-e", ".jj/"]
 doc = "Like `git clean` but ignores `.jj/` directory"
+
+[revset-aliases."closest_nonempty(to)"]
+definition = 'heads(::to & ~empty() & description(regex:".+"))'
+doc = "Closest non-empty, described commits at or behind to"
+
+[aliases.changelog]
+definition = [
+    "util",
+    "exec",
+    "--",
+    "bash",
+    "-c",
+    '''
+start=$1
+end=${2:-closest_nonempty(@)}
+
+echo $start
+echo $end
+
+jj log -r $start..$end --no-graph -T '"- " ++ committer.timestamp().format("%Y-%m-%d") ++ " " ++ description.first_line() ++ "\n"'
+''',
+    "$@",
+]
+doc = "Get list of changes from $1 to $2"
