@@ -41,6 +41,7 @@
               jless
               jujutsu
               just
+              lspmux
               nixd
               nixfmt
               nvimpager

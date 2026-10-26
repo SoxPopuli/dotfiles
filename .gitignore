@@ -19,6 +19,7 @@
 !/bat/
 !/delta/
 !/nvimpager/
+!/lspmux/
 
 !/flake.nix
 !/flake.lock
