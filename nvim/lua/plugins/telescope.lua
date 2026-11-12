@@ -31,7 +31,7 @@ return {
         end,
       }, -- requires ripgrep
       {
-        '<space-b>',
+        '<Space>b',
         function()
           require('telescope.builtin').buffers()
         end,

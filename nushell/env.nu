@@ -64,5 +64,5 @@ if (command-exists "opam") {
 
 # pnpm
 $env.PNPM_HOME = "/home/csmith/.local/share/pnpm"
-$env.PATH = ($env.PATH | split row (char esep) | prepend $env.PNPM_HOME )
+path add $env.PNPM_HOME
 # pnpm end

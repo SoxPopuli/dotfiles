@@ -1067,7 +1067,7 @@ $env.PATH ++= [
 
     # Go paths
     "/usr/local/go/bin",
-    $"(go env GOPATH)/bin",
+    (do -i { $"(go env GOPATH)/bin" } | default $"($env.HOME)/go"),
 
     # pnpm
     $pnpm_home
